@@ -1,0 +1,3 @@
+[submodule "model/packages/MJax"]
+	path = model/packages/MJax
+	url = https://github.com/mlconsulting/mjax.git
