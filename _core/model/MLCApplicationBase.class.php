@@ -141,6 +141,16 @@ abstract class MLCApplicationBase{
 		$strRewrite = $arrParts[0];
 		MLCApplicationBase::$objRewriteHandeler->Handel($strRewrite);
 		$strCtlFileLoc = MLCApplication::$strCtlFile;
+		$arrPathParts = pathinfo($strCtlFileLoc);
+		switch($arrPathParts['extension']){
+			case('css'):
+				header("Content-type: text/css");
+			break;
+			case('js'):
+				header("content-type: application/x-javascript");
+			break;
+			
+		}
 		//die($strCtlFileLoc);
 		if(file_exists($strCtlFileLoc)){
 			require_once($strCtlFileLoc);
