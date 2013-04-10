@@ -15,6 +15,5 @@ if(SERVER_ENV == 'local'){
     define('__PACKAGE_DIR__', '/var/www/MLCPackages/mlc_packages');
 }else{
     define('__PACKAGE_DIR__', __INSTALL_ROOT_DIR__ . '/packages');
-}
-
+}//Local hack TODO: remove
 
