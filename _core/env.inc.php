@@ -11,9 +11,9 @@ if(!defined('SERVER_ENV')){
 }
 define('__TMP_DIR__', __INSTALL_ROOT_DIR__ . '/tmp');
 define('__APP_DIR__', __INSTALL_ROOT_DIR__ . '/apps');
-if(SERVER_ENV == 'local'){
-    define('__PACKAGE_DIR__', '/var/www/MLCPackages/mlc_packages');
-}else{
-    define('__PACKAGE_DIR__', __INSTALL_ROOT_DIR__ . '/packages');
-}//Local hack TODO: remove
+
+define('__PACKAGE_DIR__', '/var/www/MLCPackages/mlc_packages');
+
+//define('__PACKAGE_DIR__', __INSTALL_ROOT_DIR__ . '/packages');
+
 
