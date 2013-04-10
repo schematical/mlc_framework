@@ -1,6 +1,6 @@
 <?php
 abstract class MLCApplicationBase{
-
+    public static $strPackageRequireMode = 'FAIL_IF_NOT_FOUND';
 	public static $arrPackages = array();
 	public static $arrClassFiles = array();
 	public static $strInitedApp = null;
@@ -9,27 +9,21 @@ abstract class MLCApplicationBase{
 	public static $objRewriteHandeler = null;
 	
 	public static function Init($strApp = null, $strEnv = null){
-		$arrApps = array();
+
 	
-		if(!is_null($strApp)){
+		if(
+            (!is_null($strApp))
+        ){
 			MLCApplicationBase::$strInitedApp = $strApp;
+            define('MLC_APPLICATION_NAME', MLCApplicationBase::$strInitedApp);
 			if(!is_null($strEnv)){
 				define('SERVER_ENV', $strEnv);
 			}			
-		}else{
-			//Go through each app in the app dir 
-			if ($resHandle = opendir(__INSTALL_ROOT_DIR__ . '/apps/')) {
-			    /* This is the correct way to loop over the directory. */
-			    while (false !== ($strEntry = readdir($resHandle))) {
-			    	if(
-						($strEntry != '.') &&
-						($strEntry != '..')
-					){
-			       		$arrApps[$strEntry] = $strEntry;
-					}
-			    }			
-			    closedir($resHandle);
-			}
+		}elseif(defined('MLC_APPLICATION_NAME')){
+            MLCApplicationBase::$strInitedApp = MLC_APPLICATION_NAME;
+            require(__APP_DIR__ . '/' . MLCApplicationBase::$strInitedApp . '/env.inc.php');
+        }else{
+           $arrApps = MLCApplication::GetInstalledAppNames();
 			
 			foreach($arrApps as $strAppName => $strAppName){
 				if(!defined('MLC_APPLICATION_NAME')){
@@ -72,21 +66,24 @@ abstract class MLCApplicationBase{
 		
 	}
 	public static function InitPackage($strPackageName){
-		//throw new Exception($strPackageName);
-		if(array_key_exists($strPackageName, MLCApplicationBase::$arrPackages)){
-			return;
-			throw new Exception("Package already loaded '" . $strPackageName . "'");
-		}
-	   $arrMLCClassFiles = array();
-	   $strPackageDir = __PACKAGE_DIR__ . '/' . $strPackageName;
-	   if(!is_dir($strPackageDir)){
-			throw new Exception(sprintf("Package '%s' not found", $strPackageName));
-	   }
-	   require_once($strPackageDir . '/package.inc.php');
-	   if(count($arrMLCClassFiles) > 0){
-	   		array_merge(MLCApplicationBase::$arrClassFiles, $arrMLCClassFiles);
-	   }
-	   MLCApplicationBase::$arrPackages[$strPackageName] = 1;
+		if(MLCApplication::$strPackageRequireMode == MLCPackageRequireMode::FAIL_IF_NOT_FOUND){
+            if(array_key_exists($strPackageName, MLCApplicationBase::$arrPackages)){
+                return;
+                throw new Exception("Package already loaded '" . $strPackageName . "'");
+            }
+           $arrMLCClassFiles = array();
+           $strPackageDir = __PACKAGE_DIR__ . '/' . $strPackageName;
+           if(!is_dir($strPackageDir)){
+                throw new Exception(sprintf("Package '%s' not found", $strPackageName));
+           }
+           require_once($strPackageDir . '/package.inc.php');
+           if(count($arrMLCClassFiles) > 0){
+                array_merge(MLCApplicationBase::$arrClassFiles, $arrMLCClassFiles);
+           }
+           MLCApplicationBase::$arrPackages[$strPackageName] = 1;
+        }elseif(MLCApplication::$strPackageRequireMode == MLCPackageRequireMode::FORCE_PULL_FROM_GIT){
+
+        }
 	   
 	}
 	public static function GetInstalledPackageNames(){
@@ -95,7 +92,7 @@ abstract class MLCApplicationBase{
 		   
 		    while (false !== ($strFile = readdir($resHandeler))) {
 		        //IM A DIR
-		        $arrInstalledPackages[] = $strFile;
+		        $arrInstalledPackages[$strFile] = $strFile;
 		    }
 			
 			closedir($resHandeler);
@@ -112,13 +109,17 @@ abstract class MLCApplicationBase{
 	}
 	public static function GetInstalledAppNames(){
 		$arrInstalledApps = array();
-		if ($resHandeler = opendir(__APPS_DIR__)) {
+		if ($resHandeler = opendir(__APP_DIR__)) {
 		   
 		    while (false !== ($strFile = readdir($resHandeler))) {
 		        //IM A DIR
-		        $arrInstalledApps[] = $strFile;
+                if(
+                    ($strFile != '.') &&
+                    ($strFile != '..')
+                ){
+		            $arrInstalledApps[$strFile] = $strFile;
+                }
 		    }
-			
 			closedir($resHandeler);
 		}
 		return $arrInstalledApps;
@@ -142,16 +143,17 @@ abstract class MLCApplicationBase{
 		MLCApplicationBase::$objRewriteHandeler->Handel($strRewrite);
 		$strCtlFileLoc = MLCApplication::$strCtlFile;
 		$arrPathParts = pathinfo($strCtlFileLoc);
-		switch($arrPathParts['extension']){
-			case('css'):
-				header("Content-type: text/css");
-			break;
-			case('js'):
-				header("content-type: application/x-javascript");
-			break;
-			
-		}
-		//die($strCtlFileLoc);
+            if(array_key_exists('extension', $arrPathParts)){
+            switch($arrPathParts['extension']){
+                case('css'):
+                    header("Content-type: text/css");
+                break;
+                case('js'):
+                    header("content-type: application/x-javascript");
+                break;
+
+            }
+        }
 		if(file_exists($strCtlFileLoc)){
 			require_once($strCtlFileLoc);
 		}else{
@@ -188,4 +190,5 @@ abstract class MLCApplicationBase{
 	public static function GetAssetUrl($strUrl, $strNamespace = null){
 		return self::$objRewriteHandeler->GetAssetUrl($strUrl, $strNamespace);
 	}
+
 }

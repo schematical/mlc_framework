@@ -21,8 +21,7 @@ if(!defined('__MLC_INITED__')){
 	require(__INSTALL_ROOT_DIR__. '/_core/MLC.inc.php');
 	
 	MLCApplication::Init();
-	
-		
+
 
 	if(!defined('__ASSETS_URL__')){
 		if(SERVER_ENV =='local'){

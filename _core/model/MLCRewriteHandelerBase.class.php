@@ -1,12 +1,17 @@
 <?php 
 class MLCRewriteHandelerBase{
 	const ASSETS = 'assets';
+    const API = 'api';
 	protected $strAssetMode = null;
 	public function Handel($strUri){
 		$arrParts = explode('/', $strUri);
 		if($arrParts[1] == self::ASSETS){
 			return self::RunAssets($strUri);
 		}
+        if($arrParts[1] == self::API){
+            MLCApplication::$strCtlFile = __MLC_CORE_CTL__ . '/api/handeler.php';
+            return MLCApplication::$strCtlFile;
+        }
 		if(is_dir(__CTL_ACTIVE_APP_DIR__ . $strUri)){
 			$strCtlFile = $strUri . '/index.php';
 		}else{
