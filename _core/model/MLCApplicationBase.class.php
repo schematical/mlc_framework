@@ -72,8 +72,14 @@ abstract class MLCApplicationBase{
                 throw new Exception("Package already loaded '" . $strPackageName . "'");
             }
            $arrMLCClassFiles = array();
-           $strPackageDir = __PACKAGE_DIR__ . '/' . $strPackageName;
-           if(!is_dir($strPackageDir)){
+           $arrPackageDirs = explode(':', __PACKAGE_DIR__);
+           $strPackageDir = null;
+           foreach($arrPackageDirs as $intIndex => $strDir){
+               if(is_dir($strDir . '/' . $strPackageName)){
+                   $strPackageDir = $strDir . '/' . $strPackageName;
+               }
+           }
+           if(is_null($strPackageDir)){
                 throw new Exception(sprintf("Package '%s' not found", $strPackageName));
            }
            require_once($strPackageDir . '/package.inc.php');
@@ -142,20 +148,37 @@ abstract class MLCApplicationBase{
 		$strRewrite = $arrParts[0];
 		MLCApplicationBase::$objRewriteHandeler->Handel($strRewrite);
 		$strCtlFileLoc = MLCApplication::$strCtlFile;
-		$arrPathParts = pathinfo($strCtlFileLoc);
-            if(array_key_exists('extension', $arrPathParts)){
-            switch($arrPathParts['extension']){
-                case('css'):
-                    header("Content-type: text/css");
-                break;
-                case('js'):
-                    header("content-type: application/x-javascript");
-                break;
 
-            }
-        }
+
 		if(file_exists($strCtlFileLoc)){
-			require_once($strCtlFileLoc);
+
+            if(MLCApplicationBase::$objRewriteHandeler->IsAsset){
+
+                $arrPathParts = pathinfo($strCtlFileLoc);
+                
+                if(array_key_exists('extension', $arrPathParts)){
+
+                    switch($arrPathParts['extension']){
+                        case('css'): header("Content-type: text/css"); break;
+                        case('js'):  header("content-type: application/x-javascript");break;
+                        case "pdf":  header("application/pdf"); break;
+                        case "exe":  header("content-type: application/octet-stream"); break;
+                        case "zip":  header("content-type: application/zip"); break;
+                        case "doc":  header("content-type: application/msword"); break;
+                        case "xls":  header("content-type: application/vnd.ms-excel"); break;
+                        case "ppt":  header("content-type: application/vnd.ms-powerpoint"); break;
+                        case "gif":  header("content-type: image/gif"); break;
+                        case "png":  header("content-type: image/png"); break;
+                        case "jpeg":
+                        case "jpg":  header("content-type: image/jpg"); break;
+                    }
+                }
+                die(file_get_contents($strCtlFileLoc));
+
+            }else{
+
+			    die(require_once($strCtlFileLoc));
+            }
 		}else{
 			die('404');//TODO: add this
 		}

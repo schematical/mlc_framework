@@ -3,9 +3,11 @@ class MLCRewriteHandelerBase{
 	const ASSETS = 'assets';
     const API = 'api';
 	protected $strAssetMode = null;
+    protected $blnIsAsset = false;
 	public function Handel($strUri){
 		$arrParts = explode('/', $strUri);
 		if($arrParts[1] == self::ASSETS){
+            $this->blnIsAsset = true;
 			return self::RunAssets($strUri);
 		}
         if($arrParts[1] == self::API){
@@ -57,18 +59,21 @@ class MLCRewriteHandelerBase{
 		if($strBaseName == '_core'){
 			return MLCApplication::$strCtlFile = __MLC_CORE_ASSETS__ . $strAssetLoc;
 		}
-		//Check active packages
-		$strPackageAssetDir = __PACKAGE_DIR__ . '/' . $strBaseName . '/assets';
-		
-		if(is_dir($strPackageAssetDir)){
-			return MLCApplication::$strCtlFile =  $strPackageAssetDir. $strAssetLoc;
-		}
-		//Check active packages
-		$strPackageAssetDir = __PACKAGE_DIR__ . '/' . $strBaseName . '/_core/assets';
-		
-		if(is_dir($strPackageAssetDir)){			
-			return MLCApplication::$strCtlFile =  $strPackageAssetDir. $strAssetLoc;
-		}
+        $arrPackageDirs = explode(':', __PACKAGE_DIR__);
+        foreach($arrPackageDirs as $intIndex => $strPackageDir){
+            //Check active packages
+            $strPackageAssetDir = $strPackageDir . '/' . $strBaseName . '/assets';
+
+            if(is_dir($strPackageAssetDir)){
+                return MLCApplication::$strCtlFile =  $strPackageAssetDir. $strAssetLoc;
+            }
+            //Check active packages
+            $strPackageAssetDir = $strPackageDir . '/' . $strBaseName . '/_core/assets';
+
+            if(is_dir($strPackageAssetDir)){
+                return MLCApplication::$strCtlFile =  $strPackageAssetDir. $strAssetLoc;
+            }
+        }
 		
 	}
 	public function RunS3Assets($strUri){
@@ -101,6 +106,9 @@ class MLCRewriteHandelerBase{
 			case('AssetMode'):
 				return $this->strAssetMode;
 			break;
+            case('IsAsset'):
+                return $this->blnIsAsset;
+                break;
 			default:
 				throw new MLCMissingPropertyException($this, $strName);				
 		}

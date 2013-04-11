@@ -11,6 +11,6 @@ $arrDBData = array(
 	)
 );
 
-require(__PACKAGE_DIR__ . '/MLCCodegen/1.0/config/MDE.inc.php');
+require('/var/www/MLCPackages/mlc_packages/private_packages/MLCCodegen/1.0/config/MDE.inc.php');
 
 MLCGenDriver::Run($arrDBData, $arrXTPLData);
