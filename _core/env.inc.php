@@ -11,9 +11,10 @@ if(!defined('SERVER_ENV')){
 }
 define('__TMP_DIR__', __INSTALL_ROOT_DIR__ . '/tmp');
 define('__APP_DIR__', __INSTALL_ROOT_DIR__ . '/apps');
+define('__PACKAGE_DIR__', __INSTALL_ROOT_DIR__ . '/packages:/var/www/MLCPackages/mlc_packages:/var/www/MLCPackages/mlc_packages/private_packages');
 
-define('__PACKAGE_DIR__', '/var/www/MLCPackages/mlc_packages');
 
-//define('__PACKAGE_DIR__', __INSTALL_ROOT_DIR__ . '/packages');
+
+
 
 
