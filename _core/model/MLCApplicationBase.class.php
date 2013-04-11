@@ -9,7 +9,10 @@ abstract class MLCApplicationBase{
 	public static $objRewriteHandeler = null;
 	
 	public static function Init($strApp = null, $strEnv = null){
-
+        //TODO Fix this
+        if($_SERVER['REQUEST_URI'] == '/_lb.html'){
+            die("DOING FINE!");
+        }
 	
 		if(
             (!is_null($strApp))
