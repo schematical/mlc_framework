@@ -32,7 +32,7 @@ abstract class MLCApplicationBase{
 			}
 		}
 		if(!defined('MLC_APPLICATION_NAME')){
-			throw new Exception("Not a valid app name");	
+			throw new Exception("No app registered to: " . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
 		}else{
 			MLCApplicationBase::$strInitedApp =  MLC_APPLICATION_NAME;
 			define('__MODEL_' . MLC_APPLICATION_PREFIX . '_APP_DIR__', __APP_DIR__ . '/' . MLC_APPLICATION_NAME . '/model');
