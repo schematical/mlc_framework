@@ -216,5 +216,15 @@ abstract class MLCApplicationBase{
 	public static function GetAssetUrl($strUrl, $strNamespace = null){
 		return self::$objRewriteHandeler->GetAssetUrl($strUrl, $strNamespace);
 	}
+    public static function FindPackageDir($strPackageName){
+        $arrPackageDirs = explode(':', __PACKAGE_DIR__);
+        foreach($arrPackageDirs as $intIndex => $strPackageDir){
+            $strFullPackageDir = $strPackageDir . '/' . $strPackageName;
+            if(is_dir($strFullPackageDir)){
+                return $strFullPackageDir;
+            }
+        }
+        return null;
+    }
 
 }
