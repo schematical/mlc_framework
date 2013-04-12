@@ -11,6 +11,7 @@ abstract class MLCPackageManager{
     protected static function _sh($strShell){
         return shell_exec($strShell);
     }
+
     public static function InstallApp($strApp, $strRootDir = null){
         if(defined('__INSTALL_ROOT_DIR__')){
             $strRootDir;
@@ -35,6 +36,22 @@ abstract class MLCPackageManager{
                 $arrAppData['repoUrl'],
                 $strAppDir
             )
+        );
+    }
+    public static function DeployAppToAWS(){
+        if(defined('__INSTALL_ROOT_DIR__')){
+            $strRootDir;
+        }elseif(is_null($strRootDir)){
+            throw new Exception("Undefined RootDir!!");
+        }
+        $strAppDir = $strRootDir . '/apps/' . $strApp;
+
+
+        $this->blnSuccess = MLCAWSDriver::S3()->putObjectFile(
+            $strAppDir .'/_core/assets',
+            AWS_ASSET_PATH,
+            $this->S3FullPath,
+            $this->strS3Mode
         );
     }
     public static function InstallPackage($strPackageName, $strRootDir){

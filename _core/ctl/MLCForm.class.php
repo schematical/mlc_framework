@@ -4,11 +4,11 @@ class MLCForm extends MJaxForm{
 	public function Form_Create(){
 		parent::Form_Create();
 		$this->strAssetMode = MJaxAssetMode::WWW;
-		MJaxForm::DefineAssetDir($this->strAssetMode);
+		//MJaxForm::DefineAssetDir($this->strAssetMode);
 		
 		//$this->strTemplate =  __VIEW_ACTIVE_APP_DIR__  . '/www'. str_replace(__CTL_ACTIVE_APP_DIR__, '', MLCApplication::$strCtlFile);
 		$this->strTemplate =  MLCForm::LocateTemplate(MLCApplication::$strCtlFile, $this->strAssetMode);
-		//die($this->strTemplate);
+
 		$this->AddHeaderAsset(new MJaxJSHeaderAsset(
 			MLCApplication::GetAssetUrl('/js/' . MLC_APPLICATION_PREFIX . '.js')
 		));
