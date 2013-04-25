@@ -97,15 +97,28 @@ abstract class MLCApplicationBase{
 	}
 	public static function GetInstalledPackageNames(){
 		$arrInstalledPackages = array();
-		if ($resHandeler = opendir(__PACKAGE_DIR__)) {
-		   
-		    while (false !== ($strFile = readdir($resHandeler))) {
-		        //IM A DIR
-		        $arrInstalledPackages[$strFile] = $strFile;
-		    }
-			
-			closedir($resHandeler);
-		}
+        $arrPackageDirs = explode(':', __PACKAGE_DIR__);
+        $strPackageDir = null;
+        foreach($arrPackageDirs as $intIndex => $strDir){
+            if(
+                (is_dir($strDir)) &&
+                ($resHandeler = opendir($strDir))
+            ){
+
+                while (false !== ($strFile = readdir($resHandeler))) {
+                    //IM A DIR
+                    if(
+                        ($strFile != '.') &&
+                        ($strFile != '..')
+                    ){
+                        //$arrInstalledPackages[$strFile] = str_replace(__INSTALL_ROOT_DIR__, '', $strdir) . '/' . $strFile;
+                        $arrInstalledPackages[$strFile] =  $strDir . '/' . $strFile;
+                    }
+                }
+
+                closedir($resHandeler);
+            }
+        }
 		return $arrInstalledPackages;
 	}
 	public static function GetInstalledPackages(){
@@ -183,7 +196,8 @@ abstract class MLCApplicationBase{
 			    die(require_once($strCtlFileLoc));
             }
 		}else{
-			die('404');//TODO: add this
+            header("HTTP/1.0 404 Not Found");
+            die(require_once(__MLC_CORE_VIEW__ . '/404.html'));
 		}
 	}
 	public static function RunApi(){		

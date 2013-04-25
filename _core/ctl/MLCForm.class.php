@@ -12,7 +12,7 @@ class MLCForm extends MJaxForm{
 		$this->AddHeaderAsset(new MJaxJSHeaderAsset(
 			MLCApplication::GetAssetUrl('/js/' . MLC_APPLICATION_PREFIX . '.js')
 		));
-		$this->AddJSCall(MLC_APPLICATION_PREFIX . '.Init();');
+		//$this->AddJSCall(MLC_APPLICATION_PREFIX . '.Init();');
 
 	}
 	public static function LocateTemplate($strFileLoc, $strAssetMode = 'www'){

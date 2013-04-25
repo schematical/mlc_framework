@@ -23,6 +23,11 @@ class MLCRewriteHandelerBase{
 			}
 			$strCtlFile = implode('/', $arrParts);
 		}
+        $strExtension = pathinfo($strCtlFile, PATHINFO_EXTENSION);
+        $strFileName = pathinfo($strCtlFile, PATHINFO_FILENAME);
+        $strDirName = dirname($strCtlFile);
+        define("MLC_CALL_EXTENSION", $strExtension);
+        $strCtlFile = $strDirName . '/' . $strFileName . '.php';
 		MLCApplication::$strCtlFile = __CTL_ACTIVE_APP_DIR__ . $strCtlFile;
 		
 		if(!file_exists(MLCApplication::$strCtlFile)){
@@ -35,9 +40,10 @@ class MLCRewriteHandelerBase{
 		
 	}
 	public function RunAssets($strUri){
+        //die(SERVER_ENV . ' - ' . $this->strAssetMode);
 		switch($this->strAssetMode){
 			case(MLCRewriteAssetMode::S3):
-				return $this->RunS3Assets($strUri);
+				//return $this->RunS3Assets($strUri);
 			break;
 			case(MLCRewriteAssetMode::LOCAL):
 			default:
@@ -76,10 +82,22 @@ class MLCRewriteHandelerBase{
         }
 		
 	}
-	public function RunS3Assets($strUri){
-		
+	public function GetS3AssetUrl($strUri, $strNamespace = null){
+        if(is_null($strNamespace)){
+            $strPath = 'apps/' . MLC_APPLICATION_NAME;
+        }else{
+            $strPath = 'packages/' . $strNamespace;
+        }
+        //https://s3.amazonaws.com/mlc_mde/apps/mde/assets/js/Home.js
+        $strUrl = sprintf(
+            "//s3.amazonaws.com/%s/%s/assets%s",
+             AWS_BUCKET,
+            $strPath,
+            $strUri
+        );
+        return $strUrl;
 	}
-	public function GetAssetUrl($strUrl, $strNamespace = null){
+	public function GetLocalAssetUrl($strUrl, $strNamespace = null){
 		if(is_null($strNamespace)){
 			$strNamespace = MLCApplication::$strInitedApp;
 		}
@@ -92,10 +110,21 @@ class MLCRewriteHandelerBase{
 		);
 		return $strUrl;
 	}
+    public function GetAssetUrl($strUrl, $strNamespace = null){
+        switch($this->strAssetMode){
+            case(MLCRewriteAssetMode::S3):
+                return $this->GetS3AssetUrl($strUrl, $strNamespace);
+            break;
+            case(MLCRewriteAssetMode::LOCAL):
+            default:
+                return $this->GetLocalAssetUrl($strUrl, $strNamespace);
+            break;
+        }
+    }
 	public function __set($strName, $mixVal){
 		switch($strName){
 			case('AssetMode'):
-				return $this->strAssetMode = $strVal;
+				return $this->strAssetMode = $mixVal;
 			break;
 			default:
 				throw new MLCMissingPropertyException($this, $strName);				

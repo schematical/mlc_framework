@@ -38,27 +38,41 @@ abstract class MLCPackageManager{
             )
         );
     }
-    public static function DeployAppToAWS(){
-        if(defined('__INSTALL_ROOT_DIR__')){
-            $strRootDir;
-        }elseif(is_null($strRootDir)){
+    public static function DeployAppToAWS($strPath, $strRoot = null){
+        MLCApplication::InitPackage('MLCAws');
+        ob_end_flush();
+        if(
+            (is_null($strRoot)) &&
+            (!defined('__INSTALL_ROOT_DIR__'))
+        ){
             throw new Exception("Undefined RootDir!!");
         }
-        $strAppDir = $strRootDir . '/apps/' . $strApp;
+        if(is_null($strRoot)){
+            $strRoot = __INSTALL_ROOT_DIR__;
+        }
+        $strBaseDir = $strRoot . $strPath;
+        if(!is_dir($strBaseDir)){
+            throw new Exception("No directory exists - " . $strBaseDir);
+        }
 
+        $strDir = $strBaseDir .'/_core/assets';
+        $strPathBase = $strPath .'/assets';
+        if(is_dir($strDir)){
+            MLCAWSDriver::UploadDirToAWS($strDir, $strPathBase);
+        }
+        $strDir = $strBaseDir .'/assets';
+        $strPathBase = $strPath .'/assets';
+        if(is_dir($strDir)){
+            MLCAWSDriver::UploadDirToAWS($strDir, $strPathBase);
+        }
 
-        $this->blnSuccess = MLCAWSDriver::S3()->putObjectFile(
-            $strAppDir .'/_core/assets',
-            AWS_ASSET_PATH,
-            $this->S3FullPath,
-            $this->strS3Mode
-        );
     }
+
     public static function InstallPackage($strPackageName, $strRootDir){
         $arrPackageData = MLCPackageManager::CurlHome('/packages/' . $strPackageName);
         $strPackageDir = $strRootDir . '/packages/' . $strPackageName;
         if(is_dir($strPackageDir)){
-            $strRollBackDir = $strPackageDir . '_' . date("Y-m-d H:i:s");
+            $strRollBackDir = $strPackageDir . '_' . date("Y-m-d-H:i:s");
             rename($strPackageDir, $strRollBackDir);
             error_log("Roll back dir: " . $strRollBackDir);
         }
