@@ -4,9 +4,10 @@
 
 <table>
     <tr>
-        <th>File</th>
+        <th style='width:400Px;'>Call</th>
+
         <th>Line</th>
-        <th>Call</th>
+        <th>File</th>
 
     </tr>
     <?php  foreach($_E->getTrace() as $intIndex => $arrTraceData){
@@ -22,12 +23,6 @@
         }
         ?>
         <tr style='margin: 10Px; border: thin black solid;'>
-            <td>
-                <?php echo $arrTraceData["file"]; ?>
-            </td>
-            <td>
-                <?php echo $arrTraceData["line"]; ?>
-            </td>
             <td>
                 <?php echo (array_key_exists("class", $arrTraceData)?$arrTraceData["class"]:''); ?>
                 <?php echo (array_key_exists("type", $arrTraceData)?$arrTraceData["type"]:''); ?>
@@ -55,6 +50,13 @@
                 }
                 ?>
             </td>
+            <td>
+                <?php echo $arrTraceData["line"]; ?>
+            </td>
+            <td>
+                <?php echo $arrTraceData["file"]; ?>
+            </td>
+
         </tr>
     <?php } ?>
 </table>

@@ -1,1 +1,0 @@
-{"head":[],"body":{"data_models":{"MDEBasicFormDataModel":{"form_fields":{"test":{"namespace":"test","short_desc":"test","type":"text","default":"__MLC_MAILCHIMP_CORE_CTL__"}},"mtpls":{"embed":{"name":"embed","mtpl_loc":"git\/mlconsulting\/MLCMailchimp\/_mlc\/mtpls\/MDEBasicFormDataModel\/embed.mtpl"}}}}}}

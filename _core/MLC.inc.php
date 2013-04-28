@@ -20,5 +20,5 @@ require_once(__MLC_CORE_MODEL__ . '/_enum.inc.php');
 require_once(__MLC_CORE_MODEL__ . '/_exception.inc.php');
 require_once(__MLC_CORE_MODEL__ . '/_function.inc.php');
 
-set_error_handler("mlc_error_handler");
-set_exception_handler("mlc_exception_handler");
+//set_error_handler("mlc_error_handler");
+//set_exception_handler("mlc_exception_handler");

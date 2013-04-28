@@ -1,9 +1,0 @@
-<?php
-require_once(__MODEL_APP_CONTROL__ . "/base_classes/<%= $className; %>EditPanelBase.class.php");
-class <%= $name; %>EditPanel extends <%= $className; %>EditPanelBase {
-
-
-}
-
-
-?>
