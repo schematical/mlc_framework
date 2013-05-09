@@ -51,10 +51,18 @@
                 ?>
             </td>
             <td>
-                <?php echo $arrTraceData["line"]; ?>
+                <?php
+                    if(array_key_exists("line", $arrTraceData)){
+                        echo $arrTraceData["line"];
+                    }
+                ?>
             </td>
             <td>
-                <?php echo $arrTraceData["file"]; ?>
+                <?php
+                    if(array_key_exists("line", $arrTraceData)){
+                       echo $arrTraceData["file"];
+                    }
+                ?>
             </td>
 
         </tr>

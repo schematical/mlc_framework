@@ -197,7 +197,11 @@ abstract class MLCApplicationBase{
             }
 		}else{
             header("HTTP/1.0 404 Not Found");
-            die(require_once(__MLC_CORE_VIEW__ . '/404.html'));
+            $str404Loc = __CTL_ACTIVE_APP_DIR__ . '/_404.php';
+            if(!file_exists($str404Loc)){
+                $str404Loc = __MLC_CORE_VIEW__ . '/404.html';
+            }
+            die(require_once($str404Loc));
 		}
 	}
 	public static function RunApi(){		
