@@ -24,13 +24,19 @@ abstract class MLCApplicationBase{
 			}			
 		}elseif(defined('MLC_APPLICATION_NAME')){
             MLCApplicationBase::$strInitedApp = MLC_APPLICATION_NAME;
-            require(__APP_DIR__ . '/' . MLCApplicationBase::$strInitedApp . '/env.inc.php');
+            $strEnvLoc = __APP_DIR__ . '/' . MLCApplicationBase::$strInitedApp . '/env.inc.php';
+            if(file_exists($strEnvLoc)){
+                require($strEnvLoc);
+            }
         }else{
            $arrApps = MLCApplication::GetInstalledAppNames();
 			
 			foreach($arrApps as $strAppName => $strAppName){
 				if(!defined('MLC_APPLICATION_NAME')){
-					require(__APP_DIR__ . '/' . $strAppName . '/env.inc.php');
+                    $strEnvLoc =__APP_DIR__ . '/' . $strAppName . '/env.inc.php';
+                    if(file_exists($strEnvLoc)){
+					    require($strEnvLoc);
+                    }
 				}
 			}
 		}

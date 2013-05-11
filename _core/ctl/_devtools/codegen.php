@@ -1,5 +1,6 @@
 <?php
 define('SKIP_DATALAYER','true');
+define('__MLCCODEGEN_V__', '1.0');
 MLCApplication::InitPackage('MLCCodegen');
 $arrOldData = unserialize(constant('DB_1'));
 $arrDBData = array(
