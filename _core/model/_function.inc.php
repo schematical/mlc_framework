@@ -26,7 +26,7 @@ function mlc_error_handler($code, $message, $file, $line)
 function mlc_exception_handler($_E){
 
     function done($code, $message, $file, $line){
-        error_log($code . ' - ' . $message . ' - ' . $file . ' - ' . $line);
+        die($code . ' - ' . $message . ' - ' . $file . ' - ' . $line);
         mlc_show_error_page('500');
     }
     set_error_handler('done');
@@ -39,11 +39,11 @@ function mlc_exception_handler($_E){
                 require_once(MLCApplication::$arrClassFiles['MDENotificationDriver']);
                 MDENotificationDriver::SendError($_E);
             }else{
-                _dv("FAIL");
+                mlc_show_error_page('500');
             }
         }catch(Exception $e){
             //Shit
-            _dv($e);
+            mlc_show_error_page('500');
         }
 
     }
