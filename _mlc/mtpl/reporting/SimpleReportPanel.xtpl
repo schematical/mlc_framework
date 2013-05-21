@@ -1,0 +1,26 @@
+<?php
+class <%= MLCTemplateDriver::Capatilize(MLC_APPLICATION_PREFIX); %>SimpleReportPanel extends MJaxTable{
+	public function __construct($objParentControl, $strControlId = null){
+		parent::__construct($objParentControl, $strControlId);
+		$this->AddCssClass('table');
+		$this->AddColumn('Stat','Stat');
+	   	$this->AddColumn('Count','Count');
+		
+		<% foreach ($tables as $objTable){ %>
+			$objRow = new MJaxTableRow($this);
+			$objRow->AddData(
+				'<%= MLCTemplateDriver::Capatilize($objTable->name); %>s',
+				'Stat'
+			);
+			$objRow->AddData(				
+				<%= MLCTemplateDriver::Capatilize($objTable->name); %>::QueryCount(''),
+				'Count'
+			);
+		<% } %>
+		
+	}
+
+
+
+}
+?>

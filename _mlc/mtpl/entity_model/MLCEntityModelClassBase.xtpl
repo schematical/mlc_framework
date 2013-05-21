@@ -1,0 +1,32 @@
+<?php
+class MLCEntityModel<%= $className; %>Base extends MLCEntityModelClassBase{
+	protected $strClassName = '<%= $className; %>';
+	
+	public function  __call($strName, $arrArguments) {
+       
+		$arrReturn = array();
+		if($strName == 'new'){
+			$obj<%= $className; %> = new <%= $className; %>();
+		}else{
+        	$obj<%= $className; %> = <%= $className; %>::LoadById($strName);
+		}
+      
+        if(!is_null($obj<%= $className; %>)){
+        	return new MLCEntityModel<%= $className; %>Object($obj<%= $className; %>);
+        }else{
+            throw new MLCEntityModelException("No <%= $className; %> found with the data you submitted");
+        }
+        
+     }
+     public function FinalAction($arrPostData){
+         $objResponse = new MLCEntityModelResponse(<%= $className; %>::LoadAll()->GetCollection());
+         $objResponse->BodyType = '<%= $className; %>';
+		 return $objResponse;
+     }
+
+    	
+	public function Query(){
+	 	//Will need to accept QS Pramaeters of facebook, twitter, google
+	}
+}
+?>

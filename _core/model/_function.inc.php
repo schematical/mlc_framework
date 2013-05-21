@@ -5,6 +5,34 @@ function _ak($strKey, $arrArray){
 function _dv($mixVal){
     return die(var_dump($mixVal));
 }
+function _jd($strJson){
+
+    $arrJson = json_decode($strJson, true);
+    switch (json_last_error()) {
+        case JSON_ERROR_NONE:
+            //echo ' - No errors';
+            break;
+        case JSON_ERROR_DEPTH:
+            throw new Exception(' - Maximum stack depth exceeded');
+            break;
+        case JSON_ERROR_STATE_MISMATCH:
+            throw new Exception(' - Underflow or the modes mismatch');
+            break;
+        case JSON_ERROR_CTRL_CHAR:
+            throw new Exception(' - Unexpected control character found');
+            break;
+        case JSON_ERROR_SYNTAX:
+            throw new Exception(' - Syntax error, malformed JSON');
+            break;
+        case JSON_ERROR_UTF8:
+            throw new Exception(' - Malformed UTF-8 characters, possibly incorrectly encoded');
+            break;
+        default:
+            throw new Exception(' - Unknown error');
+            break;
+    }
+    return $arrJson;
+}
 
 function mlc_show_error_page($intNumber, $_E = null){
 
@@ -34,16 +62,17 @@ function mlc_exception_handler($_E){
     if(defined('MLC_DISPLAY_EXCEPTIONS')){
         die(require_once(__MLC_CORE_VIEW__ . '/exception.tpl.php'));
     }else{
+
         try{
             if(array_key_exists('MDENotificationDriver', MLCApplication::$arrClassFiles)){
                 require_once(MLCApplication::$arrClassFiles['MDENotificationDriver']);
                 MDENotificationDriver::SendError($_E);
             }else{
-                mlc_show_error_page('500');
+                mlc_show_error_page('500',$_E);
             }
         }catch(Exception $e){
             //Shit
-            mlc_show_error_page('500');
+            mlc_show_error_page('500', $e);
         }
 
     }

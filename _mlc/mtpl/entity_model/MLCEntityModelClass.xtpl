@@ -1,0 +1,10 @@
+<?php
+require_once(__MODEL_APP_ENTITY_MODEL__ . "/base_classes/MLCEntityModel<%= $className; %>Base.class.php");
+class MLCEntityModel<%= $className; %> extends MLCEntityModel<%= $className; %>Base{
+	
+	
+	
+}
+
+
+?>

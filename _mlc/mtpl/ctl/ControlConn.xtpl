@@ -1,0 +1,21 @@
+<?php
+//Edit Panels
+<% foreach ($tables as $objTable){ %>
+MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($objTable->name); %>EditPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize($objTable->name); %>EditPanel.class.php';
+<% } %>
+
+
+//Display Panels
+
+
+
+//List Panels
+<% foreach ($tables as $objTable){ %>
+MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($objTable->name); %>ListPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize($objTable->name); %>ListPanel.class.php';
+<% } %>
+
+
+//Special panels
+MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize(MLC_APPLICATION_PREFIX); %>SimpleReportPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize(MLC_APPLICATION_PREFIX); %>SimpleReportPanel.class.php';
+
+?>

@@ -1,0 +1,10 @@
+<?php
+require_once(__MODEL_APP_API__ . "/base_classes/MLCApi<%= $className; %>Base.class.php");
+class MLCApi<%= $className; %> extends MLCApi<%= $className; %>Base{
+	
+	
+	
+}
+
+
+?>

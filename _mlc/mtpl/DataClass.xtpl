@@ -1,0 +1,9 @@
+<?php
+require_once(__MODEL_APP_DATALAYER_DIR__ . "/base_classes/<%= $className; %>Base.class.php");
+class <%= $className; %> extends <%= $className; %>Base {
+
+
+}
+
+
+?>

@@ -1,0 +1,32 @@
+<?php
+class MLCEntityModel<%= $className; %>ObjectBase extends MLCEntityModelObjectBase{
+   
+    protected $strClassName = '<%= $className; %>';
+	public function  __call($strName, $arrArguments) {
+		switch($strName){
+			<% foreach ($parentFields as $field){ %>
+	       	case('<%= $field->reference->table->name; %>'):
+				//Load 
+				$obj<%= MLCTemplateDriver::capatilize($field->reference->table->name); %> = $this->GetEntity()-><%= MLCTemplateDriver::capatilize($field->name); %>;
+				return new MLCEntityModel<%= MLCTemplateDriver::capatilize($field->reference->table->name); %>Object($obj<%= MLCTemplateDriver::capatilize($field->name); %>);
+		    break;
+		    <% } %>
+			<% foreach ($childFields as $child){ %>
+	     	case('<%= $child->table->name; %>s'):
+	       		$arr<%= MLCTemplateDriver::capatilize($child->table->name); %>s = <%= MLCTemplateDriver::capatilize($child->table->name); %>::LoadCollBy<%= MLCTemplateDriver::capatilize($child->name); %>($this->GetEntity()-><%= $child->name; %>)->GetCollection();
+	       		$objResponse = new MLCEntityModelResponse($arr<%= MLCTemplateDriver::capatilize($child->table->name); %>s);
+	       		$objResponse->BodyType = '<%= $child->Table->Name; %>';
+	       		return $objResponse;
+	    	break;
+			<% } %>
+			default:
+				return parent::__call($strName, $arrArguments);
+			
+		}
+	}
+	
+    
+   
+   
+   	
+}

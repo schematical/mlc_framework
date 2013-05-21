@@ -1,0 +1,17 @@
+<?php
+class MLCEntityModelHomeBase extends MLCEntityModelClassBase{
+	public function __construct(){
+		//MLCEntityModelAuthDriver::Authenticate(false);
+	}
+	<% foreach ($tables as $objTable){ %>
+    public function <%= $objTable->name; %>(){
+        return new MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>();
+    }
+    <% } %>
+}
+<% foreach ($tables as $objTable){ %>
+MLCApplicationBase::$arrClassFiles['MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>'] = __MODEL_APP_ENTITY_MODEL__ . '/MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>.class.php';
+MLCApplicationBase::$arrClassFiles['MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>Object'] = __MODEL_APP_ENTITY_MODEL__ . '/MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>Object.class.php';
+<% } %>
+
+?>

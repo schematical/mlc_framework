@@ -1,0 +1,17 @@
+<?php
+class MLCApiHomeBase extends MLCApiClassBase{
+	public function __construct(){
+		MLCApiAuthDriver::Authenticate(false);
+	}
+	<% foreach ($tables as $objTable){ %>
+    public function <%= $objTable->name; %>(){
+        return new MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>();
+    }
+    <% } %>
+}
+<% foreach ($tables as $objTable){ %>
+MLCApplicationBase::$arrClassFiles['MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>'] = __MODEL_APP_API__ . '/MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>.class.php';
+MLCApplicationBase::$arrClassFiles['MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>Object'] = __MODEL_APP_API__ . '/MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>Object.class.php';
+<% } %>
+
+?>

@@ -1,0 +1,23 @@
+<div>
+
+    <% foreach ($table->fields as $objField){ %>
+    <% if (!$objField->isPKey) { %> 
+    	
+	      <label><%= $objField->name; %></label>
+	      <?php $_CONTROL-><%= $objField->GetControlName(); %>->Render(); ?>
+	    
+    <% } %>
+    <% if ($objField->isPKey) { %> 
+   	 	<?php if(is_null($_CONTROL->IsNew())){ ?>
+    	<%= $objField->name; %>: <?php echo $_CONTROL-><%= $objField->varName; %>; ?><br/>
+    	<?php }else{ ?>
+    		New
+    	<?php } ?>
+	<% } %>
+	<% } %>
+	<div style='float:right;'>
+	 <?php $_CONTROL->btnSave->Render(); ?>
+	 <?php $_CONTROL->btnDelete->Render(); ?>
+	</div>
+
+</div>

@@ -1,0 +1,28 @@
+<?php
+class MLCApi<%= $className; %>Base extends MLCApiClassBase{
+	protected $strClassName = '<%= $className; %>';
+	
+	public function  __call($strName, $arrArguments) {
+       
+		$arrReturn = array();
+		if(is_numeric($strName){
+            $obj<%= $className; %> = <%= $className; %>::LoadById($strName);
+        }else{
+            $obj<%= $className; %> = null;
+        }
+
+      
+        if(!is_null($obj<%= $className; %>)){
+        	return new MLCApi<%= $className; %>Object($obj<%= $className; %>);
+        }else{
+            throw new MLCApiException("No <%= $className; %> found with the data you submitted");
+        }
+        
+     }
+
+    	
+	public function Query(){
+	 	//Will need to accept QS Pramaeters of facebook, twitter, google
+	}
+}
+?>

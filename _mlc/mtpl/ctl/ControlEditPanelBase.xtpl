@@ -1,0 +1,107 @@
+<?php
+class <%= $className; %>EditPanelBase extends MJaxPanel{
+	protected $obj<%= $className; %> = null;
+    <% foreach ($table->fields as $objField) { %>
+    	<% if ($objField->isPKey){ %>
+    	public $<%= $objField->varName; %> = null;
+   		<% } %>
+    	<% if (!$objField->isPKey){ %>
+    	public $<%= $objField->GetControlName(); %> = null;
+   		<% } %>
+	<% } %>
+	<% foreach ($parentFields as $objField){ %>
+   		public $lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %> = null;
+	<% } %>
+	<% foreach ($childFields as $objField){ %>
+  		public $lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %> = null;
+  	<% } %>
+	//Regular controls
+	
+	public $btnSave = null;
+	public $btnDelete = null;
+
+	public function __construct($objParentControl, $obj<%= $className; %> = null){
+		parent::__construct($objParentControl);
+		$this->obj<%= $className; %> = $obj<%= $className; %>;
+		
+		$this->strTemplate = __VIEW_ACTIVE_APP_DIR__  . '/www/ctl_panels/<%= $className; %>EditPanelBase.tpl.php';
+		
+		$this->CreateFieldControls();
+		$this->CreateContentControls();
+		$this->CreateReferenceControls();
+		
+	}
+	public function CreateContentControls(){
+		$this->btnSave = new MJaxButton($this);
+		$this->btnSave->Text = 'Save';
+		$this->btnSave->AddAction(new MJaxClickEvent(), new MJaxServerControlAction($this, 'btnSave_click'));
+		
+		
+		$this->btnDelete = new MJaxButton($this);
+		$this->btnDelete->Text = 'Delete';
+		$this->btnDelete->AddAction(new MJaxClickEvent(), new MJaxServerControlAction($this, 'btnDelete_click'));
+		if(is_null($this->obj<%= $className; %>)){
+			$this->btnDelete->Style->Display = 'none';
+		}
+	
+	}
+	public function CreateFieldControls(){
+	  <% foreach ($table->fields as $objField) { %>   
+	  	<% if (!$objField->isPKey){ %>
+	  		$this-><%= $objField->GetControlName(); %> = new MJaxTextBox($this);
+	  		$this-><%= $objField->GetControlName(); %>->Name = '<%= $objField->name; %>';
+  		<% } %>
+	  <% } %>
+	  if(!is_null($this->obj<%= $className; %>)){
+	  <% foreach ($table->fields as $objField) { %>   
+	  	<% if (!$objField->isPKey){ %>	  		
+	  		$this-><%= $objField->GetControlName(); %>->Text = $this->obj<%= $className; %>-><%= $objField->name; %>;
+  		<% } %>
+  		<% if ($objField->isPKey){ %>
+  			$this-><%= $objField->varName; %> = $this->obj<%= $className; %>-><%= $objField->name; %>;
+  		<% } %>
+  		
+	  <% } %>
+	  }
+	}
+	public function CreateReferenceControls(){
+	  <% foreach ($parentFields as $objField){ %>
+  		if(!is_null($this->obj<%= $className; %>-><%= $objField->name; %>)){
+   			$this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %> = new MJaxLinkButton($this);
+   			$this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Text = 'View <%= $objField->Reference->Table->Name; %>';
+   			$this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Href = __ENTITY_MODEL_DIR__ . '/<%= $objField->Reference->Table->Name; %>/' . $this->obj<%= $className; %>-><%= $objField->name; %>;  
+   		}
+	  <% } %>
+	 // if(!is_null($this->obj<%= $className; %>->i)){
+	   <% foreach ($childFields as $objField){ %>
+  		
+		$this->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %> = new MJaxLinkButton($this);
+		$this->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Text = 'View <%= $objField->Table->Name; %>s';
+		$this->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Href = __ENTITY_MODEL_DIR__ . '/<%= $objField->Reference->Table->Name; %>/' . $this->obj<%= $className; %>-><%= $objField->name; %> . '/<%= $objField->Table->Name; %>s';  
+	
+	  <% } %>
+	 // }
+	}
+	
+	public function btnSave_click(){
+		if(is_null($this->obj<%= $className; %>)){
+			//Create a new one
+			$this->obj<%= $className; %> = new <%= $className; %>();
+		}
+
+  		<% foreach ($table->fields as $objField) { %>  
+  		<% if (!$objField->isPKey){ %> 
+      	$this->obj<%= $className; %>-><%= $objField->name; %> = $this-><%= $objField->GetControlName(); %>->Text;
+		<% } %>
+		<% } %>
+		$this->obj<%= $className; %>->Save();
+  	}
+  	public function btnDelete_click(){
+  		$this->obj<%= $className; %>->Delete();
+  	}
+  	public function IsNew(){
+  		return is_null($this->obj<%= $className; %>);
+  	}
+  	
+}
+?>
