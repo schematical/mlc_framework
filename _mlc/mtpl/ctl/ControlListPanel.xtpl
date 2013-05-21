@@ -1,6 +1,6 @@
 <?php
-require_once(__MODEL_APP_CONTROL__ . "/base_classes/<%= $className; %>ListPanelBase.class.php");
-class <%= $className; %>ListPanel extends <%= $className; %>ListPanelBase {
+require_once(__MODEL_APP_CONTROL__ . "/base_classes/<%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase.class.php");
+class <%= MLCTemplateDriver::Capatilize($name); %>ListPanel extends <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase {
 
 
 }

@@ -1,7 +1,0 @@
-<?php
-//Work!
-<% foreach ($tables as $objTable){ %>
-MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($objTable->name); %>'] = __MODEL_APP_DATALAYER_DIR__ . '/<%= MLCTemplateDriver::Capatilize($objTable->name); %>.class.php';
-<% } %>
-
-?>

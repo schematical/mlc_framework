@@ -12,10 +12,10 @@
         "MDEBasicFormDataModel": {
             "form_fields": {
                 "name": {
-                    "namespace": "name",
+                    "namespace": "panel",
                     "name": "Name",
                     "type": "text",
-                    "default": "NewNotification"
+                    "default": ""
                 }
             },
             "pre_render": null,
@@ -29,7 +29,6 @@
                     "overwrite": true,
                     "data-selector": ""
                 }
-
             }
         },
         "MDEEntityRelDataModel": {
@@ -52,6 +51,14 @@
                     "overwrite": true,
                     "data-selector": ""
                 },
+                "data_conn": {
+                    "name": "data_conn",
+                    "xpath": "*",
+                    "mtpl_loc": "mtpl\/data_layer/DataConn.xtpl",
+                    "dest_loc": "apps/{app.name}/data_classes/base_classes/DataConn.inc.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
                 "ctl_edit_panel": {
                     "name": "ctl_edit_panel",
                     "xpath": "\/*",
@@ -65,14 +72,6 @@
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/ctl/ControlEditPanelBase.xtpl",
                     "dest_loc": "apps/{app.name}/ctl_classes/base_classes/{Name}EditPanelBase.class.php",
-                    "overwrite": true,
-                    "data-selector": ""
-                },
-                "ctl_edit_panel_base": {
-                    "name": "ctl_edit_panel",
-                    "xpath": "*",
-                    "mtpl_loc": "mtpl\/ctl/ControlConn.xtpl",
-                    "dest_loc": "apps/{app.name}/ctl_classes/base_classes/ControlConn.inc.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
@@ -148,8 +147,8 @@
                     "overwrite": false,
                     "data-selector": ""
                 },
-                "api_home": {
-                    "name": "api_home",
+                "api_home_base": {
+                    "name": "api_home_base",
                     "xpath": "*",
                     "mtpl_loc": "mtpl\/api/ApiHomeClassBase.xtpl",
                     "dest_loc": "apps/{app.name}/api_classes/base_classes/MLCApiHomeBase.class.php",
@@ -158,9 +157,6 @@
                 }
 
             }
-
-
-
         }
     }
 }}

@@ -3,15 +3,15 @@ class MLCApiHomeBase extends MLCApiClassBase{
 	public function __construct(){
 		MLCApiAuthDriver::Authenticate(false);
 	}
-	<% foreach ($tables as $objTable){ %>
+	<% foreach ($data as $arrTable){ %>
     public function <%= $objTable->name; %>(){
-        return new MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>();
+        return new MLCApi<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>();
     }
     <% } %>
 }
-<% foreach ($tables as $objTable){ %>
-MLCApplicationBase::$arrClassFiles['MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>'] = __MODEL_APP_API__ . '/MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>.class.php';
-MLCApplicationBase::$arrClassFiles['MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>Object'] = __MODEL_APP_API__ . '/MLCApi<%= MLCTemplateDriver::Capatilize($objTable->name); %>Object.class.php';
+<% foreach ($data as $arrTable){ %>
+MLCApplicationBase::$arrClassFiles['MLCApi<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>'] = __MODEL_APP_API__ . '/MLCApi<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>.class.php';
+MLCApplicationBase::$arrClassFiles['MLCApi<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>Object'] = __MODEL_APP_API__ . '/MLCApi<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>Object.class.php';
 <% } %>
 
 ?>

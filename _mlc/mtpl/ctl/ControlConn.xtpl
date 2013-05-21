@@ -1,7 +1,7 @@
 <?php
 //Edit Panels
-<% foreach ($tables as $objTable){ %>
-MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($objTable->name); %>EditPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize($objTable->name); %>EditPanel.class.php';
+<% foreach ($data as $arrTable){ %>
+MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>EditPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>EditPanel.class.php';
 <% } %>
 
 
@@ -10,8 +10,8 @@ MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($objTable-
 
 
 //List Panels
-<% foreach ($tables as $objTable){ %>
-MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($objTable->name); %>ListPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize($objTable->name); %>ListPanel.class.php';
+<% foreach ($data as $arrTable){ %>
+MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>ListPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>ListPanel.class.php';
 <% } %>
 
 

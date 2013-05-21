@@ -1,8 +1,8 @@
 <?php
-class <%= $className; %>Base extends BaseEntity {
-	const DB_CONN = '<%= $db_conn_name; %>';
-    const TABLE_NAME = '<%= $table->name; %>';
-    const P_KEY = '<%= $pKey; %>';
+class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
+	const DB_CONN = 'DB_1';
+    const TABLE_NAME = '<%= $name; %>';
+    const P_KEY = '<%= $pkey; %>';
     
     public function __construct(){
         $this->table = DB_PREFIX . self::TABLE_NAME;
@@ -11,20 +11,20 @@ class <%= $className; %>Base extends BaseEntity {
     }
  
 	public static function LoadById($intId){
-		$sql = sprintf("SELECT * FROM %s WHERE <%= $pKey; %> = %s;", self::TABLE_NAME, $intId);
+		$sql = sprintf("SELECT * FROM %s WHERE <%= $pkey; %> = %s;", self::TABLE_NAME, $intId);
 		$result = MLCDBDriver::Query($sql, self::DB_CONN);
 		while($data = mysql_fetch_assoc($result)){
-			$tObj = new <%= $table->name; %>();
+			$tObj = new <%= $name; %>();
 			$tObj->materilize($data);
 			return $tObj;
 		}
 	}
 	public static function LoadAll(){
 		$sql = sprintf("SELECT * FROM %s;", self::TABLE_NAME);
-		$result = MLCDBDriver::Query($sql, <%= $className; %>::DB_CONN);
+		$result = MLCDBDriver::Query($sql, <%= MLCTemplateDriver::Capatilize($name); %>::DB_CONN);
 		$coll = new BaseEntityCollection();
 		while($data = mysql_fetch_assoc($result)){
-			$tObj = new <%= $table->name; %>();
+			$tObj = new <%= $name; %>();
 			$tObj->materilize($data);
 			$coll->addItem($tObj);
 		}
@@ -32,16 +32,16 @@ class <%= $className; %>Base extends BaseEntity {
 	}
 	public function ToXml($blnReclusive = false){
         $xmlStr = "";
-        $xmlStr .= "<<%= $table->name; %>>";
+        $xmlStr .= "<<%= $name; %>>";
         <% foreach ($fields as $field){ %>
-        $xmlStr .= "<<%= $field; %>>";
-        $xmlStr .= $this-><%= $field; %>;
-        $xmlStr .= "</<%= $field; %>>";
+        $xmlStr .= "<<%= $field['name']; %>>";
+        $xmlStr .= $this-><%= $field['name']; %>;
+        $xmlStr .= "</<%= $field['name']; %>>";
         <% } %>
         if($blnReclusive){
            //Finish FK Rel stuff
         }
-        $xmlStr .= "</<%= $table->name; %>>";
+        $xmlStr .= "</<%= $name; %>>";
         return $xmlStr;
         
     }
@@ -51,7 +51,7 @@ class <%= $className; %>Base extends BaseEntity {
 		$result = MLCDBDriver::Query($sql, self::DB_CONN);
 		$coll = new BaseEntityCollection();
 		while($data = mysql_fetch_assoc($result)){
-			$tObj = new <%= $table->name; %>();
+			$tObj = new <%= $name; %>();
 			$tObj->materilize($data);
 			$coll->addItem($tObj);
 		}
@@ -73,22 +73,22 @@ class <%= $className; %>Base extends BaseEntity {
 			
 	}
      //Get children
-    <% foreach ($childFields as $child){ %>
-    public function Get<%= MLCTemplateDriver::capatilize($child->table->name); %>Arr(){
-       return <%= MLCTemplateDriver::Capatilize($child->table->name); %>::LoadCollBy<%= MLCTemplateDriver::Capatilize($child->name); %>($this-><%= $child->name; %>);
+    <% foreach ($child_fields as $child){ %>
+    public function Get<%= MLCTemplateDriver::capatilize($child['table']['name']); %>Arr(){
+       return <%= MLCTemplateDriver::Capatilize($child['table']['name']); %>::LoadCollBy<%= MLCTemplateDriver::Capatilize($child->name); %>($this-><%= $child->name; %>);
     }
 	<% } %>
 
     //Load by foregin key
-    <% foreach ($parentFields as $field){ %>
-    public static function LoadCollBy<%= MLCTemplateDriver::capatilize($field->name); %>($<%= $field->varName; %>){
-        $sql = sprintf("SELECT * FROM <%= $table->name; %> WHERE <%= $field->name; %> = %s;", $<%= $field->varName; %>);
+    <% foreach ($parent_fields as $field){ %>
+    public static function LoadCollBy<%= MLCTemplateDriver::capatilize($field->name); %>($<%= $field['varName']; %>){
+        $sql = sprintf("SELECT * FROM <%= $name; %> WHERE <%= $field->name; %> = %s;", $<%= $field['varName']; %>);
 		$result = MLCDBDriver::Query($sql);
 		$coll = new BaseEntityCollection();
 		while($data = mysql_fetch_assoc($result)){
-			$obj<%= $className; %> = new <%= $className; %>();
-			$obj<%= $className; %>->materilize($data);
-			$coll->addItem($obj<%= $className; %>);
+			$obj<%= MLCTemplateDriver::Capatilize($name); %> = new <%= MLCTemplateDriver::Capatilize($name); %>();
+			$obj<%= MLCTemplateDriver::Capatilize($name); %>->materilize($data);
+			$coll->addItem($obj<%= MLCTemplateDriver::Capatilize($name); %>);
 		}
 		return $coll;
     }
@@ -109,10 +109,10 @@ class <%= $className; %>Base extends BaseEntity {
     		$arrData[strtolower($strKey)] = $mixVal;
     	}
        
-        <% foreach ($table->getChildren() as $objField) { %>
+         <% foreach ($child_fields as $arrField) { %>
             
-             if(array_key_exists('<%= strtolower($objField->name) %>', $arrData)){
-                $this-><%= $objField->varName %> = $arrData['<%= strtolower($objField->name) %>'];
+             if(array_key_exists('<%= strtolower($arrField['name']) %>', $arrData)){
+                $this-><%= $arrField['varName'] %> = $arrData['<%= strtolower($arrField['name']) %>'];
              }
         <% } %>
     }
@@ -126,19 +126,19 @@ class <%= $className; %>Base extends BaseEntity {
         		if($blnReturnId){
         			return $mixData;
         		}
-        		return <%= $table->name %>::Load($mixData);
+        		return <%= MLCTemplateDriver::Capatilize($name); %>::Load($mixData);
         	}elseif(
         		(is_object($mixData)) && 
-        		(get_class($mixData) == '<%= $className %>')
+        		(get_class($mixData) == '<%= MLCTemplateDriver::Capatilize($name); %>)
         	){
         		if(!$blnReturnId){
         			return $mixData;
         		}
-        		return $mixData-><%= $table->pKeyField->varName %>;
+        		return $mixData-><%= $pkey_field['varName'] %>;
         	}elseif(is_null($mixData)){
         		return null;
         	}else{
-        		throw new Exception(__FUNCTION__ . '->Parse - Parameter 1 must be either an intiger or a class type "<%= $className %>"');
+        		throw new Exception(__FUNCTION__ . '->Parse - Parameter 1 must be either an intiger or a class type "<%= MLCTemplateDriver::Capatilize($name); %>"');
         	}        	
         }
         public static function LoadSingleByField( $strField, $mixValue, $strCompairison = '='){
@@ -162,7 +162,7 @@ class <%= $className; %>Base extends BaseEntity {
 			$coll = new BaseEntityCollection();
 			while($data = mysql_fetch_assoc($result)){
 				
-				$tObj = new <%= $className; %>();
+				$tObj = new <%= MLCTemplateDriver::Capatilize($name); %>();
 				$tObj->materilize($data);
 				$coll->addItem($tObj);
 			}
@@ -172,10 +172,10 @@ class <%= $className; %>Base extends BaseEntity {
 		}
         public function __toArray(){
         	$arrReturn = array();
-            $arrReturn['_ClassName'] = "<%= $className %>";
-            <% foreach ($table->fields as $objField) { %>   
+            $arrReturn['_ClassName'] = "<%= <%= MLCTemplateDriver::Capatilize($name); %> %>";
+            <% foreach ($fields as $arrField) { %>
                                  
-                 $arrReturn['<%= $objField->name %>'] = $this-><%= $objField->name %>;
+                 $arrReturn['<%= $arrField['name'] %>'] = $this-><%= $arrField['name'] %>;
             <% } %>
             return $arrReturn;
         }
@@ -189,11 +189,11 @@ class <%= $className; %>Base extends BaseEntity {
         }
         public function __get($strName){
 	        switch($strName){
-	        	<% foreach ($table->fields as $objField) { %> 
-	   			case('<%= MLCTemplateDriver::Capatilize($objField->name); %>'): 
-	   			case('<%= $objField->name %>'): 
-	   				if(array_key_exists('<%= $objField->name %>', $this->arrDBFields)){
-	        			return $this->arrDBFields['<%= $objField->name %>'];
+	        	<% foreach ($fields as $arrField) { %>
+	   			case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'): 
+	   			case('<%= $arrField['name'] %>'): 
+	   				if(array_key_exists('<%= $arrField['name'] %>', $this->arrDBFields)){
+	        			return $this->arrDBFields['<%= $arrField['name'] %>'];
 	        		}
 	        		return null;
 	        	break;
@@ -207,10 +207,10 @@ class <%= $className; %>Base extends BaseEntity {
 	    public function __set($strName, $strValue){
 	   		$this->modified = 1;
 	   		switch($strName){
-	   			<% foreach ($table->fields as $objField) { %> 
-	   			case('<%= MLCTemplateDriver::Capatilize($objField->name); %>'): 
-	   			case('<%= $objField->name %>'): 
-	        		$this->arrDBFields['<%= $objField->name %>'] = $strValue;
+	   			<% foreach ($fields as $arrField) { %>
+	   			case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'): 
+	   			case('<%= $arrField['name'] %>'): 
+	        		$this->arrDBFields['<%= $arrField['name'] %>'] = $strValue;
 	        	break;
 	        	<% } %>
 	        	defualt:

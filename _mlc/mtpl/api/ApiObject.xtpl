@@ -1,6 +1,6 @@
 <?php
-require_once(__MODEL_APP_API__ . "/base_classes/MLCApi<%= $className; %>ObjectBase.class.php");
-class MLCApi<%= $className; %>Object extends MLCApi<%= $className; %>ObjectBase{
+require_once(__MODEL_APP_API__ . "/base_classes/MLCApi<%= MLCTemplateDriver::Capatilize($name); %>ObjectBase.class.php");
+class MLCApi<%= MLCTemplateDriver::Capatilize($name); %>Object extends MLCApi<%= MLCTemplateDriver::Capatilize($name); %>ObjectBase{
 	
 	
 	

@@ -3,15 +3,15 @@ class MLCEntityModelHomeBase extends MLCEntityModelClassBase{
 	public function __construct(){
 		//MLCEntityModelAuthDriver::Authenticate(false);
 	}
-	<% foreach ($tables as $objTable){ %>
+	<% foreach ($data as $arrTable){ %>
     public function <%= $objTable->name; %>(){
-        return new MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>();
+        return new MLCEntityModel<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>();
     }
     <% } %>
 }
-<% foreach ($tables as $objTable){ %>
-MLCApplicationBase::$arrClassFiles['MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>'] = __MODEL_APP_ENTITY_MODEL__ . '/MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>.class.php';
-MLCApplicationBase::$arrClassFiles['MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>Object'] = __MODEL_APP_ENTITY_MODEL__ . '/MLCEntityModel<%= MLCTemplateDriver::Capatilize($objTable->name); %>Object.class.php';
+<% foreach ($data as $arrTable){ %>
+MLCApplicationBase::$arrClassFiles['MLCEntityModel<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>'] = __MODEL_APP_ENTITY_MODEL__ . '/MLCEntityModel<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>.class.php';
+MLCApplicationBase::$arrClassFiles['MLCEntityModel<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>Object'] = __MODEL_APP_ENTITY_MODEL__ . '/MLCEntityModel<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>Object.class.php';
 <% } %>
 
 ?>

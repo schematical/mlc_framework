@@ -1,6 +1,6 @@
 <?php
-require_once(__MODEL_APP_ENTITY_MODEL__ . "/base_classes/MLCEntityModel<%= $className; %>Base.class.php");
-class MLCEntityModel<%= $className; %> extends MLCEntityModel<%= $className; %>Base{
+require_once(__MODEL_APP_ENTITY_MODEL__ . "/base_classes/MLCEntityModel<%= MLCTemplateDriver::Capatilize($name); %>Base.class.php");
+class MLCEntityModel<%= MLCTemplateDriver::Capatilize($name); %> extends MLCEntityModel<%= MLCTemplateDriver::Capatilize($name); %>Base{
 	
 	
 	

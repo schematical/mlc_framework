@@ -1,33 +1,33 @@
 <form class="form-horizontal">  
     <% foreach ($table->fields as $objField){ %>
-    <% if (!$objField->isPKey) { %>
+    <% if (!$objField['is_pkey']) { %>
    
 	
 	 <div class="control-group">
-		<label class="control-label" class="control-label" for="<?php echo $_CONTROL-><%= $objField->GetControlName(); %>->ControlId; ?>"><%= $objField->Name; %></label>
+		<label class="control-label" class="control-label" for="<?php echo $_CONTROL-><%= $objField['varName']; %>->ControlId; ?>"><%= $objField['name']; %></label>
 		<div class='controls'>	      
-	      <?php $_CONTROL-><%= $objField->GetControlName(); %>->Render(); ?>
+	      <?php $_CONTROL-><%= $objField['varName']; %>->Render(); ?>
 	    </div>
 	</div>
     <% } %>
     
-    <% if ($objField->isPKey) { %> 
+    <% if ($objField['is_pkey']) { %>
     	<legend>
    	 	<?php if($_CONTROL->IsNew()){ ?>
    	 		New
     	<?php }else{ ?>
-    		<%= $objField->name; %>: <?php echo $_CONTROL-><%= $objField->varName; %>; ?><br/>    	
+    		<%= $objField['name']; %>: <?php echo $_CONTROL-><%= $objField['varName']; %>; ?><br/>
     	<?php } ?>
     	</legend>
 	<% } %>
 	<% } %>
 	
-	 <% foreach ($parentFields as $objField){ %>
+	 <% foreach ($parent_fields as $objField){ %>
   		<?php if(!is_null($_CONTROL->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>)){ ?>
    			<?php $_CONTROL->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Render(); ?><br />
    		<?php } ?>
 	<% } %>
-	 <% foreach ($childFields as $objField){ %>
+	 <% foreach ($child_fields as $objField){ %>
   		<?php if(!is_null($_CONTROL->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>)){ ?>
    			<?php $_CONTROL->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Render(); ?><br />  
    		<?php } ?>

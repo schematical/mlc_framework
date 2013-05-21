@@ -1,21 +1,21 @@
 <?php
-class MLCApi<%= $className; %>Base extends MLCApiClassBase{
-	protected $strClassName = '<%= $className; %>';
+class MLCApi<%= MLCTemplateDriver::Capatilize($name); %>Base extends MLCApiClassBase{
+	protected $strClassName = '<%= MLCTemplateDriver::Capatilize($name); %>';
 	
 	public function  __call($strName, $arrArguments) {
        
 		$arrReturn = array();
 		if(is_numeric($strName){
-            $obj<%= $className; %> = <%= $className; %>::LoadById($strName);
+            $obj<%= MLCTemplateDriver::Capatilize($name); %> = <%= MLCTemplateDriver::Capatilize($name); %>::LoadById($strName);
         }else{
-            $obj<%= $className; %> = null;
+            $obj<%= MLCTemplateDriver::Capatilize($name); %> = null;
         }
 
       
-        if(!is_null($obj<%= $className; %>)){
-        	return new MLCApi<%= $className; %>Object($obj<%= $className; %>);
+        if(!is_null($obj<%= MLCTemplateDriver::Capatilize($name); %>)){
+        	return new MLCApi<%= MLCTemplateDriver::Capatilize($name); %>Object($obj<%= MLCTemplateDriver::Capatilize($name); %>);
         }else{
-            throw new MLCApiException("No <%= $className; %> found with the data you submitted");
+            throw new MLCApiException("No <%= MLCTemplateDriver::Capatilize($name); %> found with the data you submitted");
         }
         
      }

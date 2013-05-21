@@ -6,14 +6,14 @@ class <%= MLCTemplateDriver::Capatilize(MLC_APPLICATION_PREFIX); %>SimpleReportP
 		$this->AddColumn('Stat','Stat');
 	   	$this->AddColumn('Count','Count');
 		
-		<% foreach ($tables as $objTable){ %>
+		<% foreach ($data as $arrTable){ %>
 			$objRow = new MJaxTableRow($this);
 			$objRow->AddData(
-				'<%= MLCTemplateDriver::Capatilize($objTable->name); %>s',
+				'<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s',
 				'Stat'
 			);
 			$objRow->AddData(				
-				<%= MLCTemplateDriver::Capatilize($objTable->name); %>::QueryCount(''),
+				<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>::QueryCount(''),
 				'Count'
 			);
 		<% } %>

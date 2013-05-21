@@ -1,6 +1,6 @@
 <?php
-require_once(__MODEL_APP_DATALAYER_DIR__ . "/base_classes/<%= $className; %>Base.class.php");
-class <%= $className; %> extends <%= $className; %>Base {
+require_once(__MODEL_APP_DATALAYER_DIR__ . "/base_classes/<%= MLCTemplateDriver::Capatilize($name); %>Base.class.php");
+class <%= MLCTemplateDriver::Capatilize($name); %> extends <%= MLCTemplateDriver::Capatilize($name); %>Base {
 
 
 }

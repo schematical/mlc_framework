@@ -1,11 +1,11 @@
 <?php
-class <%= $className; %>ListPanelBase extends MJaxTable{
-	public function __construct($objParentControl, $arr<%= $className; %>s = array()){
+class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTable{
+	public function __construct($objParentControl, $arr<%= MLCTemplateDriver::Capatilize($name); %>s = array()){
 	
 		parent::__construct($objParentControl);
 		
 		$this->SetupCols();
-		$this->SetDataEntites($arr<%= $className; %>s);
+		$this->SetDataEntites($arr<%= MLCTemplateDriver::Capatilize($name); %>s);
 		foreach($this->Rows as $intIndex => $objRow){
 			$objRow->AddAction($this, 'objRow_click');
 		}
@@ -13,17 +13,17 @@ class <%= $className; %>ListPanelBase extends MJaxTable{
 	}
 	public function SetupCols(){
 		<% foreach ($table->fields as $objField) { %>
-	    	<% if ($objField->isPKey){ %>
-	    	$this->AddColumn('<%= $objField->Name; %>','<%= $objField->Name; %>');
+	    	<% if ($objField['is_pkey']){ %>
+	    	$this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
 	   		<% } %>
-	    	<% if (!$objField->isPKey){ %>
-	    	$this->AddColumn('<%= $objField->Name; %>','<%= $objField->Name; %>');
+	    	<% if (!$objField['is_pkey']){ %>
+	    	$this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
 	   		<% } %>
 		<% } %>
 	}
 	public function objRow_click($strFomrId, $strControlId, $strActionParameter){
 
-		$this->objForm->Redirect(__ENTITY_MODEL_DIR__ . '/<%= $className; %>/' . $strActionParameter);
+		$this->objForm->Redirect(__ENTITY_MODEL_DIR__ . '/<%= MLCTemplateDriver::Capatilize($name); %>/' . $strActionParameter);
 	}
 	
   	

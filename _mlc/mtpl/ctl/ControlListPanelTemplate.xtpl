@@ -1,15 +1,15 @@
 <div>
 
     <% foreach ($table->fields as $objField){ %>
-    <% if (!$objField->isPKey) { %> 
+    <% if (!$objField['is_pkey']) { %>
     	
-	      <label><%= $objField->name; %></label>
-	      <?php $_CONTROL-><%= $objField->GetControlName(); %>->Render(); ?>
+	      <label><%= $objField['name']; %></label>
+	      <?php $_CONTROL-><%= $objField['varName']; %>->Render(); ?>
 	    
     <% } %>
-    <% if ($objField->isPKey) { %> 
+    <% if ($objField['is_pkey']) { %>
    	 	<?php if(is_null($_CONTROL->IsNew())){ ?>
-    	<%= $objField->name; %>: <?php echo $_CONTROL-><%= $objField->varName; %>; ?><br/>
+    	<%= $objField['name']; %>: <?php echo $_CONTROL-><%= $objField['varName']; %>; ?><br/>
     	<?php }else{ ?>
     		New
     	<?php } ?>

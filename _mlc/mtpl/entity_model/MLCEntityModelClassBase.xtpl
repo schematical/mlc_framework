@@ -1,26 +1,26 @@
 <?php
-class MLCEntityModel<%= $className; %>Base extends MLCEntityModelClassBase{
-	protected $strClassName = '<%= $className; %>';
+class MLCEntityModel<%= MLCTemplateDriver::Capatilize($name); %>Base extends MLCEntityModelClassBase{
+	protected $strClassName = '<%= MLCTemplateDriver::Capatilize($name); %>';
 	
 	public function  __call($strName, $arrArguments) {
        
 		$arrReturn = array();
 		if($strName == 'new'){
-			$obj<%= $className; %> = new <%= $className; %>();
+			$obj<%= MLCTemplateDriver::Capatilize($name); %> = new <%= MLCTemplateDriver::Capatilize($name); %>();
 		}else{
-        	$obj<%= $className; %> = <%= $className; %>::LoadById($strName);
+        	$obj<%= MLCTemplateDriver::Capatilize($name); %> = <%= MLCTemplateDriver::Capatilize($name); %>::LoadById($strName);
 		}
       
-        if(!is_null($obj<%= $className; %>)){
-        	return new MLCEntityModel<%= $className; %>Object($obj<%= $className; %>);
+        if(!is_null($obj<%= MLCTemplateDriver::Capatilize($name); %>)){
+        	return new MLCEntityModel<%= MLCTemplateDriver::Capatilize($name); %>Object($obj<%= MLCTemplateDriver::Capatilize($name); %>);
         }else{
-            throw new MLCEntityModelException("No <%= $className; %> found with the data you submitted");
+            throw new MLCEntityModelException("No <%= MLCTemplateDriver::Capatilize($name); %> found with the data you submitted");
         }
         
      }
      public function FinalAction($arrPostData){
-         $objResponse = new MLCEntityModelResponse(<%= $className; %>::LoadAll()->GetCollection());
-         $objResponse->BodyType = '<%= $className; %>';
+         $objResponse = new MLCEntityModelResponse(<%= MLCTemplateDriver::Capatilize($name); %>::LoadAll()->GetCollection());
+         $objResponse->BodyType = '<%= MLCTemplateDriver::Capatilize($name); %>';
 		 return $objResponse;
      }
 
