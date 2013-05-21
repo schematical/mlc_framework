@@ -1,6 +1,6 @@
 <div>
 
-    <% foreach ($table->fields as $objField){ %>
+    <% foreach ($fields as $objField){ %>
     <% if (!$objField['is_pkey']) { %>
     	
 	      <label><%= $objField['name']; %></label>

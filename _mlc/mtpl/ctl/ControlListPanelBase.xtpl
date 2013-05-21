@@ -12,7 +12,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
 
 	}
 	public function SetupCols(){
-		<% foreach ($table->fields as $objField) { %>
+		<% foreach ($fields as $objField) { %>
 	    	<% if ($objField['is_pkey']){ %>
 	    	$this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
 	   		<% } %>

@@ -4,7 +4,7 @@ class MLCApiHomeBase extends MLCApiClassBase{
 		MLCApiAuthDriver::Authenticate(false);
 	}
 	<% foreach ($data as $arrTable){ %>
-    public function <%= $objTable->name; %>(){
+    public function <%= $arrTable['name']; %>(){
         return new MLCApi<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>();
     }
     <% } %>

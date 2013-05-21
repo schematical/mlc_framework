@@ -1,5 +1,5 @@
 <form class="form-horizontal">  
-    <% foreach ($table->fields as $objField){ %>
+    <% foreach ($fields as $objField){ %>
     <% if (!$objField['is_pkey']) { %>
    
 	

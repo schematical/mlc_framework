@@ -4,7 +4,7 @@ class MLCEntityModelHomeBase extends MLCEntityModelClassBase{
 		//MLCEntityModelAuthDriver::Authenticate(false);
 	}
 	<% foreach ($data as $arrTable){ %>
-    public function <%= $objTable->name; %>(){
+    public function <%= $name; %>(){
         return new MLCEntityModel<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>();
     }
     <% } %>
