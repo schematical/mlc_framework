@@ -21,11 +21,11 @@
             "pre_render": null,
             "post_render": null,
             "mtpls": {
-                "notification_class": {
-                    "name": "notification_class",
+                "test": {
+                    "name": "test",
                     "xpath": "*",
-                    "mtpl_loc": "mtpl\/notifications\/notification.mtpl",
-                    "dest_loc": "okanjo-api\/code\/src\/Okanjo\/Notifications\/{name}Notification.php",
+                    "mtpl_loc": "mtpl\/test\/test.mtpl",
+                    "dest_loc": "apps\/{app.name}/\test.php",
                     "overwrite": true,
                     "data-selector": ""
                 }
