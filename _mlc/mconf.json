@@ -2,10 +2,10 @@
     "name": "",
     "author": null,
     "repos": {
-        "master": "https:\/\/github.com/schematical/mlc_framework.git"
+        "master": "https:\/\/github.com\/schematical\/mlc_framework.git"
     },
     "namespace": "mlcframework",
-    "repo_url": "https:\/\/github.com/schematical/mlc_framework.git",
+    "repo_url": "https:\/\/github.com\/schematical\/mlc_framework.git",
     "repo_type": "git"
 }, "body": {
     "data_models": {
@@ -25,7 +25,7 @@
                     "name": "test",
                     "xpath": "*",
                     "mtpl_loc": "mtpl\/test\/test.mtpl",
-                    "dest_loc": "apps\/{app.name}/\test.php",
+                    "dest_loc": "apps\/{app.name}\/\test.php",
                     "overwrite": true,
                     "data-selector": ""
                 }
@@ -35,123 +35,123 @@
             "pre_render": null,
             "post_render": null,
             "mtpls": {
-                "data_class": {
-                    "name": "data_class",
-                    "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/data_layer/DataClass.xtpl",
-                    "dest_loc": "apps/{app.name}/data_classes/{Name}.class.php",
-                    "overwrite": false,
-                    "data-selector": ""
-                },
                 "data_class_base": {
                     "name": "data_class_base",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/data_layer/DataClassBase.xtpl",
-                    "dest_loc": "apps/{app.name}/data_classes/base_classes/{Name}Base.class.php",
+                    "mtpl_loc": "mtpl\/data_layer\/DataClassBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/data_classes\/base_classes\/{Name}Base.class.php",
                     "overwrite": true,
+                    "data-selector": ""
+                },
+                "data_class": {
+                    "name": "data_class",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/data_layer\/DataClass.xtpl",
+                    "dest_loc": "apps\/{app.name}\/data_classes\/{Name}.class.php",
+                    "overwrite": false,
                     "data-selector": ""
                 },
                 "data_conn": {
                     "name": "data_conn",
                     "xpath": "*",
-                    "mtpl_loc": "mtpl\/data_layer/DataConn.xtpl",
-                    "dest_loc": "apps/{app.name}/data_classes/base_classes/DataConn.inc.php",
+                    "mtpl_loc": "mtpl\/data_layer\/DataConn.xtpl",
+                    "dest_loc": "apps\/{app.name}\/data_classes\/base_classes\/DataConn.inc.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
                 "ctl_edit_panel": {
                     "name": "ctl_edit_panel",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/ctl/ControlEditPanel.xtpl",
-                    "dest_loc": "apps/{app.name}/ctl_classes/{Name}EditPanel.class.php",
+                    "mtpl_loc": "mtpl\/ctl\/ControlEditPanel.xtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl_classes\/{Name}EditPanel.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
                 "ctl_edit_panel_base": {
                     "name": "ctl_edit_panel",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/ctl/ControlEditPanelBase.xtpl",
-                    "dest_loc": "apps/{app.name}/ctl_classes/base_classes/{Name}EditPanelBase.class.php",
+                    "mtpl_loc": "mtpl\/ctl\/ControlEditPanelBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl_classes\/base_classes\/{Name}EditPanelBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
                 "ctl_conn": {
                     "name": "ctl_conn",
                     "xpath": "*",
-                    "mtpl_loc": "mtpl\/ctl/ControlConn.xtpl",
-                    "dest_loc": "apps/{app.name}/ctl_classes/base_classes/ControlConn.inc.php",
+                    "mtpl_loc": "mtpl\/ctl\/ControlConn.xtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl_classes\/base_classes\/ControlConn.inc.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
                 "ctl_edit_pnl_tpl": {
                     "name": "ctl_edit_pnl_tpl",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/ctl/ControlEditPanelTemplate.xtpl",
-                    "dest_loc": "apps/{app.name}/ctl_classes/base_classes/{Name}EditPanelBase.tpl.php",
+                    "mtpl_loc": "mtpl\/ctl\/ControlEditPanelTemplate.xtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl_classes\/base_classes\/{Name}EditPanelBase.tpl.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
                 "ctl_list_pnl": {
                     "name": "ctl_list_pnl",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/ctl/ControlListPanel.xtpl",
-                    "dest_loc": "apps/{app.name}/ctl_classes/{Name}ListPanel.class.php",
+                    "mtpl_loc": "mtpl\/ctl\/ControlListPanel.xtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl_classes\/{Name}ListPanel.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
                 "ctl_list_pnl_base": {
                     "name": "ctl_list_pnl_base",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/ctl/ControlListPanelBase.xtpl",
-                    "dest_loc": "apps/{app.name}/ctl_classes/base_classes/{Name}ListPanelBase.class.php",
+                    "mtpl_loc": "mtpl\/ctl\/ControlListPanelBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl_classes\/base_classes\/{Name}ListPanelBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
                 "api_class": {
                     "name": "api_class",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/api/ApiClass.xtpl",
-                    "dest_loc": "apps/{app.name}/api_classes/MLCApi{Name}.class.php",
+                    "mtpl_loc": "mtpl\/api\/ApiClass.xtpl",
+                    "dest_loc": "apps\/{app.name}\/api_classes\/MLCApi{Name}.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
                 "api_class_base": {
                     "name": "api_class_base",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/api/ApiClassBase.xtpl",
-                    "dest_loc": "apps/{app.name}/api_classes/base_classes/MLCApi{Name}Base.class.php",
+                    "mtpl_loc": "mtpl\/api\/ApiClassBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/api_classes\/base_classes\/MLCApi{Name}Base.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
                 "api_object": {
                     "name": "api_object",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/api/ApiObject.xtpl",
-                    "dest_loc": "apps/{app.name}/api_classes/MLCApi{Name}Object.class.php",
+                    "mtpl_loc": "mtpl\/api\/ApiObject.xtpl",
+                    "dest_loc": "apps\/{app.name}\/api_classes\/MLCApi{Name}Object.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
                 "api_object_base": {
                     "name": "api_object_base",
                     "xpath": "\/*",
-                    "mtpl_loc": "mtpl\/api/ApiObjectBase.xtpl",
-                    "dest_loc": "apps/{app.name}/api_classes/base_classes/MLCApi{Name}ObjectBase.class.php",
+                    "mtpl_loc": "mtpl\/api\/ApiObjectBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/api_classes\/base_classes\/MLCApi{Name}ObjectBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
                 "api_home": {
                     "name": "api_home",
                     "xpath": "*",
-                    "mtpl_loc": "mtpl\/api/ApiHomeClass.xtpl",
-                    "dest_loc": "apps/{app.name}/api_classes/MLCApiHome.class.php",
+                    "mtpl_loc": "mtpl\/api\/ApiHomeClass.xtpl",
+                    "dest_loc": "apps\/{app.name}\/api_classes\/MLCApiHome.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
                 "api_home_base": {
                     "name": "api_home_base",
                     "xpath": "*",
-                    "mtpl_loc": "mtpl\/api/ApiHomeClassBase.xtpl",
-                    "dest_loc": "apps/{app.name}/api_classes/base_classes/MLCApiHomeBase.class.php",
+                    "mtpl_loc": "mtpl\/api\/ApiHomeClassBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/api_classes\/base_classes\/MLCApiHomeBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 }

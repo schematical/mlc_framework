@@ -38,7 +38,7 @@ abstract class MLCPackageManager{
             )
         );
     }
-    public static function DeployAppToAWS($strPath, $strRoot = null){
+    public static function DeployAppToAWS($strNamespace, $strPath, $strRoot = null){
         MLCApplication::InitPackage('MLCAws');
         ob_end_flush();
         if(
@@ -50,7 +50,7 @@ abstract class MLCPackageManager{
         if(is_null($strRoot)){
             $strRoot = __INSTALL_ROOT_DIR__;
         }
-        $strBaseDir = $strRoot . $strPath;
+        $strBaseDir = $strRoot . $strNamespace;
         if(!is_dir($strBaseDir)){
             throw new Exception("No directory exists - " . $strBaseDir);
         }

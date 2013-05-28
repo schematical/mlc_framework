@@ -14,7 +14,7 @@
         if($arrTraceData["function"] == 'mlc_error_handler'){
             if(array_key_exists("file", $arrTraceData)){
                 $arrLines = explode("\n",file_get_contents($arrTraceData["file"]));
-                $arrTraceData["function"] = $arrLines[$arrTraceData["line"]];
+                $arrTraceData["function"] = $arrLines[$arrTraceData["line"] - 1];
                 $arrTraceData["args"] = null;
             }else{
                 $arrTraceData["file"] = '??';
