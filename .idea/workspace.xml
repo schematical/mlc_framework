@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d377a9a7-3391-40e1-86a1-97426d7d4833" name="Default" comment="">
+    <list default="true" id="d377a9a7-3391-40e1-86a1-97426d7d4833" name="Default" comment="Adding CTL stuff">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp" afterPath="$PROJECT_DIR$/tmp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_core/model/MLCPackageManager.class.php" afterPath="$PROJECT_DIR$/_core/model/MLCPackageManager.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php" afterPath="$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_core/ctl/_devtools/package_manager.php" afterPath="$PROJECT_DIR$/_core/ctl/_devtools/package_manager.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mde_codebase.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370373215895" ignored="false" />
+    <file path="/Dummy.txt" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370373754737" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/MLCAws/_core/MLCAWSDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369427960805" ignored="false" />
     <file path="/MLCAWSDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369427947633" ignored="false" />
     <file path="/deploy_s3.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369427159588" ignored="false" />
@@ -179,7 +181,7 @@
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/view/MDEGenEditPanel.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370287634524" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/view/www/index.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370287976338" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/model/thoughts/MDEThoughtDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370288335172" ignored="false" />
-    <file path="$PROJECT_DIR$/../../MDE_app/.idea/workspace.xml" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370373327708" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MDE_app/.idea/workspace.xml" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370373764464" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/package.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370361681898" ignored="false" />
     <file path="/MDEAppBuildSettingsThought.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370304938594" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/model/thoughts/MDEAppBuildSettingsThought.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370304991756" ignored="false" />
@@ -206,7 +208,7 @@
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/ctl/data_model_asset_input/MDEDataModelControlUploadAssetInputPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370363209841" ignored="false" />
     <file path="/MDEDataModelControlUploadAssetInputPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370363203158" ignored="false" />
     <file path="/MLCApplicationBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370367402639" ignored="false" />
-    <file path="/MLCPackageManager.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370369069126" ignored="false" />
+    <file path="/MLCPackageManager.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370373438091" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/ctl/_test/update.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370368933060" ignored="false" />
     <file path="/update.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370362064350" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/model/data_classes/MDEBuildAssembly.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370360745140" ignored="false" />
@@ -221,10 +223,11 @@
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/model/api/MLCApiMDEPackage.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370366455479" ignored="false" />
     <file path="/MLCApiMDEPackage.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370366455479" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/model/api_custom/MLCApiHome.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370361950877" ignored="false" />
-    <file path="/package_manager.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370369453093" ignored="false" />
+    <file path="/package_manager.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370373509705" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/MJax/_core/MJaxFormBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370369489454" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/MJax/_core/MJaxControlBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370369489454" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/model/ctl_classes/base_classes/SignupBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370372859288" ignored="false" />
+    <file path="/MLCRewriteHandelerBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370373737027" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,24 +247,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="deploy_s3.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_core/ctl/_devtools/deploy_s3.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="59" selection-start="404" selection-end="428" vertical-scroll-proportion="-7.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MLCPackageManager.class.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/_core/model/MLCPackageManager.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="31" selection-start="3902" selection-end="3902" vertical-scroll-proportion="0.3345656">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_core/ctl/_devtools/index.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -271,10 +256,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package_manager.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="_function.inc.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_core/model/_function.inc.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package_manager.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_core/ctl/_devtools/package_manager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="10" selection-start="1351" selection-end="1351" vertical-scroll-proportion="-11.875">
+            <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="env.inc.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_core/env.inc.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="5" selection-start="222" selection-end="222" vertical-scroll-proportion="-5.625">
               <folding />
             </state>
           </provider>
@@ -283,7 +286,7 @@
       <file leaf-file-name="MLCApplicationBase.class.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_core/model/MLCApplicationBase.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="141" column="50" selection-start="6000" selection-end="6000" vertical-scroll-proportion="10.102041">
+            <state line="141" column="50" selection-start="6000" selection-end="6000" vertical-scroll-proportion="-1.3469387">
               <folding />
             </state>
           </provider>
@@ -292,7 +295,7 @@
       <file leaf-file-name="MLCRewriteHandelerBase.class.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="43" selection-start="1315" selection-end="1315" vertical-scroll-proportion="-9.375">
+            <state line="35" column="51" selection-start="1275" selection-end="1275" vertical-scroll-proportion="-8.75">
               <folding />
             </state>
           </provider>
@@ -326,8 +329,9 @@
         <option value="$PROJECT_DIR$/_mlc/mconf.json" />
         <option value="$PROJECT_DIR$/_core/ctl/_devtools/index.php" />
         <option value="$PROJECT_DIR$/_core/model/MLCApplicationBase.class.php" />
-        <option value="$PROJECT_DIR$/_core/ctl/_devtools/package_manager.php" />
         <option value="$PROJECT_DIR$/_core/model/MLCPackageManager.class.php" />
+        <option value="$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php" />
+        <option value="$PROJECT_DIR$/_core/ctl/_devtools/package_manager.php" />
       </list>
     </option>
   </component>
@@ -413,46 +417,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mde_codebase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mde_codebase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="_core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ctl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mde_codebase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mde_codebase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="_core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ctl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="_devtools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -513,7 +477,11 @@
       <created>1370373220776</created>
       <updated>1370373220776</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Adding CTL stuff">
+      <created>1370373333024</created>
+      <updated>1370373333024</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -603,27 +571,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/bmb/app.inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="937" selection-end="937" vertical-scroll-proportion="0.31304348">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_mlc/mtpl/html/FormTemplate.mtpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_mlc/mconf.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="65" selection-start="1687" selection-end="1687" vertical-scroll-proportion="1.2243478">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/bmb/ctl/profile.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -634,13 +581,6 @@
     <entry file="file://$PROJECT_DIR$/apps/bmb/ctl/home.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_core/env.inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="5" selection-start="222" selection-end="222" vertical-scroll-proportion="0.2495379">
           <folding />
         </state>
       </provider>
@@ -673,9 +613,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/json.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="162" column="24" selection-start="4592" selection-end="4607" vertical-scroll-proportion="0.3736462">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_core/model/MLCPackageManager.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="122" column="74" selection-start="4583" selection-end="4583" vertical-scroll-proportion="0.7227357">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_core/ctl/_devtools/deploy_s3.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="59" selection-start="404" selection-end="428" vertical-scroll-proportion="-7.5">
+        <state line="12" column="59" selection-start="404" selection-end="428" vertical-scroll-proportion="0.33271718">
           <folding />
         </state>
       </provider>
@@ -687,30 +641,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_core/ctl/_devtools/package_manager.php">
+    <entry file="file://$PROJECT_DIR$/_core/model/_function.inc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="10" selection-start="1351" selection-end="1351" vertical-scroll-proportion="-11.875">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_core/MLC.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_core/env.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="5" selection-start="222" selection-end="222" vertical-scroll-proportion="-5.625">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_core/model/MLCApplicationBase.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="50" selection-start="6000" selection-end="6000" vertical-scroll-proportion="10.102041">
+        <state line="141" column="50" selection-start="6000" selection-end="6000" vertical-scroll-proportion="-1.3469387">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="43" selection-start="1315" selection-end="1315" vertical-scroll-proportion="-9.375">
+        <state line="35" column="51" selection-start="1275" selection-end="1275" vertical-scroll-proportion="-8.75">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_core/model/MLCPackageManager.class.php">
+    <entry file="file://$PROJECT_DIR$/_core/ctl/_devtools/package_manager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="31" selection-start="3902" selection-end="3902" vertical-scroll-proportion="0.3345656">
+        <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

@@ -1,50 +1,50 @@
 <?php
 
+    $arrPackageData = MLCPackageManager::ListPackages();
+    $arrInstalledPackageData = MLCApplication::GetInstalledPackageNames();
+    //die(json_encode($arrInstalledPackageData));
+    $arrOtherPackages = $arrInstalledPackageData;
+    foreach($arrPackageData as $intIndex => $arrPackage){
+        if(array_key_exists($arrPackage['namespace'], $arrInstalledPackageData)){
+            unset($arrOtherPackages[$arrPackage['namespace']]);
+            $arrPackageData[$intIndex]['_installed'] = true;
+        }else{
 
-$arrPackageData = MLCPackageManager::ListPackages();
-$arrInstalledPackageData = MLCApplication::GetInstalledPackageNames();
-//die(json_encode($arrInstalledPackageData));
-$arrOtherPackages = $arrInstalledPackageData;
-foreach($arrPackageData as $intIndex => $arrPackage){
-    if(array_key_exists($arrPackage['namespace'], $arrInstalledPackageData)){
-        unset($arrOtherPackages[$arrPackage['namespace']]);
-        $arrPackageData[$intIndex]['_installed'] = true;
-    }else{
-
-        $arrPackageData[$intIndex]['_installed'] = false;
+            $arrPackageData[$intIndex]['_installed'] = false;
+        }
     }
-}
 
-if(array_key_exists('p', $_GET)){
-    if($_GET['p'] == '__ALL__'){
-        foreach($arrPackageData as $intIndex => $arrPackage){
-            if($arrPackage['_installed']){
-                if(array_key_exists($_GET['p'], $arrInstalledPackageData)){
-                    $strPackageLoc = $arrInstalledPackageData[$_GET['p']];
-                }else{
-                    $strPackageLoc = null;
+    if(array_key_exists('p', $_GET)){
+        if($_GET['p'] == '__ALL__'){
+            foreach($arrPackageData as $intIndex => $arrPackage){
+                if($arrPackage['_installed']){
+                    if(array_key_exists($_GET['p'], $arrInstalledPackageData)){
+                        $strPackageLoc = $arrInstalledPackageData[$_GET['p']];
+                    }else{
+                        $strPackageLoc = null;
+                    }
+                    MLCPackageManager::InstallPackage($arrPackage['namespace'], __INSTALL_ROOT_DIR__);
                 }
-                MLCPackageManager::InstallPackage($arrPackage['namespace'], __INSTALL_ROOT_DIR__);
             }
         }
-    }
-    if($_GET['a'] == 'push'){
+        if($_GET['a'] == 'push'){
 
-    }else{
-        //Pull
-
-        if(array_key_exists($_GET['p'], $arrInstalledPackageData)){
-            $strPackageLoc = $arrInstalledPackageData[$_GET['p']];
         }else{
-            $strPackageLoc = null;
+            //Pull
+
+            if(array_key_exists($_GET['p'], $arrInstalledPackageData)){
+                $strPackageLoc = $arrInstalledPackageData[$_GET['p']];
+            }else{
+                $strPackageLoc = null;
+            }
+            //_dv($strPackageLoc);
+            MLCPackageManager::InstallPackage(
+                $_GET['p'],
+                $strPackageLoc
+            );
         }
-        //_dv($strPackageLoc);
-        MLCPackageManager::InstallPackage(
-            $_GET['p'],
-            $strPackageLoc
-        );
     }
-}
+
 ?>
 <h1>Package Manager</h1>
 

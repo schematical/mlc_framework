@@ -33,6 +33,9 @@ class MLCRewriteHandelerBase{
 		if(!file_exists(MLCApplication::$strCtlFile)){
 			
 			if(SERVER_ENV != 'prod'){
+                if(!defined('MLC_DISPLAY_EXCEPTIONS')){
+                    define('MLC_DISPLAY_EXCEPTIONS', '1');
+                }
 				//Allow access to _core control files such as _devtools
 				MLCApplication::$strCtlFile = __MLC_CORE_CTL__ . $strCtlFile;
 			}

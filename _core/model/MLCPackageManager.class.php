@@ -119,7 +119,12 @@ abstract class MLCPackageManager{
         $strData = curl_exec($tuCurl);
         //error_log($strData);
         $arrData =  json_decode($strData, true);
-        if(array_key_exists('error', $arrData['head'])){
+        if(JSON_ERROR_NONE != json_last_error()){
+            throw new Exception("There was an issue reaching:" . $strUrl);
+        }
+        if(
+            array_key_exists('error', $arrData['head'])
+        ){
             throw new Exception($arrData['head']['error']);
         }
         return $arrData['body'];
