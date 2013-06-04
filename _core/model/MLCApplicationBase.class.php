@@ -65,7 +65,7 @@ abstract class MLCApplicationBase{
 		if(array_key_exists($strClassName, self::$arrClassFiles)){
 			require_once(MLCApplicationBase::$arrClassFiles[$strClassName]);
 		}elseif(class_exists('CFLoader', false)){
-			//MAD FUCKING HACK FOR Amazons lame service
+			//MAD HACK FOR Amazons lame service
 			CFLoader::autoloader($strClassName);
 		}else{
 			throw new Exception("Can not auto load class '" . $strClassName . "'");
@@ -75,7 +75,7 @@ abstract class MLCApplicationBase{
 		
 	}
 	public static function InitPackage($strPackageName){
-		if(MLCApplication::$strPackageRequireMode == MLCPackageRequireMode::FAIL_IF_NOT_FOUND){
+
             if(array_key_exists($strPackageName, MLCApplicationBase::$arrPackages)){
                 return;
                 throw new Exception("Package already loaded '" . $strPackageName . "'");
@@ -89,16 +89,21 @@ abstract class MLCApplicationBase{
                }
            }
            if(is_null($strPackageDir)){
-                throw new Exception(sprintf("Package '%s' not found", $strPackageName));
+               if(MLCApplication::$strPackageRequireMode == MLCPackageRequireMode::FAIL_IF_NOT_FOUND){
+                    throw new Exception(sprintf("Package '%s' not found", $strPackageName . ' - ' . MLCApplication::$strPackageRequireMode));
+               }elseif(MLCApplication::$strPackageRequireMode == MLCPackageRequireMode::FORCE_PULL_FROM_GIT){
+                   MLCPackageManager::InstallPackage($strPackageName, __INSTALL_ROOT_DIR__);
+                   if(!file_exists($strPackageDir . '/package.inc.php')){
+                       throw new Exception("Failed to pull down application");
+                   }
+               }
            }
            require_once($strPackageDir . '/package.inc.php');
            if(count($arrMLCClassFiles) > 0){
                 array_merge(MLCApplicationBase::$arrClassFiles, $arrMLCClassFiles);
            }
            MLCApplicationBase::$arrPackages[$strPackageName] = 1;
-        }elseif(MLCApplication::$strPackageRequireMode == MLCPackageRequireMode::FORCE_PULL_FROM_GIT){
 
-        }
 	   
 	}
 	public static function GetInstalledPackageNames(){
@@ -114,8 +119,7 @@ abstract class MLCApplicationBase{
                 while (false !== ($strFile = readdir($resHandeler))) {
                     //IM A DIR
                     if(
-                        ($strFile != '.') &&
-                        ($strFile != '..')
+                        (substr($strFile,0,1) != '.')
                     ){
                         //$arrInstalledPackages[$strFile] = str_replace(__INSTALL_ROOT_DIR__, '', $strdir) . '/' . $strFile;
                         $arrInstalledPackages[$strFile] =  $strDir . '/' . $strFile;

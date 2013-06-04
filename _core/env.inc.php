@@ -9,7 +9,7 @@ if(!defined('SERVER_ENV')){
 		break;
 	}
 }
-define('__TMP_DIR__', __INSTALL_ROOT_DIR__ . '/tmp');
+define('__TMP_DIR__', '/var/www/MLCOfficial/tmp');// __INSTALL_ROOT_DIR__ . '/tmp');
 define('__APP_DIR__', __INSTALL_ROOT_DIR__ . '/apps');
 define('__PACKAGE_DIR__', __INSTALL_ROOT_DIR__ . '/packages:'. __INSTALL_ROOT_DIR__ . '/packages/private_packages:/var/www/MLCPackages/mlc_packages:/var/www/MLCPackages/mlc_packages/private_packages');
 

@@ -14,7 +14,7 @@ abstract class MLCPackageManager{
 
     public static function InstallApp($strApp, $strRootDir = null){
         if(defined('__INSTALL_ROOT_DIR__')){
-            $strRootDir;
+            $strRootDir = __INSTALL_ROOT_DIR__;
         }elseif(is_null($strRootDir)){
             throw new Exception("Undefined RootDir!!");
         }
@@ -68,28 +68,45 @@ abstract class MLCPackageManager{
 
     }
 
-    public static function InstallPackage($strPackageName, $strRootDir){
+    public static function InstallPackage($strPackageName, $strPackageDir = null){
+        if(is_null($strPackageDir)){
+            $strPackageDir = __INSTALL_ROOT_DIR__ . '/packages/' . $strPackageName;
+        }
         $arrPackageData = MLCPackageManager::CurlHome('/packages/' . $strPackageName);
-        $strPackageDir = $strRootDir . '/packages/' . $strPackageName;
+
         if(is_dir($strPackageDir)){
             $strRollBackDir = $strPackageDir . '_' . date("Y-m-d-H:i:s");
             rename($strPackageDir, $strRollBackDir);
             error_log("Roll back dir: " . $strRollBackDir);
         }
+
         if(strlen($arrPackageData['repoUrl']) < 2){
             throw new Exception("Not a valid repo url for package '" . $strPackageName . '"');
         }
-        MLCPackageManager::_sh(
-            sprintf(
-                "git clone %s %s",
-                $arrPackageData['repoUrl'],
-                $strPackageDir
-            )
-        );
+        switch($arrPackageData['repoType']){
+            case('git'):
+
+                $strGitSh = sprintf(
+                    "git clone %s %s",
+                    $arrPackageData['repo']['public'],
+                    $strPackageDir
+                );
+                error_log("GIT:" . $strGitSh);
+                MLCPackageManager::_sh(
+                    $strGitSh
+                );
+            break;
+            default:
+                throw new Exception("Not a valid repo type for package '" . $strPackageName . '" - ' . $arrPackageData['repoType']);
+        }
+    }
+    public static function ListPackages(){
+        $arrPackageData = MLCPackageManager::CurlHome('/packages?ba=1');
+        return $arrPackageData;
     }
     protected static function CurlHome($strEndpoint, $arrData = array()){
         $tuCurl = curl_init();
-        $strUrl = "http://schematical.com/api" . $strEndpoint;
+        $strUrl = "http://mde.schematical.com/api" . $strEndpoint;
         error_log($strUrl);
         curl_setopt($tuCurl, CURLOPT_URL, $strUrl);
         curl_setopt($tuCurl, CURLOPT_VERBOSE, 0);
@@ -100,7 +117,7 @@ abstract class MLCPackageManager{
         curl_setopt($tuCurl, CURLOPT_POSTFIELDS, $arrData);
 
         $strData = curl_exec($tuCurl);
-        error_log($strData);
+        //error_log($strData);
         $arrData =  json_decode($strData, true);
         if(array_key_exists('error', $arrData['head'])){
             throw new Exception($arrData['head']['error']);
