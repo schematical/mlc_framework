@@ -1,0 +1,6 @@
+<% foreach ($codiqa_node->GetRenderableChildren() as $objChild) { %>
+		<% if (!$objChild->IsClickable()){ %>
+	    	<label><%= $objChild->Id; %></label>
+	    <% } %>
+    	<?php $_CONTROL-><%= $objChild->VarName; %>->Render(); ?><br/>	
+<% } %>

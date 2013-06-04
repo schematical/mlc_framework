@@ -1,0 +1,8 @@
+<?php require_once(dirname(__FILE__) . '/_header.tpl.php'); ?>
+<% foreach ($codiqa_node->GetRenderableChildren() as $objChild) { %>
+		<% if (!$objChild->IsClickable()){ %>
+	    	<label><%= $objChild->Id; %></label>
+	    <% } %>
+    	<?php $this-><%= $objChild->VarName; %>->Render(); ?><br/>	
+<% } %>
+<?php require_once(dirname(__FILE__) . '/_footer.tpl.php'); ?>

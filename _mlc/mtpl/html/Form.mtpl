@@ -1,0 +1,15 @@
+<?php
+require_once('_config.inc.php');//You don't need this if you do the mod rewrite for multiple apps
+class <%= $class_name; %> extends <%= $class_name; %>Base{
+	/*
+  	public function Form_Create(){
+		parent::Form_Create();	
+	}
+	public function CreateControls(){
+	   <% foreach ($jetstrap_node->GetRenderableChildren() as $objChild) { %><%= $objChild->GetControlInitStatement(); %><% } %>
+	}
+	<% foreach ($jetstrap_node->GetRenderableChildren() as $objChild) { %><%= $objChild->GetControlClickStatement(); %><% } %>
+	*/
+}
+<%= $class_name; %>::Run('<%= $class_name; %>');
+?>

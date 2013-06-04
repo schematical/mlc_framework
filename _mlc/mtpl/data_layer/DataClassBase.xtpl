@@ -172,7 +172,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 		}
         public function __toArray(){
         	$arrReturn = array();
-            $arrReturn['_ClassName'] = "<%= <%= MLCTemplateDriver::Capatilize($name); %> %>";
+            $arrReturn['_ClassName'] = "<%= MLCTemplateDriver::Capatilize($name); %> %>";
             <% foreach ($fields as $arrField) { %>
                                  
                  $arrReturn['<%= $arrField['name'] %>'] = $this-><%= $arrField['name'] %>;

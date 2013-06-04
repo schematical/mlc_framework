@@ -31,6 +31,70 @@
                 }
             }
         },
+        "MDECtlDataModel": {
+            "pre_render": null,
+            "post_render": null,
+            "mtpls": {
+                "cconn": {
+                    "name": "ccon",
+                    "xpath": "*",
+                    "mtpl_loc": "mtpl\/html\/Conn.mtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/CConn.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+                "form": {
+                    "name": "form",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/html\/Form.mtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl\/{sub_dir}{Name}Form.class.php",
+                    "overwrite": false,
+                    "data-selector": ""
+                },
+                "form_base": {
+                    "name": "form_base",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/html\/FormBase.mtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{Name}FormBase.class.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+                "panel": {
+                    "name": "panel",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/html\/Panel.mtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/{Name}Panel.class.php",
+                    "overwrite": false,
+                    "data-selector": ""
+                },
+                "panel_base": {
+                    "name": "panel_base",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/html\/PanelBase.mtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{Name}PanelBase.class.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+
+
+                "panel_tpl": {
+                    "name": "panel_tpl",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/html\/PanelTemplate.mtpl",
+                    "dest_loc": "apps\/{app.name}\/view\/www\/ctl_classes\/{Name}Panel.tpl.php",
+                    "overwrite": false,
+                    "data-selector": ""
+                },
+                "form_tpl": {
+                    "name": "form_tpl",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/html\/FormTemplate.mtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/base_classes\/{Name}Form.tpl.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                }
+            }
+        },
         "MDEEntityRelDataModel": {
             "pre_render": null,
             "post_render": null,

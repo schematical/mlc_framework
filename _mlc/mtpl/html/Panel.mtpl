@@ -1,0 +1,58 @@
+<?php
+class <%= $class_name; %> extends MJaxPanel{
+    <% foreach ($codiqa_node->GetRenderableChildren() as $objChild) { %>
+    	
+    	public $<%= $objChild->VarName; %> = null;
+   		
+	<% } %>
+	
+	
+
+	public function __construct($objParentControl){
+		parent::__construct($objParentControl);
+		if($objParentControl->AsssetMode != 'mobile'){//Temporary fix
+			$this->strTemplate = __VIEW_MAIN_APP_DIR__  . '/' . $objParentControl->AsssetMode . '/ctl_panels/<%= $class_name; %>.tpl.php';
+		}
+		$this->CreateControls();
+	}
+	
+	public function CreateControls(){
+	   <% foreach ($codiqa_node->GetRenderableChildren() as $objChild) { %>
+	    	$this-><%= $objChild->VarName; %> = new <%= $objChild->GetRelatedMJaxClassType(); %>($this, '<%= $objChild->Id; %>');
+	    	$this-><%= $objChild->VarName; %>->Text = "<%= $objChild->Text; %>";
+	    	$this-><%= $objChild->VarName; %>->Name = "<%= $objChild->Id; %>";
+	    	<% if ($objChild->IsClickable()){ %>
+	    	$this-><%= $objChild->VarName; %>->AddAction($this, '<%= $objChild->VarName; %>_click');
+	   		<% } %>
+	    	<% if ($objChild->GetRelatedMJaxClassType() == 'MJaxListBox'){ %>
+	    	<% foreach ($objChild->items as $arrItem) { %>
+	    	$this-><%= $objChild->VarName; %>->AddItem(
+	    		'<%= $arrItem['text']; %>',
+	    		'<%= $arrItem['value']; %>'
+	    	);
+	   		<% } %>
+	   		<% } %>
+	   		<% if ($objChild->GetRelatedMJaxClassType() == 'MJaxTextBox'){ %>
+	    	<% if ($objChild->PropertyType == 'password'){ %>
+	    		$this-><%= $objChild->VarName; %>->TextMode = MJaxTextMode::Password;
+	   		<% } %>
+	   		<% if ($objChild->Type == 'textarea'){ %>
+	    		$this-><%= $objChild->VarName; %>->TextMode = MJaxTextMode::MultiLine;
+	   		<% } %>
+	   		<% } %>
+	   		
+	    	
+	   <% } %>
+	}
+	
+	<% foreach ($codiqa_node->GetRenderableChildren() as $objChild) { %>
+	<% if ($objChild->IsClickable()){ %>
+	  	public function <%= $objChild->VarName; %>_click(){
+	  		
+	  	}
+	<% } %>
+  	<% } %>
+  	
+  	
+}
+?>

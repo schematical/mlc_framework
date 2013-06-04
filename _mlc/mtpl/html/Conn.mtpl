@@ -1,0 +1,8 @@
+<?php
+//Panels
+<% foreach ($classes as $strClass){ %>
+MLCApplicationBase::$arrClassFiles['<%= $strClass; %>Base'] = __MODEL_APP_CONTROL__ . '/base_classes/<%= $strClass; %>Base.class.php';
+MLCApplicationBase::$arrClassFiles['<%= $strClass; %>'] = __CTL_ACTIVE_APP_DIR__ . '/<%= $strClass; %>.class.php';
+<% } %>
+
+?>
