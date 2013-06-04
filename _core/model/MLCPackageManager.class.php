@@ -106,7 +106,7 @@ abstract class MLCPackageManager{
     }
     protected static function CurlHome($strEndpoint, $arrData = array()){
         $tuCurl = curl_init();
-        $strUrl = "http://schematical.com/api" . $strEndpoint;
+        $strUrl = "http://beta.schematical.com/api" . $strEndpoint;
         error_log($strUrl);
         curl_setopt($tuCurl, CURLOPT_URL, $strUrl);
         curl_setopt($tuCurl, CURLOPT_VERBOSE, 0);
