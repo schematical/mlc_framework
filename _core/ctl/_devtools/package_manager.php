@@ -4,11 +4,13 @@
 $arrPackageData = MLCPackageManager::ListPackages();
 $arrInstalledPackageData = MLCApplication::GetInstalledPackageNames();
 //die(json_encode($arrInstalledPackageData));
+$arrOtherPackages = $arrInstalledPackageData;
 foreach($arrPackageData as $intIndex => $arrPackage){
     if(array_key_exists($arrPackage['namespace'], $arrInstalledPackageData)){
-        unset($arrInstalledPackageData[$arrPackage['namespace']]);
+        unset($arrOtherPackages[$arrPackage['namespace']]);
         $arrPackageData[$intIndex]['_installed'] = true;
     }else{
+
         $arrPackageData[$intIndex]['_installed'] = false;
     }
 }
@@ -30,11 +32,13 @@ if(array_key_exists('p', $_GET)){
 
     }else{
         //Pull
+
         if(array_key_exists($_GET['p'], $arrInstalledPackageData)){
             $strPackageLoc = $arrInstalledPackageData[$_GET['p']];
         }else{
             $strPackageLoc = null;
         }
+        //_dv($strPackageLoc);
         MLCPackageManager::InstallPackage(
             $_GET['p'],
             $strPackageLoc
@@ -61,7 +65,7 @@ if(array_key_exists('p', $_GET)){
 </h3>
 <h3>Other Packages</h3>
 <?php
-foreach($arrInstalledPackageData as $strPackage => $strPackageLoc){ ?>
+foreach($arrOtherPackages as $strPackage => $strPackageLoc){ ?>
     <?php echo $strPackage; ?>
     <a href='?p=<?php echo  $strPackage; ?>&a=pull'>
         Pull
