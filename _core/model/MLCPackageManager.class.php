@@ -117,9 +117,12 @@ abstract class MLCPackageManager{
         curl_setopt($tuCurl, CURLOPT_POSTFIELDS, $arrData);
 
         $strData = curl_exec($tuCurl);
-        //error_log($strData);
+        error_log($strData);
         $arrData =  json_decode($strData, true);
-        if(JSON_ERROR_NONE != json_last_error()){
+        if(
+            (json_last_error() != JSON_ERROR_NONE) ||
+            (is_null($arrData['head']))
+        ){
             throw new Exception("There was an issue reaching:" . $strUrl);
         }
         if(
