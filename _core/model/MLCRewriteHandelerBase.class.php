@@ -2,6 +2,7 @@
 class MLCRewriteHandelerBase{
 	const ASSETS = 'assets';
     const API = 'api';
+    const ADMIN = 'admin';
 	protected $strAssetMode = null;
     protected $blnIsAsset = false;
 	public function Handel($strUri){
@@ -10,9 +11,13 @@ class MLCRewriteHandelerBase{
             $this->blnIsAsset = true;
 			return self::RunAssets($strUri);
 		}
+
         if($arrParts[1] == self::API){
             MLCApplication::$strCtlFile = __MLC_CORE_CTL__ . '/api/handeler.php';
             return MLCApplication::$strCtlFile;
+        }
+        if($arrParts[1] == self::ADMIN){
+            return self::SearchInstalledForCtl('ctl/admin', $strUri);
         }
 		if(is_dir(__CTL_ACTIVE_APP_DIR__ . $strUri)){
 			$strCtlFile = $strUri . '/index.php';
@@ -56,6 +61,9 @@ class MLCRewriteHandelerBase{
 	}
 	
 	public function RunLocalAssets($strUri){
+       return self::SearchInstalledForCtl('assets', $strUri);
+    }
+    public function SearchInstalledForCtl($strDir, $strUri){
 		$arrParts = explode('/', $strUri);
 		$strBaseName = $arrParts[2];
 		//Check active app
@@ -71,13 +79,13 @@ class MLCRewriteHandelerBase{
         $arrPackageDirs = explode(':', __PACKAGE_DIR__);
         foreach($arrPackageDirs as $intIndex => $strPackageDir){
             //Check active packages
-            $strPackageAssetDir = $strPackageDir . '/' . $strBaseName . '/assets';
+            $strPackageAssetDir = $strPackageDir . '/' . $strBaseName . '/' . $strDir;
 
             if(is_dir($strPackageAssetDir)){
                 return MLCApplication::$strCtlFile =  $strPackageAssetDir. $strAssetLoc;
             }
             //Check active packages
-            $strPackageAssetDir = $strPackageDir . '/' . $strBaseName . '/_core/assets';
+            $strPackageAssetDir = $strPackageDir . '/' . $strBaseName . '/_core/' . $strDir;
 
             if(is_dir($strPackageAssetDir)){
                 return MLCApplication::$strCtlFile =  $strPackageAssetDir. $strAssetLoc;
