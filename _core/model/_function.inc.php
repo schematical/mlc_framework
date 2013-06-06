@@ -60,7 +60,7 @@ function mlc_exception_handler($_E){
     }
     set_error_handler('done');
     //Put something in for dev vs prod etc
-    if(!defined('MLC_DISPLAY_EXCEPTIONS')){
+    if(defined('MLC_DISPLAY_EXCEPTIONS')){
         die(require_once(__MLC_CORE_VIEW__ . '/exception.tpl.php'));
     }else{
 
