@@ -67,6 +67,7 @@ function mlc_exception_handler($_E){
         try{
             if(array_key_exists('MDENotificationDriver', MLCApplication::$arrClassFiles)){
                 require_once(MLCApplication::$arrClassFiles['MDENotificationDriver']);
+                unset(MDENotificationDriver::$arrCommMethod['ua_apid']);
                 MDENotificationDriver::SendError($_E);
             }else{
                 mlc_show_error_page('500',$_E);
