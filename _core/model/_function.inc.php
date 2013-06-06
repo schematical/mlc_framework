@@ -46,6 +46,7 @@ function mlc_show_error_page($intNumber, $_E = null){
 }
 function mlc_error_handler($code, $message, $file, $line)
 {
+    error_log($message . ' - ' . $file . ' - ' . $line);
     if (0 == error_reporting()){
         return;
     }
