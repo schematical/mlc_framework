@@ -60,15 +60,19 @@ function mlc_exception_handler($_E){
     }
     set_error_handler('done');
     //Put something in for dev vs prod etc
-    if(defined('MLC_DISPLAY_EXCEPTIONS')){
+    //die(SERVER_ENV);
+    if(
+        (defined('MLC_DISPLAY_EXCEPTIONS')) ||
+        (!defined('SERVER_ENV'))
+    ){
         die(require_once(__MLC_CORE_VIEW__ . '/exception.tpl.php'));
     }else{
 
         try{
             if(array_key_exists('MDENotificationDriver', MLCApplication::$arrClassFiles)){
-                //require_once(MLCApplication::$arrClassFiles['MDENotificationDriver']);
+                require_once(MLCApplication::$arrClassFiles['MDENotificationDriver']);
 
-                //MDENotificationDriver::SendError($_E);
+                MDENotificationDriver::SendError($_E);
                 mlc_show_error_page('500',$_E);
             }else{
                 mlc_show_error_page('500',$_E);

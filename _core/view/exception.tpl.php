@@ -27,22 +27,30 @@
                 <?php echo (array_key_exists("class", $arrTraceData)?$arrTraceData["class"]:''); ?>
                 <?php echo (array_key_exists("type", $arrTraceData)?$arrTraceData["type"]:''); ?>
                 <?php echo $arrTraceData["function"]; ?><?php
-                if(!is_null($arrTraceData["args"])){
+                if(
+                    (array_key_exists("args", $arrTraceData)) &&
+                    (!is_null($arrTraceData["args"]))
+                ){
+                    echo '[' . count($arrTraceData["args"]) . ']';
                     echo '(';
 
                     $arrNewArgs = array();
                     foreach($arrTraceData["args"] as $intIndex => $mixArg){
                         if(is_string($mixArg)){
-                            $arrNewArgs[$intIndex] = 'String ' . $mixArg;
-                        }
-                        if(is_numeric($mixArg)){
+                            $arrNewArgs[$intIndex] = 'String ' . htmlentities($mixArg);
+                        }elseif(is_numeric($mixArg)){
                             $arrNewArgs[$intIndex] = 'Number ' . $mixArg;
-                        }
-                        if(is_object($mixArg)){
+                        }elseif(is_object($mixArg)){
                             $arrNewArgs[$intIndex] = get_class($mixArg);
-                        }
-                        if(is_array($mixArg)){
+                        }elseif(is_array($mixArg)){
                             $arrNewArgs[$intIndex] = 'Array(' . count($mixArg) . ')';
+                        }elseif(is_null($mixArg)){
+                            $arrNewArgs[$intIndex] = 'NULL';
+                        }elseif(is_bool($mixArg)){
+                            $arrNewArgs[$intIndex] = 'bool(' . ($mixArg?'true':'false') . ')';
+                        }else{
+
+                            $arrNewArgs[$intIndex] = 'Unknown(' . $mixArg . ')';
                         }
                     }
                     echo implode(', ', $arrNewArgs);
