@@ -1,14 +1,36 @@
 <?php
-class <%= $class_name; %>Base extends <%= $app_prefix; %>Form{
-    <% foreach ($jetstrap_node->GetRenderableChildren() as $objChild) { %><%= $objChild->GetControlDeclirationStatement(); %><% } %>
+class <%= $id; %>Base extends MJaxForm{
+    <% foreach ($body as $objChild) { %>
+        protected $<%= $objChild['prefix']; %><%= MLCTemplateDriver::Capatilize($objChild['id']); %> = null;
+    <% } %>
 	public function Form_Create(){
 		parent::Form_Create();
-		$this->strTemplate = __VIEW_ACTIVE_APP_DIR__  . '/' . $this->AsssetMode . '/<%= $class_name; %>.tpl.php';
+		$this->strTemplate = __VIEW_ACTIVE_APP_DIR__  . '/' . $this->AssetMode . '/<%= $id; %>.tpl.php';
 		$this->CreateControls();
 	}
-	public function CreateControls(){
-	   <% foreach ($jetstrap_node->GetRenderableChildren() as $objChild) { %><%= $objChild->GetControlInitStatement(); %><% } %>
-	}
-	<% foreach ($jetstrap_node->GetRenderableChildren() as $objChild) { %><%= $objChild->GetControlClickStatement(); %><% } %>
+
+    public function CreateControls(){
+       <% foreach ($body as $objChild) { %>
+            $this-><%= $objChild['prefix']; %><%= MLCTemplateDriver::Capatilize($objChild['id']); %> = <%= $objChild['mjax_type']; %>($this, '<%= $objChild['id']; %>', <%= json_encode($objChild['attr']); %>);
+            <% if (array_key_exists('value',$objChild['attr'])) { %>
+                $this-><%= $objChild['prefix']; %><%= MLCTemplateDriver::Capatilize($objChild['id']); %>->Text = '<%= $objChild['attr']['value']; %>';
+            <% } %>
+            <% if ($objChild['is_clickable']){ %>
+                $this-><%= $objChild['prefix']; %><%= MLCTemplateDriver::Capatilize($objChild['id']); %>->AddAction($this, '<%= $objChild['prefix']; %><%= MLCTemplateDriver::Capatilize($objChild['id']); %>_click');
+            <% } %>
+       <% } %>
+    }
+    <% foreach ($body as $objChild) { %>
+        <% if ($objChild['is_clickable']){ %>
+            public function <%= $objChild['prefix']; %><%= MLCTemplateDriver::Capatilize($objChild['id']); %>_click($strFormId, $strControlId, $mixActionParam){
+                <% foreach ($body as $objInnerChild) { %>
+                        <% if (array_key_exists('value',$objInnerChild['attr'])) { %>
+                            //$str<%= MLCTemplateDriver::Capatilize($objInnerChild['id']); %> = $this-><%= $objInnerChild['prefix']; %><%= MLCTemplateDriver::Capatilize($objInnerChild['id']); %>->Text
+                        <% } %>
+                <% } %>
+            }
+        <% } %>
+    <% } %>
+
 }
 ?>

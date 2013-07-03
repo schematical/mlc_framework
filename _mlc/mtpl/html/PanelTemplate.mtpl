@@ -1,6 +1,6 @@
-<% foreach ($codiqa_node->GetRenderableChildren() as $objChild) { %>
-		<% if (!$objChild->IsClickable()){ %>
-	    	<label><%= $objChild->Id; %></label>
+<% foreach ($body as $objChild) { %>
+		<% if (!$objChild['is_clickable']){ %>
+	    	<label><%= $objChild['id']; %></label>
 	    <% } %>
-    	<?php $_CONTROL-><%= $objChild->VarName; %>->Render(); ?><br/>	
+    	<?php $_CONTROL-><%= $objChild['prefix'] . MLCTemplateDriver::Capatilize($objChild['id']); %>->Render(); ?><br/>
 <% } %>

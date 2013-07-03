@@ -1,8 +1,8 @@
 <?php
 //Panels
-<% foreach ($classes as $strClass){ %>
-MLCApplicationBase::$arrClassFiles['<%= $strClass; %>Base'] = __MODEL_APP_CONTROL__ . '/base_classes/<%= $strClass; %>Base.class.php';
-MLCApplicationBase::$arrClassFiles['<%= $strClass; %>'] = __CTL_ACTIVE_APP_DIR__ . '/<%= $strClass; %>.class.php';
+<% foreach ($data as $form){ %>
+MLCApplicationBase::$arrClassFiles['<%= $form['id']; %>Base'] = __MODEL_APP_CONTROL__ . '/base_classes/<%= $form['id']; %>Base.class.php';
+MLCApplicationBase::$arrClassFiles['<%= $form['id']; %>'] = __CTL_ACTIVE_APP_DIR__ . '/<%= $form['id']; %>.class.php';
 <% } %>
 
 ?>

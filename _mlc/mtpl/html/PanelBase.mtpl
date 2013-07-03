@@ -1,14 +1,21 @@
 <?php
 class <%= $id; %> extends MJaxPanel{
-
+    <% foreach ($body as $objChild) { %>
+    	
+    	public $<%= $objChild['prefix'] . MLCTemplateDriver::Capatilize($objChild['id']); %> = null;
+   		
+	<% } %>
 	
 	
 
 	public function __construct($objParentControl){
 		parent::__construct($objParentControl);
-
+		if($objParentControl->AsssetMode != 'mobile'){//Temporary fix
+			$this->strTemplate = __VIEW_MAIN_APP_DIR__  . '/' . $objParentControl->AsssetMode . '/ctl_panels/<%= $id; %>.tpl.php';
+		}
+		$this->CreateControls();
 	}
-	/*
+	
 	public function CreateControls(){
 	   <% foreach ($body as $objChild) { %>
 	    	$this-><%= $objChild['prefix'] . MLCTemplateDriver::Capatilize($objChild['id']); %> = new <%= $objChild['mjax_type']; %>($this, '<%= $objChild['id']; %>');
@@ -47,7 +54,7 @@ class <%= $id; %> extends MJaxPanel{
 	  	}
 	<% } %>
   	<% } %>
-  	*/
+  	
   	
 }
 ?>
