@@ -3,5 +3,5 @@
 		<%= $objChild['pre_html']; %>
     	<?php $this-><%= $objChild['prefix'] . MLCTemplateDriver::Capatilize($objChild['id']); %>->Render(); ?><br/>
 <% } %>
-<%= $objChild['post_html']; %>
+<% if (isset($objChild)) { %><%= $objChild['post_html']; %><% } %>
 <?php require_once(dirname(__FILE__) . '/_footer.tpl.php'); ?>

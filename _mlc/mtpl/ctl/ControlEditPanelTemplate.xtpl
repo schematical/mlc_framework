@@ -9,15 +9,7 @@
                Edit <%= $name; %>:
          </span>
     </p-->
-    <!--
-        <% if ($objField['is_pkey']) { %>
-           <?php if($_CONTROL->IsNew()){ ?>
-                   New
-           <?php }else{ ?>
-               <?php echo $_CONTROL-><%= $objField['varName']; %>; ?>
-           <?php } ?>
-        <% } %>
-    -->
+
 	<!--div class="block-body"=->
 	    <form data-validate="parsley " action="#" id="validate-basic-form-dark" class="form-dark form-horizontal" >
 	        <% foreach ($fields as $objField){ %>

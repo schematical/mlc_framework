@@ -34,17 +34,24 @@ class MLCRewriteHandelerBase{
         define("MLC_CALL_EXTENSION", $strExtension);
         $strCtlFile = $strDirName . '/' . $strFileName . '.php';
 		MLCApplication::$strCtlFile = __CTL_ACTIVE_APP_DIR__ . $strCtlFile;
-		
-		if(!file_exists(MLCApplication::$strCtlFile)){
-			
-			if(SERVER_ENV != 'prod'){
+        if(!file_exists(MLCApplication::$strCtlFile)){
+            $strCtlFile = $strDirName . '/' . $strFileName . '.html';
+            MLCApplication::$strCtlFile = __CTL_ACTIVE_APP_DIR__ . $strCtlFile;
+        }
+
+        if(!file_exists(MLCApplication::$strCtlFile)){
+
+            if(SERVER_ENV != 'prod'){
                 if(!defined('MLC_DISPLAY_EXCEPTIONS')){
                     define('MLC_DISPLAY_EXCEPTIONS', '1');
                 }
-				//Allow access to _core control files such as _devtools
-				MLCApplication::$strCtlFile = __MLC_CORE_CTL__ . $strCtlFile;
-			}
-		}
+                //Allow access to _core control files such as _devtools
+                $strCtlFile = $strDirName . '/' . $strFileName . '.php';
+                MLCApplication::$strCtlFile = __MLC_CORE_CTL__ . $strCtlFile;
+                //die(MLCApplication::$strCtlFile);
+                return MLCApplication::$strCtlFile;
+            }
+        }
 		
 	}
 	public function RunAssets($strUri){
