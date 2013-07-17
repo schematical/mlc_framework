@@ -119,9 +119,14 @@ class MLCRewriteHandelerBase{
 		if(is_null($strNamespace)){
 			$strNamespace = MLCApplication::$strInitedApp;
 		}
+        if(array_key_exists('SERVER_NAME', $_SERVER)){
+            $strServerName = $_SERVER['SERVER_NAME'];
+        }else{
+            $strServerName = '';
+        }
 		$strUrl = sprintf(
 			'//%s/%s/%s%s',
-			$_SERVER['SERVER_NAME'],
+			$strServerName,
 			self::ASSETS,
 			$strNamespace,
 			$strUrl

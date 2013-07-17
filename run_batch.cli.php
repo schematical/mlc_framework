@@ -11,5 +11,7 @@ if(count($argv) > 1){
 if(count($argv) > 2){
 	$strEnv = $argv[2];
 }
+define('MLC_APPLICATION_NAME', $strApp);
+define('SERVER_ENV', $strEnv);
 require_once(dirname(__FILE__) . '/_config.inc.php');
 MLCApplication::RunBatch();

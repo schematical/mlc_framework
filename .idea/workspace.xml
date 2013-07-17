@@ -3,14 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="d377a9a7-3391-40e1-86a1-97426d7d4833" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp" afterPath="$PROJECT_DIR$/tmp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanelTemplate.xtpl" afterPath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanelTemplate.xtpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_mlc/mtpl/html/FormTemplate.mtpl" afterPath="$PROJECT_DIR$/_mlc/mtpl/html/FormTemplate.mtpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_core/model/MLCApplicationBase.class.php" afterPath="$PROJECT_DIR$/_core/model/MLCApplicationBase.class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php" afterPath="$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_batch.cli.php" afterPath="$PROJECT_DIR$/run_batch.cli.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mde_codebase.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1373480278963" ignored="false" />
+    <file path="/Dummy.txt" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374008989568" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/MLCAws/_core/MLCAWSDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369427960805" ignored="false" />
     <file path="/MLCAWSDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369427947633" ignored="false" />
     <file path="/deploy_s3.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369427159588" ignored="false" />
@@ -44,13 +44,13 @@
     <file path="/MDEAuthDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369514506038" ignored="false" />
     <file path="/MLCAuthDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369514558069" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/MLCAuth/_core/MLCAuthDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369514621581" ignored="false" />
-    <file path="$PROJECT_DIR$/../../MDE_app/app.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372815293348" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MDE_app/app.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065638701" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/model/data_classes/MDEApp.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369515270017" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/model/data_classes/base_classes/MDEAppBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372813133660" ignored="false" />
-    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MLCDBManager/_core/model/MLCFieldObject.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369515236981" ignored="false" />
-    <file path="/MLCFieldObject.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369515235399" ignored="false" />
-    <file path="/_enum.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372846430753" ignored="false" />
-    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MLCDBManager/_core/_enum.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369515255734" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MLCDBManager/_core/model/MLCFieldObject.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065494167" ignored="false" />
+    <file path="/MLCFieldObject.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065493372" ignored="false" />
+    <file path="/_enum.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065501724" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MLCDBManager/_core/_enum.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065522860" ignored="false" />
     <file path="/MDEThoughtDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370288333893" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/MJaxMillerColumns/_core/model/MDEThoughtDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369515924980" ignored="false" />
     <file path="$PROJECT_DIR$/../../Okanjo/okanjo-website/alpha/@assets/inc/views/store.header.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369949431356" ignored="false" />
@@ -97,7 +97,7 @@
     <file path="$PROJECT_DIR$/../../Okanjo/okanjo-website/alpha/@assets/inc/views/social/add_product_feed.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369929875836" ignored="false" />
     <file path="/add_product_feed.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369929857422" ignored="false" />
     <file path="$PROJECT_DIR$/../../Okanjo/okanjo-website/alpha/@assets/inc/views/social/product_display_small.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369930283640" ignored="false" />
-    <file path="/a.dummy" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1373390018161" ignored="false" />
+    <file path="/a.dummy" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065296809" ignored="false" />
     <file path="$PROJECT_DIR$/../../Okanjo/okanjo-api/code/src/Okanjo/Provider/Controller/UserFeedRecommendationController.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369930862835" ignored="false" />
     <file path="$PROJECT_DIR$/../../Okanjo/okanjo-api/code/src/Okanjo/Provider/Controller/UserFeedSubscriptionController.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369937927028" ignored="false" />
     <file path="/UserFeedSubscriptionController.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1369937112722" ignored="false" />
@@ -169,7 +169,7 @@
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/ctl/MDEGenEditPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372363467631" ignored="false" />
     <file path="/MDEGenEditPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372362965209" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MLCCodegen/2.0/save_method/MLCGitSaveDriver.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370308062339" ignored="false" />
-    <file path="$PROJECT_DIR$/../../MDE_app/env.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370376399744" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MDE_app/env.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374009664068" ignored="false" />
     <file path="/env.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370475261669" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/ctl/thoughts/MDEDataModelDataSelectPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370380266434" ignored="false" />
     <file path="/MDEDataModelDataSelectPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370380252301" ignored="false" />
@@ -207,7 +207,7 @@
     <file path="/MDEDataModelUploadedAssetInputPanelBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370309385522" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/ctl/data_model_asset_input/MDEDataModelControlUploadAssetInputPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370363209841" ignored="false" />
     <file path="/MDEDataModelControlUploadAssetInputPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370363203158" ignored="false" />
-    <file path="/MLCApplicationBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1371233501513" ignored="false" />
+    <file path="/MLCApplicationBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374009450498" ignored="false" />
     <file path="/MLCPackageManager.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370373907349" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/ctl/_test/update.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370368933060" ignored="false" />
     <file path="/update.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370362064350" ignored="false" />
@@ -227,7 +227,7 @@
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/MJax/_core/MJaxFormBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370535451210" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/MJax/_core/MJaxControlBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370369489454" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/model/ctl_classes/base_classes/SignupBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370377833382" ignored="false" />
-    <file path="/MLCRewriteHandelerBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372369363788" ignored="false" />
+    <file path="/MLCRewriteHandelerBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374009777751" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/ctl/data_model_asset_input/todo_demo/MDETodoDemoAlertPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370380669334" ignored="false" />
     <file path="/MDETodoDemoAlertPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1370380662310" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/view/www/_header.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372261311429" ignored="false" />
@@ -570,8 +570,8 @@
     <file path="/MJaxAustraLineChart.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372818443025" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/ctl/build/MDEAppBuildWidget.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372821268684" ignored="false" />
     <file path="/MDEAppBuildWidget.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372821267476" ignored="false" />
-    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/model/data_layer/MDEApp.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372820190610" ignored="false" />
-    <file path="/MDEApp.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372820182213" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/model/data_layer/MDEApp.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374064737692" ignored="false" />
+    <file path="/MDEApp.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374064733528" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/ctl_bkup/MDEAssetListPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372845594236" ignored="false" />
     <file path="/MDEAssetListPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372846416610" ignored="false" />
     <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MDETools/_core/ctl/data_layer/MDEAssetListPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1372846423284" ignored="false" />
@@ -620,6 +620,24 @@
     <file path="$PROJECT_DIR$/../../MDE_app/ctl/scale/index.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1373398374041" ignored="false" />
     <file path="$PROJECT_DIR$/../../MDE_app/view/www/scale/index_invite.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1373398544522" ignored="false" />
     <file path="/index_invite.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1373398544029" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MDE_app/_batch.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374009194305" ignored="false" />
+    <file path="/_batch.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374009174524" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MDE_app/model/_batch.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374064613932" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/MLCBatch/package.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374010065622" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/PM/package.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374063570936" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/PM/_core/model/notification/MLCSTNotification.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374010417236" ignored="false" />
+    <file path="/MLCSTNotification.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374010408643" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/PM/_core/email/PMNotification.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374010466306" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/PM/_core/model/PMApplication.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065847210" ignored="false" />
+    <file path="/PMApplication.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374064419287" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/PM/_core/batch/PMSendAlertBatch.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374064691475" ignored="false" />
+    <file path="/PMSendAlertBatch.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374064684518" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MDE_app/ctl/launch/pm/manageAlerts.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065690020" ignored="false" />
+    <file path="/manageAlerts.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374064946585" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/MLCCodegen/1.0/MLCFieldObject.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065402523" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/PM/_core/model/data_classes/base_classes/AlertBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065650769" ignored="false" />
+    <file path="$PROJECT_DIR$/../../MLCPackages/mlc_packages/private_packages/PM/_core/ctl/PMMasterWidget.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065930964" ignored="false" />
+    <file path="/PMMasterWidget.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1374065930561" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -638,7 +656,17 @@
     <favorites_list name="mde_codebase" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="codegen.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_core/ctl/_devtools/codegen.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="40" selection-start="157" selection-end="157" vertical-scroll-proportion="0.104347825">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -656,28 +684,28 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/_core/ctl/_devtools/package_manager.php" />
         <option value="$PROJECT_DIR$/_core/model/MLCPackageManager.class.php" />
         <option value="$PROJECT_DIR$/_core/MLC.inc.php" />
         <option value="$PROJECT_DIR$/_core/model/_function.inc.php" />
-        <option value="$PROJECT_DIR$/_core/model/MLCApplicationBase.class.php" />
         <option value="$PROJECT_DIR$/_core/view/exception.tpl.php" />
         <option value="$PROJECT_DIR$/_mlc/mtpl/html/Conn.mtpl" />
         <option value="$PROJECT_DIR$/_mlc/mconf.json" />
         <option value="$PROJECT_DIR$/_mlc/mtpl/html/Panel.mtpl" />
         <option value="$PROJECT_DIR$/_mlc/mtpl/html/PanelTemplate.mtpl" />
-        <option value="$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php" />
-        <option value="$PROJECT_DIR$/_core/ctl/_devtools/codegen.php" />
         <option value="$PROJECT_DIR$/_mlc/mtpl/html/FormBase.mtpl" />
         <option value="$PROJECT_DIR$/_mlc/mtpl/html/Form.mtpl" />
         <option value="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanelTemplate.xtpl" />
         <option value="$PROJECT_DIR$/_mlc/mtpl/html/FormTemplate.mtpl" />
+        <option value="$PROJECT_DIR$/_core/model/MLCApplicationBase.class.php" />
+        <option value="$PROJECT_DIR$/run_batch.cli.php" />
+        <option value="$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php" />
+        <option value="$PROJECT_DIR$/_core/ctl/_devtools/codegen.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="64" />
+    <option name="x" value="2796" />
     <option name="y" value="764" />
     <option name="width" value="1303" />
     <option name="height" value="773" />
@@ -736,7 +764,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="_mlc" />
+              <option name="myItemId" value="_core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -750,11 +778,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="_mlc" />
+              <option name="myItemId" value="_core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mtpl" />
+              <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -768,15 +796,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="_mlc" />
+              <option name="myItemId" value="_core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mtpl" />
+              <option name="myItemId" value="ctl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mde_codebase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mde_codebase" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="html" />
+              <option name="myItemId" value="_core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ctl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="_devtools" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -790,8 +836,8 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="options.lastSelected" value="preferences.keymap" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../MLCPackages" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PublishConfig">
     <servers>
@@ -920,15 +966,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="764" width="1303" height="773" extended-state="6" />
-    <editor active="false" />
+    <frame x="2796" y="764" width="1303" height="773" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23984064" sideWeight="0.6704" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2438247" sideWeight="0.6704" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1006,50 +1052,17 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_mlc/mtpl/html/PanelTemplate.mtpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="101" selection-start="162" selection-end="238" vertical-scroll-proportion="0.17094018" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_mlc/mtpl/html/PanelBase.mtpl">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_core/ctl/_devtools/codegen.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_mlc/mconf.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="2556" selection-end="2923" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_mlc/mtpl/html/Conn.mtpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="102" selection-start="288" selection-end="288" vertical-scroll-proportion="0.10619469" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_mlc/mtpl/html/FormBase.mtpl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="24" selection-start="452" selection-end="457" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_mlc/mtpl/html/Form.mtpl">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="62" selection-start="558" selection-end="558" vertical-scroll-proportion="-0.030303031" />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="12" selection-start="768" selection-end="768" vertical-scroll-proportion="-1.3304348" />
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanel.xtpl">
@@ -1058,11 +1071,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanelBase.xtpl">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_core/model/_function.inc.php">
@@ -1086,16 +1099,58 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanelTemplate.xtpl">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="0" selection-start="327" selection-end="327" vertical-scroll-proportion="0.0" />
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_mlc/mtpl/html/FormTemplate.mtpl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="66" selection-start="320" selection-end="320" vertical-scroll-proportion="0.12520868" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_core/model/MLCApplicationBase.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="27" selection-start="566" selection-end="566" vertical-scroll-proportion="-0.16759777">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/install_package.cli.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/install_app.cli.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="179" selection-end="250" vertical-scroll-proportion="0.27075812">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_batch.cli.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="30" selection-start="263" selection-end="263" vertical-scroll-proportion="0.3652174">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_core/model/MLCRewriteHandelerBase.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="35" selection-start="3810" selection-end="3810" vertical-scroll-proportion="0.26086956">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_core/ctl/_devtools/codegen.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="40" selection-start="157" selection-end="157" vertical-scroll-proportion="0.104347825">
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
