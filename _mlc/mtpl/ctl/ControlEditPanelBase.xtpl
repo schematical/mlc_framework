@@ -10,10 +10,10 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
    		<% } %>
 	<% } %>
 	<% foreach ($parent_fields as $objField){ %>
-   		public $lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %> = null;
+   		public $lnkViewParent<%= MLCTemplateDriver::Capatilize($objField['table']); %> = null;
 	<% } %>
 	<% foreach ($child_fields as $objField){ %>
-  		public $lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %> = null;
+  		public $lnkViewChild<%= MLCTemplateDriver::Capatilize($objField['table']); %> = null;
   	<% } %>
 	//Regular controls
 	
@@ -35,27 +35,56 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
 		$this->btnSave = new MJaxButton($this);
 		$this->btnSave->Text = 'Save';
 		$this->btnSave->AddAction(new MJaxClickEvent(), new MJaxServerControlAction($this, 'btnSave_click'));
-		
+		$this->btnSave->AddCssClass('btn btn-large');
 		
 		$this->btnDelete = new MJaxButton($this);
 		$this->btnDelete->Text = 'Delete';
 		$this->btnDelete->AddAction(new MJaxClickEvent(), new MJaxServerControlAction($this, 'btnDelete_click'));
+		$this->btnDelete->AddCssClass('btn btn-large');
 		if(is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>)){
 			$this->btnDelete->Style->Display = 'none';
+
 		}
 	
 	}
 	public function CreateFieldControls(){
 	  <% foreach ($fields as $objField) { %>   
 	  	<% if (!$objField['is_pkey']){ %>
-	  		$this-><%= $objField['varName']; %> = new MJaxTextBox($this);
-	  		$this-><%= $objField['varName']; %>->Name = '<%= $objField['name']; %>';
+            <% if ((!_mlc_is_special_field($objField['name'])) && (!array_key_exists('reference', $objField))){ %>
+                $this-><%= $objField['varName']; %> = new MJaxTextBox($this);
+                $this-><%= $objField['varName']; %>->Name = '<%= $objField['name']; %>';
+                $this-><%= $objField['varName']; %>->AddCssClass('input-large');
+                //<%= $objField['type']; %>
+                <% if ($objField['type'] == 'longtext'){ %>
+                    $this-><%= $objField['varName']; %>->TextMode = MJaxTextMode::MultiLine;
+                <% } %>
+            <% } %>
+	  		<% if (_mlc_is_special_field($objField['name'])){ %>
+                //Is special field!!!!!
+                <% if ($objField['name'] == 'creDate'){ %>
+                    //Do nothing this is a creDate
+                <% } %>
+                <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
+                    $this-><%= $objField['varName']; %> = new MJaxJQueryDateSelectPanel($this);
+                <% } %>
+            <% } %>
   		<% } %>
 	  <% } %>
 	  if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>)){
 	  <% foreach ($fields as $objField) { %>   
 	  	<% if (!$objField['is_pkey']){ %>
-	  		$this-><%= $objField['varName']; %>->Text = $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>;
+            <% if (!_mlc_is_special_field($objField['name'])){ %>
+	  		    $this-><%= $objField['varName']; %>->Text = $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>;
+            <% } %>
+            <% if (_mlc_is_special_field($objField['name'])){ %>
+                //Is special field!!!!!
+                <% if ($objField['name'] == 'creDate'){ %>
+                    //Do nothing this is a creDate
+                <% } %>
+                <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
+                    $this-><%= $objField['varName']; %>->Value = $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>;
+                <% } %>
+            <% } %>
   		<% } %>
   		<% if ($objField['is_pkey']){ %>
   			$this-><%= $objField['varName']; %> = $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>;
@@ -65,22 +94,25 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
 	  }
 	}
 	public function CreateReferenceControls(){
-	  <% foreach ($parent_fields as $objField){ %>
-  		if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>)){
-   			$this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %> = new MJaxLinkButton($this);
-   			$this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Text = 'View <%= $objField->Reference->Table->Name; %>';
-   			$this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Href = __ENTITY_MODEL_DIR__ . '/<%= $objField->Reference->Table->Name; %>/' . $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>;
-   		}
-	  <% } %>
-	 // if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>->i)){
-	   <% foreach ($child_fields as $objField){ %>
-  		
-		$this->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %> = new MJaxLinkButton($this);
-		$this->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Text = 'View <%= $objField->Table->Name; %>s';
-		$this->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Href = __ENTITY_MODEL_DIR__ . '/<%= $objField->Reference->Table->Name; %>/' . $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> . '/<%= $objField->Table->Name; %>s';
-	
-	  <% } %>
-	 // }
+        if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>)){
+          <% foreach ($parent_fields as $objField){ %>
+            if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>)){
+                $this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField['table']); %> = new MJaxLinkButton($this);
+                $this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField['table']); %>->Text = 'View <%= $objField['reference']['table']; %>';
+                $this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField['table']); %>->Href = __ENTITY_MODEL_DIR__ . '/<%= $objField['reference']['table']; %>/' . $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>;
+            }
+          <% } %>
+
+	   }
+
+           <% foreach ($child_fields as $objField){ %>
+
+            $this->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField['table']); %> = new MJaxLinkButton($this);
+            $this->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField['table']); %>->Text = 'View <%= $objField['table']; %>s';
+            //I should really fix this
+            //$this->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField['table']); %>->Href = __ENTITY_MODEL_DIR__ . '/<%= $objField['reference']['table']; %>/' . $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> . '/<%= $objField['table']; %>s';
+
+          <% } %>
 	}
 	
 	public function btnSave_click(){
@@ -90,9 +122,20 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
 		}
 
   		<% foreach ($fields as $objField) { %>  
-  		<% if (!$objField['is_pkey']){ %>
-      	$this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $this-><%= $objField['varName']; %>->Text;
-		<% } %>
+            <% if (!$objField['is_pkey']){ %>
+                <% if ((!_mlc_is_special_field($objField['name'])) && (!array_key_exists('reference', $objField))){ %>
+                    $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $this-><%= $objField['varName']; %>->Text;
+                <% } %>
+                <% if (_mlc_is_special_field($objField['name'])){ %>
+                    //Is special field!!!!!
+                    <% if ($objField['name'] == 'creDate'){ %>
+                        //Do nothing this is a creDate
+                    <% } %>
+                    <% if ($objField['name'] == 'idUser'){ %>
+                        $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = MLCAuthDriver::IdUser();
+                    <% } %>
+                <% } %>
+            <% } %>
 		<% } %>
 		$this->obj<%= MLCTemplateDriver::Capatilize($name); %>->Save();
   	}

@@ -103,7 +103,7 @@
                     "name": "data_class_base",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/data_layer\/DataClassBase.xtpl",
-                    "dest_loc": "apps\/{app.name}\/data_classes\/base_classes\/{Name}Base.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/data_classes\/base_classes\/{Name}Base.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
@@ -111,7 +111,7 @@
                     "name": "data_class",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/data_layer\/DataClass.xtpl",
-                    "dest_loc": "apps\/{app.name}\/data_classes\/{Name}.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/data_classes\/{Name}.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
@@ -119,7 +119,7 @@
                     "name": "data_conn",
                     "xpath": "*",
                     "mtpl_loc": "mtpl\/data_layer\/DataConn.xtpl",
-                    "dest_loc": "apps\/{app.name}\/data_classes\/base_classes\/DataConn.inc.php",
+                    "dest_loc": "apps\/{app.name}\/model\/data_classes\/base_classes\/DataConn.inc.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
@@ -127,7 +127,7 @@
                     "name": "ctl_edit_panel",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/ctl\/ControlEditPanel.xtpl",
-                    "dest_loc": "apps\/{app.name}\/ctl_classes\/{Name}EditPanel.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/{Name}EditPanel.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
@@ -135,7 +135,7 @@
                     "name": "ctl_edit_panel",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/ctl\/ControlEditPanelBase.xtpl",
-                    "dest_loc": "apps\/{app.name}\/ctl_classes\/base_classes\/{Name}EditPanelBase.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{Name}EditPanelBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
@@ -143,7 +143,7 @@
                     "name": "ctl_conn",
                     "xpath": "*",
                     "mtpl_loc": "mtpl\/ctl\/ControlConn.xtpl",
-                    "dest_loc": "apps\/{app.name}\/ctl_classes\/base_classes\/ControlConn.inc.php",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/ControlConn.inc.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
@@ -151,15 +151,15 @@
                     "name": "ctl_edit_pnl_tpl",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/ctl\/ControlEditPanelTemplate.xtpl",
-                    "dest_loc": "apps\/{app.name}\/ctl_classes\/base_classes\/{Name}EditPanelBase.tpl.php",
-                    "overwrite": true,
+                    "dest_loc": "apps\/{app.name}\/view\/www\/ctl_panels\/{Name}EditPanelBase.tpl.php",
+                    "overwrite": false,
                     "data-selector": ""
                 },
                 "ctl_list_pnl": {
                     "name": "ctl_list_pnl",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/ctl\/ControlListPanel.xtpl",
-                    "dest_loc": "apps\/{app.name}\/ctl_classes\/{Name}ListPanel.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/{Name}ListPanel.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
@@ -167,7 +167,7 @@
                     "name": "ctl_list_pnl_base",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/ctl\/ControlListPanelBase.xtpl",
-                    "dest_loc": "apps\/{app.name}\/ctl_classes\/base_classes\/{Name}ListPanelBase.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{Name}ListPanelBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
@@ -175,7 +175,7 @@
                     "name": "api_class",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/api\/ApiClass.xtpl",
-                    "dest_loc": "apps\/{app.name}\/api_classes\/MLCApi{Name}.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/api_classes\/MLCApi{Name}.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
@@ -183,7 +183,7 @@
                     "name": "api_class_base",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/api\/ApiClassBase.xtpl",
-                    "dest_loc": "apps\/{app.name}\/api_classes\/base_classes\/MLCApi{Name}Base.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/api_classes\/base_classes\/MLCApi{Name}Base.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
@@ -191,7 +191,7 @@
                     "name": "api_object",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/api\/ApiObject.xtpl",
-                    "dest_loc": "apps\/{app.name}\/api_classes\/MLCApi{Name}Object.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/api_classes\/MLCApi{Name}Object.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
@@ -199,7 +199,7 @@
                     "name": "api_object_base",
                     "xpath": "\/*",
                     "mtpl_loc": "mtpl\/api\/ApiObjectBase.xtpl",
-                    "dest_loc": "apps\/{app.name}\/api_classes\/base_classes\/MLCApi{Name}ObjectBase.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/api_classes\/base_classes\/MLCApi{Name}ObjectBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },
@@ -207,7 +207,7 @@
                     "name": "api_home",
                     "xpath": "*",
                     "mtpl_loc": "mtpl\/api\/ApiHomeClass.xtpl",
-                    "dest_loc": "apps\/{app.name}\/api_classes\/MLCApiHome.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/api_classes\/MLCApiHome.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
@@ -215,7 +215,7 @@
                     "name": "api_home_base",
                     "xpath": "*",
                     "mtpl_loc": "mtpl\/api\/ApiHomeClassBase.xtpl",
-                    "dest_loc": "apps\/{app.name}\/api_classes\/base_classes\/MLCApiHomeBase.class.php",
+                    "dest_loc": "apps\/{app.name}\/model\/api_classes\/base_classes\/MLCApiHomeBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 }

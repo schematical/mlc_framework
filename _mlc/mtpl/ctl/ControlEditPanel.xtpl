@@ -1,6 +1,12 @@
 <?php
 require_once(__MODEL_APP_CONTROL__ . "/base_classes/<%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase.class.php");
 class <%= MLCTemplateDriver::Capatilize($name); %>EditPanel extends <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase {
+    /*
+    public function __construct($objParentControl, $obj<%= MLCTemplateDriver::Capatilize($name); %> = null){
+		parent::__construct($objParentControl, $obj<%= MLCTemplateDriver::Capatilize($name); %>);
+
+    }
+    */
 
 
 }

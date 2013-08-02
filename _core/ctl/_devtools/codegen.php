@@ -1,17 +1,52 @@
 <?php
 define('SKIP_DATALAYER','true');
-define('__MLCCODEGEN_V__', '1.0');
-MLCApplication::InitPackage('MLCCodegen');
-$arrOldData = unserialize(constant('DB_1'));
-$arrDBData = array(
-	1 => array(
-		'hostname'=>$arrOldData['host'],
-		'username'=>$arrOldData['user'],
-		'password'=>$arrOldData['pass'],
-		'dbname'=>$arrOldData['db_name']
-	)
+//First get the build assembly
+MLCApplication::InitPackage('MDETools');
+MDEApplication::SetActiveApp(MLC_APPLICATION_NAME);
+$objMConf = new MConf(__INSTALL_ROOT_DIR__ . '/_mlc/mconf.json');
+$objDataModel = $objMConf->DataModels('MDEEntityRelDataModel');
+if(false){
+
+    $i = 0;
+    $strDBName = 'DB_' . $i;
+    while(defined($strDBName)){
+        //_dv(constant($strDBName));
+        $arrDBData = unserialize(constant($strDBName));
+        $arrDBData['hostname'] = $arrDBData['host'];
+        $arrDBData['username'] = $arrDBData['user'];
+        $arrDBData['password'] = $arrDBData['pass'];
+        $arrDBData['dbname'] = $arrDBData['db_name'];
+
+        $arrTableData = $objDataModel->ParseFromActiveDB(
+            $strDBName,
+            $arrDBData
+        );
+        $objDataModel->AddAsset(
+            $strDBName,
+            $arrTableData
+        );
+        $i += 1;
+        $strDBName = 'DB_' . $i;
+    }
+}else{
+    $strDBName = 'DB_1';
+    $arrDBData = unserialize(constant($strDBName));
+    //_dv($arrDBData);
+    $arrDBData['hostname'] = $arrDBData['host'];
+    $arrDBData['username'] = $arrDBData['user'];
+    $arrDBData['password'] = $arrDBData['pass'];
+    $arrDBData['dbname'] = $arrDBData['db_name'];
+
+    $arrTableData = $objDataModel->ParseFromActiveDB(
+        $strDBName,
+        $arrDBData
+    );
+    $objDataModel->AddAsset(
+        $strDBName,
+        $arrTableData
+    );
+}
+$objDataModel->Generate(
+    null,
+    $objMConf->SaveDriver
 );
-
-require('/var/www/MLCPackages/mlc_packages/private_packages/MLCCodegen/1.0/config/MDE.inc.php');
-
-MLCGenDriver::Run($arrDBData, $arrXTPLData);

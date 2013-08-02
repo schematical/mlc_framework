@@ -3,7 +3,12 @@
 <ul>
     <li>
         <a href='./codegen.php'>
-            Run Code Gen
+            Run Code Gen 2.0
+        </a>
+    </li>
+    <li>
+        <a href='./codegen_v1.php'>
+            Run Code Gen 1.0
         </a>
     </li>
     <li>

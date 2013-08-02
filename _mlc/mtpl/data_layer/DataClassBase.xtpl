@@ -74,15 +74,15 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	}
      //Get children
     <% foreach ($child_fields as $child){ %>
-    public function Get<%= MLCTemplateDriver::capatilize($child['table']['name']); %>Arr(){
-       return <%= MLCTemplateDriver::Capatilize($child['table']['name']); %>::LoadCollBy<%= MLCTemplateDriver::Capatilize($child->name); %>($this-><%= $child->name; %>);
+    public function Get<%= MLCTemplateDriver::capatilize($child['table']); %>Arr(){
+       return <%= MLCTemplateDriver::Capatilize($child['table']); %>::LoadCollBy<%= MLCTemplateDriver::Capatilize($child['name']); %>($this-><%= $child['name']; %>);
     }
 	<% } %>
 
     //Load by foregin key
     <% foreach ($parent_fields as $field){ %>
-    public static function LoadCollBy<%= MLCTemplateDriver::capatilize($field->name); %>($<%= $field['varName']; %>){
-        $sql = sprintf("SELECT * FROM <%= $name; %> WHERE <%= $field->name; %> = %s;", $<%= $field['varName']; %>);
+    public static function LoadCollBy<%= MLCTemplateDriver::capatilize($field['name']); %>($<%= $field['varName']; %>){
+        $sql = sprintf("SELECT * FROM <%= $name; %> WHERE <%= $field['name']; %> = %s;", $<%= $field['varName']; %>);
 		$result = MLCDBDriver::Query($sql);
 		$coll = new BaseEntityCollection();
 		while($data = mysql_fetch_assoc($result)){
@@ -129,7 +129,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
         		return <%= MLCTemplateDriver::Capatilize($name); %>::Load($mixData);
         	}elseif(
         		(is_object($mixData)) && 
-        		(get_class($mixData) == '<%= MLCTemplateDriver::Capatilize($name); %>)
+        		(get_class($mixData) == '<%= MLCTemplateDriver::Capatilize($name); %>')
         	){
         		if(!$blnReturnId){
         			return $mixData;
@@ -138,7 +138,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
         	}elseif(is_null($mixData)){
         		return null;
         	}else{
-        		throw new Exception(__FUNCTION__ . '->Parse - Parameter 1 must be either an intiger or a class type "<%= MLCTemplateDriver::Capatilize($name); %>"');
+        		throw new Exception(__FUNCTION__ . ' - Parameter 1 must be either an intiger or a class type "<%= MLCTemplateDriver::Capatilize($name); %>"');
         	}        	
         }
         public static function LoadSingleByField( $strField, $mixValue, $strCompairison = '='){

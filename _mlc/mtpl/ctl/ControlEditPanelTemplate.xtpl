@@ -1,47 +1,25 @@
-<!--div class="block block-dark span6">
 
-    <p class="block-heading">
-         <span class="block-icon pull-right">
-               <a href="#" class="demo-cancel-click" rel="tooltip" title="settings"><i class="icon-cog"></i></a>
-         </span>
+    <form action="/" id="validation-form" class="form-horizontal">
+        <fieldset>
+            <% foreach ($fields as $objField){ %>
+                <% if ((!$objField['is_pkey']) && ($objField['name']!='creDate')) { %>
+                    <?php if(!is_null($_CONTROL-><%= $objField['varName']; %>)){ ?>
+                        <div class="control-group">
+                          <label class="control-label" for="name"><%= $objField['name']; %></label>
+                          <div class="controls">
+                             <?php $_CONTROL-><%= $objField['varName']; %>->Render(); ?>
+                          </div>
+                        </div>
 
-         <span>
-               Edit <%= $name; %>:
-         </span>
-    </p-->
-
-	<!--div class="block-body"=->
-	    <form data-validate="parsley " action="#" id="validate-basic-form-dark" class="form-dark form-horizontal" >
-	        <% foreach ($fields as $objField){ %>
-                <% if (!$objField['is_pkey']) { %>
-                    <div class="input-prepend">
-                        <span class="add-dark"><i class="icon-user"></i></span>
-                        <?php $_CONTROL-><%= $objField['varName']; %>->Render(); ?>
-                    </div>
-                    <hr>
+                    <?php } ?>
                 <% } %>
+
             <% } %>
-            <span id="validate-basic-form-valid-dark">
-                <?php $_CONTROL->btnSave->Render(); ?>
+
+            <div class="form-actions">
+                <?php $_CONTROL->btnSave->Render(); ?>&nbsp;&nbsp;
                 <?php $_CONTROL->btnDelete->Render(); ?>
-            </span>
-        </form>
-    <!--/div-->
-<!--/div-->
-
-
-    
-
-<!--
- <% foreach ($parent_fields as $objField){ %>
-    <?php if(!is_null($_CONTROL->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>)){ ?>
-        <?php $_CONTROL->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Render(); ?><br />
-    <?php } ?>
-<% } %>
- <% foreach ($child_fields as $objField){ %>
-    <?php if(!is_null($_CONTROL->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>)){ ?>
-        <?php $_CONTROL->lnkViewChild<%= MLCTemplateDriver::Capatilize($objField->Table->Name); %>->Render(); ?><br />
-    <?php } ?>
-<% } %>
--->
+            </div>
+        </fieldset>
+    </form>
 

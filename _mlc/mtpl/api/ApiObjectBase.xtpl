@@ -5,16 +5,16 @@ class MLCApi<%= MLCTemplateDriver::Capatilize($name); %>ObjectBase extends MLCAp
 	public function  __call($strName, $arrArguments) {
     		switch($strName){
 				<% foreach ($parent_fields as $field){ %>
-		       	case('<%= $field->reference->table->name; %>'):
+		       	case('<%= $field['table']; %>'):
 					//Load 
-					$obj<%= MLCTemplateDriver::capatilize($field->reference->table->name); %> = $this->GetEntity()-><%= MLCTemplateDriver::capatilize($field->name); %>;
-					return new MLCApi<%= MLCTemplateDriver::capatilize($field->reference->table->name); %>Object($obj<%= MLCTemplateDriver::capatilize($field->name); %>);
+					$obj<%= MLCTemplateDriver::capatilize($field['reference']['table']); %> = $this->GetEntity()-><%= MLCTemplateDriver::capatilize($field['name']); %>;
+					return new MLCApi<%= MLCTemplateDriver::capatilize($field['reference']['table']); %>Object($obj<%= MLCTemplateDriver::capatilize($field['name']); %>);
 			    break;
 			    <% } %>
 				<% foreach ($child_fields as $child){ %>
-		     	case('<%= strtolower($child['table']['name']); %>s'):
-		       		$arr<%= MLCTemplateDriver::capatilize($child['table']['name']); %>s = <%= MLCTemplateDriver::capatilize($child['table']['name']); %>::LoadCollBy<%= MLCTemplateDriver::capatilize($child->name); %>($this->GetEntity()-><%= $child->name; %>)->GetCollection();
-		       		return new MLCApiResponse($arr<%= MLCTemplateDriver::capatilize($child['table']['name']); %>s);
+		     	case('<%= strtolower($child['table']); %>s'):
+		       		$arr<%= MLCTemplateDriver::capatilize($child['table']); %>s = <%= MLCTemplateDriver::capatilize($child['table']); %>::LoadCollBy<%= MLCTemplateDriver::capatilize($child['name']); %>($this->GetEntity()-><%= $child['name']; %>)->GetCollection();
+		       		return new MLCApiResponse($arr<%= MLCTemplateDriver::capatilize($child['table']); %>s);
 		    	break;
 				<% } %>
 				default:
