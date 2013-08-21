@@ -83,7 +83,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
     <% foreach ($parent_fields as $field){ %>
     public static function LoadCollBy<%= MLCTemplateDriver::capatilize($field['name']); %>($<%= $field['varName']; %>){
         $sql = sprintf("SELECT * FROM <%= $name; %> WHERE <%= $field['name']; %> = %s;", $<%= $field['varName']; %>);
-		$result = MLCDBDriver::Query($sql);
+		$result = MLCDBDriver::Query($sql, self::DB_CONN);
 		$coll = new BaseEntityCollection();
 		while($data = mysql_fetch_assoc($result)){
 			$obj<%= MLCTemplateDriver::Capatilize($name); %> = new <%= MLCTemplateDriver::Capatilize($name); %>();
@@ -198,8 +198,22 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	        		return null;
 	        	break;
 	        	<% } %>
-	        	defualt:
-	        		throw new Exception('No property with name "' . $strName . '" exists in class ". get_class($this) . "');
+	        	<% foreach ($parent_fields as $arrField){ %>
+                case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object'):
+                case('<%= $field['name'] %>Object'):
+	   				if(
+	   				    (array_key_exists('<%= $arrField['name'] %>', $this->arrDBFields)) &&
+	   				    (!is_null($this->arrDBFields['<%= $arrField['name'] %>']))
+                    ){
+	        			return <%= MLCTemplateDriver::Capatilize($arrField['reference']['table']); %>::LoadById(
+	        			    $this->arrDBFields['<%= $arrField['name'] %>']
+                        );
+	        		}
+	        		return null;
+	        	break;
+	        	<% } %>
+	        	default:
+	        		throw new MLCMissingPropertyException($this, $strName);
 	        	break;
 	        }
 	       
@@ -213,8 +227,8 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	        		$this->arrDBFields['<%= $arrField['name'] %>'] = $strValue;
 	        	break;
 	        	<% } %>
-	        	defualt:
-	        		throw new Exception('No property with name "' . $strName . '" exists in class ". get_class($this) . "');
+	        	default:
+	        		throw new MLCMissingPropertyException($this, $strName);
 	        	break;
 	        }
 	    }

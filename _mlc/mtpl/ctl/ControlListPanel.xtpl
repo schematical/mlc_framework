@@ -2,6 +2,25 @@
 require_once(__MODEL_APP_CONTROL__ . "/base_classes/<%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase.class.php");
 class <%= MLCTemplateDriver::Capatilize($name); %>ListPanel extends <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase {
 
+    public function __construct($objParentControl, $arr<%= MLCTemplateDriver::Capatilize($name); %>s = array()){
+
+		parent::__construct($objParentControl, $arr<%= MLCTemplateDriver::Capatilize($name); %>s);
+        $this->AddCssClass('table table-striped table-bordered');
+
+	}
+	/*
+	public function SetupCols(){
+        <% foreach ($fields as $objField) { %>
+            <% if ($objField['is_pkey']){ %>
+            $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
+            <% } %>
+            <% if (!$objField['is_pkey']){ %>
+            $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
+            <% } %>
+        <% } %>
+    }
+    */
+
 
 }
 

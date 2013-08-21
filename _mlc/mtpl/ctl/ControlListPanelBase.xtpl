@@ -6,21 +6,71 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
 		
 		$this->SetupCols();
 		$this->SetDataEntites($arr<%= MLCTemplateDriver::Capatilize($name); %>s);
-		foreach($this->Rows as $intIndex => $objRow){
-			$objRow->AddAction($this, 'objRow_click');
-		}
+
 
 	}
+
+	public function InitRemoveButtons($strText = 'Remove', $strCssClasses = 'btn btn-error'){
+        $this->InitRowControl(
+            'remove',
+            $strText,
+            $this,
+            'lnkRemove_click',
+            $strCssClasses
+        );
+
+    }
+
+    public function lnkRemove_click($strFormId, $strControlId, $strActionParameter){
+            //_dv($strActionParameter);
+            $obj<%= MLCTemplateDriver::Capatilize($name); %> = <%= MLCTemplateDriver::Capatilize($name); %>::LoadById($strActionParameter);
+            if(!is_null($obj<%= MLCTemplateDriver::Capatilize($name); %>)){
+                $obj<%= MLCTemplateDriver::Capatilize($name); %>->markDeleted();
+            }
+            foreach($this->Rows as $intIndex => $objRow){
+                if($objRow->ActionParameter == $strActionParameter){
+                    $objRow->Remove();
+                    //unset($this->Rows[$intIndex]);
+                    $this->blnModified = true;
+                    return;
+                }
+            }
+
+        }
+
 	public function SetupCols(){
 		<% foreach ($fields as $objField) { %>
 	    	<% if ($objField['is_pkey']){ %>
-	    	$this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
+	    	//$this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
 	   		<% } %>
-	    	<% if (!$objField['is_pkey']){ %>
-	    	$this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
-	   		<% } %>
+	   		<% if (!_mlc_is_special_field($objField['name'])){ %>
+                <% if (!$objField['is_pkey']){ %>
+
+                    <% if (($objField['type']) != 'longtext'){ %>
+                        $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>', null, null, 'MJaxTextBox');
+                    <% } %>
+
+
+                    <% if ($objField['type'] == 'longtext'){ %>
+                        $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>', null, null, 'MJaxTextArea');
+                    <% } %>
+                <% } %>
+            <% } %>
+            <% if (_mlc_is_special_field($objField['name'])){ %>
+                <% if (($objField['type']) == 'datetime'){ %>
+                    $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>', null, null, 'MJaxBSDateTimePicker');
+                <% } %>
+            <% } %>
 		<% } %>
 	}
+	/*
+	Old stuff
+	*/
+	public function InitRowClickEntityRelAction(){
+    	    foreach($this->Rows as $intIndex => $objRow){
+                $objRow->AddAction($this, 'objRow_click');
+            }
+    	}
 	public function objRow_click($strFomrId, $strControlId, $strActionParameter){
 
 		$this->objForm->Redirect(__ENTITY_MODEL_DIR__ . '/<%= MLCTemplateDriver::Capatilize($name); %>/' . $strActionParameter);

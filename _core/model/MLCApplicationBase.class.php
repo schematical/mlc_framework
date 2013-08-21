@@ -66,6 +66,7 @@ abstract class MLCApplicationBase{
 	}
 	
 	public static function Autoload($strClassName){
+        //error_log("Autoloading: " . $strClassName);
 		if(array_key_exists($strClassName, self::$arrClassFiles)){
 			require_once(MLCApplicationBase::$arrClassFiles[$strClassName]);
 		}elseif(class_exists('CFLoader', false)){
@@ -172,6 +173,12 @@ abstract class MLCApplicationBase{
 
 		return $strString;
 	}
+    public static function QS($strName){
+        if(!array_key_exists($strName, $_GET)){
+            return null;
+        }
+        return $_GET[$strName];
+    }
 	public static function RunModRewrite(){
 		$strRewrite = $_SERVER['REQUEST_URI'];
 		$arrParts = explode('?', $strRewrite);

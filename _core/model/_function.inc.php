@@ -5,6 +5,32 @@ function _ak($strKey, $arrArray){
 function _dv($mixVal){
     return die(var_dump($mixVal));
 }
+function _dk($mixVal, $intDepth = 0){
+    error_log('DK: count' . $intDepth);
+    if(is_array($mixVal)){
+        $mixReturn = array();
+        foreach($mixVal as $strKey => $mivVVal){
+            error_log('DK: Array' . $strKey);
+            $mixReturn[$strKey] =  _dk($mivVVal, ($intDepth + 1));
+        }
+    }elseif(is_object($mixVal)){
+        $mixReturn = get_class($mixVal);
+        error_log('DK: Class - ' . $mixReturn);
+
+    }else{
+        $mixReturn = $mixVal;
+        error_log('DK: Other - ' . $mixReturn);
+    }
+
+    if($intDepth == 0){
+        _dv($mixReturn);
+    }else{
+        if($intDepth > 5){
+            throw new Exception("Your fucked");
+        }
+        return $mixReturn;
+    }
+}
 function _jd($strJson){
 
     $arrJson = json_decode($strJson, true);
