@@ -1,0 +1,57 @@
+<?php
+class <%= MLCTemplateDriver::Capatilize($name); %>ManageForm extends <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase{
+    protected $blnInlineEdit = false;
+    public function Form_Create(){
+        parent::Form_Create();
+
+        $arr<%= MLCTemplateDriver::Capatilize($name); %>s = $this->Query();
+        $this->InitList($arr<%= MLCTemplateDriver::Capatilize($name); %>s);
+
+    }
+    public function Query(){
+        $arr<%= MLCTemplateDriver::Capatilize($name); %>s = <%= MLCTemplateDriver::Capatilize($name); %>::Query(
+            sprintf(
+                'WHERE 1'
+            )
+         );
+
+
+        return $arr<%= MLCTemplateDriver::Capatilize($name); %>s;
+    }
+    public function InitList($arr<%= MLCTemplateDriver::Capatilize($name); %>s){
+        parent::InitList($arr<%= MLCTemplateDriver::Capatilize($name); %>s);
+        if($this->blnInlineEdit){
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitRemoveButtons();
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitEditControls();
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->AddEmptyRow();
+        }else{
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitRowControl(
+                'edit',
+                'Edit',
+                $this,
+                'lnkEdit_click'
+            );
+            $this->InitEditPanel();
+        }
+    }
+    public function lnkEdit_click($strFormId, $strControlId, $strActionParameter){
+        $this->pnlEdit->Set<%= MLCTemplateDriver::Capatilize($name); %>(
+            <%= MLCTemplateDriver::Capatilize($name); %>::LoadById($strActionParameter)
+        );
+    }
+    public function lst<%= MLCTemplateDriver::Capatilize($name); %>_editInit(){
+        //_dv($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow);
+    }
+    public function lst<%= MLCTemplateDriver::Capatilize($name); %>_editSave(){
+        $obj<%= MLCTemplateDriver::Capatilize($name); %> = <%= MLCTemplateDriver::Capatilize($name); %>::LoadById($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow->ActionParameter);
+        if(is_null($obj<%= MLCTemplateDriver::Capatilize($name); %>)){
+            $obj<%= MLCTemplateDriver::Capatilize($name); %> = new <%= MLCTemplateDriver::Capatilize($name); %>();
+        }
+        $obj<%= MLCTemplateDriver::Capatilize($name); %>->IdCompetition = FFSForm::$objCompetition->IdCompetition;
+        $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow->UpdateEntity(
+            $obj<%= MLCTemplateDriver::Capatilize($name); %>
+        );
+    }
+
+}
+<%= MLCTemplateDriver::Capatilize($name); %>ManageForm::Run('<%= MLCTemplateDriver::Capatilize($name); %>ManageForm');

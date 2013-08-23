@@ -37,7 +37,13 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
             }
 
         }
+    public function RenderDate($strData, $objRow){
 
+        return date_format(new DateTime($strData), 'm/d/y');
+    }
+    public function RenderTime($strData, $objRow){
+         return date_format(new DateTime($strData), 'h:i');
+    }
 	public function SetupCols(){
 		<% foreach ($fields as $objField) { %>
 	    	<% if ($objField['is_pkey']){ %>
@@ -58,7 +64,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
             <% } %>
             <% if (_mlc_is_special_field($objField['name'])){ %>
                 <% if (($objField['type']) == 'datetime'){ %>
-                    $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>', null, null, 'MJaxBSDateTimePicker');
+                    $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>', $this, 'RenderDate', 'MJaxBSDateTimePicker');
                 <% } %>
             <% } %>
 		<% } %>
@@ -67,10 +73,10 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
 	Old stuff
 	*/
 	public function InitRowClickEntityRelAction(){
-    	    foreach($this->Rows as $intIndex => $objRow){
-                $objRow->AddAction($this, 'objRow_click');
-            }
-    	}
+        foreach($this->Rows as $intIndex => $objRow){
+            $objRow->AddAction($this, 'objRow_click');
+        }
+    }
 	public function objRow_click($strFomrId, $strControlId, $strActionParameter){
 
 		$this->objForm->Redirect(__ENTITY_MODEL_DIR__ . '/<%= MLCTemplateDriver::Capatilize($name); %>/' . $strActionParameter);

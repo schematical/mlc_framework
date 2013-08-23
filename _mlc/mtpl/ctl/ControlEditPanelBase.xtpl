@@ -58,15 +58,18 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
                 <% if ($objField['type'] == 'longtext'){ %>
                     $this-><%= $objField['varName']; %>->TextMode = MJaxTextMode::MultiLine;
                 <% } %>
+
             <% } %>
+
 	  		<% if (_mlc_is_special_field($objField['name'])){ %>
                 //Is special field!!!!!
                 <% if ($objField['name'] == 'creDate'){ %>
                     //Do nothing this is a creDate
                 <% } %>
                 <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
-                    $this-><%= $objField['varName']; %> = new MJaxJQueryDateSelectPanel($this);
+                    $this-><%= $objField['varName']; %> = new MJaxBSDateTimePicker($this);
                 <% } %>
+
             <% } %>
   		<% } %>
 	  <% } %>
@@ -78,6 +81,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
       $this->obj<%= MLCTemplateDriver::Capatilize($name); %> = $obj<%= MLCTemplateDriver::Capatilize($name); %>;
       $this->blnModified = true;
       if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>)){
+        $this->btnDelete->Style->Display = 'inline';
           <% foreach ($fields as $objField) { %>
             <% if (!$objField['is_pkey']){ %>
                 <% if ((!array_key_exists('reference', $objField)) && (!_mlc_is_special_field($objField['name']))){ %>
@@ -99,7 +103,10 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
             <% } %>
 
           <% } %>
+      }else{
+        $this->btnDelete->Style->Display = 'none';
       }
+
 
 	}
 	public function CreateReferenceControls(){
@@ -140,6 +147,9 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
                     <% if ($objField['name'] == 'creDate'){ %>
                         //Do nothing this is a creDate
                     <% } %>
+                    <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
+                        $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $this-><%= $objField['varName']; %>->GetValue();
+                    <% } %>
                     <% if ($objField['name'] == 'idUser'){ %>
                         $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = MLCAuthDriver::IdUser();
                     <% } %>
@@ -149,11 +159,14 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
 		$this->obj<%= MLCTemplateDriver::Capatilize($name); %>->Save();
   	}
   	public function btnDelete_click(){
-  		$this->obj<%= MLCTemplateDriver::Capatilize($name); %>->Delete();
+  		$this->obj<%= MLCTemplateDriver::Capatilize($name); %>->MarkDeleted();
+  		$this->Set<%= MLCTemplateDriver::Capatilize($name); %>(null);
   	}
   	public function IsNew(){
   		return is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>);
   	}
+
+
   	
 }
 ?>

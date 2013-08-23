@@ -13,6 +13,10 @@ MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($arrTable[
 <% foreach ($data as $arrTable){ %>
 MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>ListPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>ListPanel.class.php';
 <% } %>
+//Manage Forms
+<% foreach ($data as $arrTable){ %>
+MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>ManageFormBase'] = __MODEL_APP_CONTROL__ . '/base_classes/<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>ManageFormBase.class.php';
+<% } %>
 
 
 //Special panels

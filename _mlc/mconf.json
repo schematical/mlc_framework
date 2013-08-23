@@ -123,6 +123,30 @@
                     "overwrite": true,
                     "data-selector": ""
                 },
+                "ctl_manage_form": {
+                    "name": "ctl_manage_form",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlManageForm.xtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl\/data\/edit{Name}.php",
+                    "overwrite": false,
+                    "data-selector": ""
+                },
+                "ctl_index": {
+                    "name": "ctl_index",
+                    "xpath": "*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlIndex.xtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl\/data\/index.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+                "ctl_manage_form_base": {
+                    "name": "ctl_manage_form_base",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlManageFormBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{Name}ManageFormBase.class.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
                 "ctl_edit_panel": {
                     "name": "ctl_edit_panel",
                     "xpath": "\/*",

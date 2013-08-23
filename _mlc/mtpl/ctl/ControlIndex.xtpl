@@ -1,0 +1,40 @@
+<?php
+class ControlIndex extends FFSForm{
+    public $tblEntities = null;
+    public function Form_Create(){
+        parent::Form_Create();
+        $this->tblEntities = new MJaxTable($this);
+        $this->tblEntities->AddColumn('name', 'Name');
+        $this->tblEntities->AddColumn('count', 'Count');
+        $this->tblEntities->AddColumn('manage', '');
+
+        <% foreach ($data as $arrTable){ %>
+            //<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>
+
+            $arrData = array(
+                'name' => "<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>",
+                'count' => <%= MLCTemplateDriver::Capatilize($arrTable['name']); %>::QueryCount('WHERE 1')
+            );
+            $objRow = $this->tblEntities->AddRow($arrData);
+            $objRow->ActionParameter = "<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>";
+            $this->tblEntities->InitRowControl(
+                'manage',
+                'Manage',
+                $this,
+                'lnkManage_click'
+            );
+        <% } %>
+       $this->AddWidget(
+            'Entities',
+            '',
+            $this->tblEntities
+        );
+    }
+    public function lnkManage_click($strFormId, $strControlId, $strActionParameter){
+        $this->Redirect(
+            '/data/edit' . $strActionParameter
+        );
+    }
+}
+ControlIndex::Run('ControlIndex');
+?>

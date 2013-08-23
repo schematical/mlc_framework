@@ -1,0 +1,49 @@
+<?php
+class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm{
+    public $lst<%= MLCTemplateDriver::Capatilize($name); %>s = null;
+    public $pnlEdit = null;
+    public function Form_Create(){
+        parent::Form_Create();
+        $this->blnSkipMainWindowRender = true;
+
+    }
+    public function InitEditPanel($obj<%= MLCTemplateDriver::Capatilize($name); %> = null){
+        $this->pnlEdit = new <%= MLCTemplateDriver::Capatilize($name); %>EditPanel($this, $obj<%= MLCTemplateDriver::Capatilize($name); %>);
+        $this->AddWidget(
+            ((is_null($obj<%= MLCTemplateDriver::Capatilize($name); %>))?'Create <%= MLCTemplateDriver::Capatilize($name); %>':'Edit <%= MLCTemplateDriver::Capatilize($name); %>'),
+            'icon-edit',
+            $this->pnlEdit
+        );
+    }
+    public function InitList($arr<%= MLCTemplateDriver::Capatilize($name); %>s){
+        $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s = new <%= MLCTemplateDriver::Capatilize($name); %>ListPanel($this, $arr<%= MLCTemplateDriver::Capatilize($name); %>s);
+
+        $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->AddAction(
+            new MJaxTableEditInitEvent(),
+            new MJaxServerControlAction($this, 'lst<%= MLCTemplateDriver::Capatilize($name); %>_editInit')
+        );
+        $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->AddAction(
+            new MJaxTableEditSaveEvent(),
+            new MJaxServerControlAction($this, 'lst<%= MLCTemplateDriver::Capatilize($name); %>_editSave')
+        );
+        $this->AddWidget(
+            '<%= MLCTemplateDriver::Capatilize($name); %>s',
+            'icon-ul',
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s
+        );
+
+    }
+    public function lst<%= MLCTemplateDriver::Capatilize($name); %>_editInit(){
+        //_dv($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow);
+    }
+    public function lst<%= MLCTemplateDriver::Capatilize($name); %>_editSave(){
+        $obj<%= MLCTemplateDriver::Capatilize($name); %> = <%= MLCTemplateDriver::Capatilize($name); %>::LoadById($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow->ActionParameter);
+        if(is_null($obj<%= MLCTemplateDriver::Capatilize($name); %>)){
+            $obj<%= MLCTemplateDriver::Capatilize($name); %> = new <%= MLCTemplateDriver::Capatilize($name); %>();
+        }
+        $obj<%= MLCTemplateDriver::Capatilize($name); %>->IdCompetition = FFSForm::$objCompetition->IdCompetition;
+        $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow->UpdateEntity(
+            $obj<%= MLCTemplateDriver::Capatilize($name); %>
+        );
+    }
+}
