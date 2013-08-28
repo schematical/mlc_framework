@@ -9,12 +9,27 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
     }
     public function InitEditPanel($obj<%= MLCTemplateDriver::Capatilize($name); %> = null){
         $this->pnlEdit = new <%= MLCTemplateDriver::Capatilize($name); %>EditPanel($this, $obj<%= MLCTemplateDriver::Capatilize($name); %>);
-        $this->AddWidget(
+
+        $this->pnlEdit->AddAction(
+            new MJaxDataEntitySaveEvent(),
+            new MJaxServerControlAction($this, 'pnlEdit_save')
+        );
+        $this->pnlEdit->AddAction(
+            new MJaxDataEntityDeleteEvent(),
+            new MJaxServerControlAction($this, 'pnlEdit_delete')
+        );
+
+        $wgt<%= MLCTemplateDriver::Capatilize($name); %> = $this->AddWidget(
             ((is_null($obj<%= MLCTemplateDriver::Capatilize($name); %>))?'Create <%= MLCTemplateDriver::Capatilize($name); %>':'Edit <%= MLCTemplateDriver::Capatilize($name); %>'),
             'icon-edit',
             $this->pnlEdit
         );
+        return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
     }
+    //Fake event holders for now
+    public function pnlEdit_save($strFormId, $strControlId, $obj<%= MLCTemplateDriver::Capatilize($name); %>){ }
+    public function pnlEdit_delete($strFormId, $strControlId, $obj<%= MLCTemplateDriver::Capatilize($name); %>){ }
+
     public function InitList($arr<%= MLCTemplateDriver::Capatilize($name); %>s){
         $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s = new <%= MLCTemplateDriver::Capatilize($name); %>ListPanel($this, $arr<%= MLCTemplateDriver::Capatilize($name); %>s);
 
@@ -26,11 +41,12 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
             new MJaxTableEditSaveEvent(),
             new MJaxServerControlAction($this, 'lst<%= MLCTemplateDriver::Capatilize($name); %>_editSave')
         );
-        $this->AddWidget(
+        $wgt<%= MLCTemplateDriver::Capatilize($name); %> = $this->AddWidget(
             '<%= MLCTemplateDriver::Capatilize($name); %>s',
             'icon-ul',
             $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s
         );
+        return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
 
     }
     public function lst<%= MLCTemplateDriver::Capatilize($name); %>_editInit(){

@@ -79,9 +79,12 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
   }
   public function Set<%= MLCTemplateDriver::Capatilize($name); %>($obj<%= MLCTemplateDriver::Capatilize($name); %>){
       $this->obj<%= MLCTemplateDriver::Capatilize($name); %> = $obj<%= MLCTemplateDriver::Capatilize($name); %>;
+      $this->ActionParameter = $this->obj<%= MLCTemplateDriver::Capatilize($name); %>;
       $this->blnModified = true;
       if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>)){
-        $this->btnDelete->Style->Display = 'inline';
+          if(!is_null($this->btnDelete)){
+              $this->btnDelete->Style->Display = 'inline';
+          }
           <% foreach ($fields as $objField) { %>
             <% if (!$objField['is_pkey']){ %>
                 <% if ((!array_key_exists('reference', $objField)) && (!_mlc_is_special_field($objField['name']))){ %>
@@ -157,10 +160,23 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
             <% } %>
 		<% } %>
 		$this->obj<%= MLCTemplateDriver::Capatilize($name); %>->Save();
+
+		//Experimental save event trigger
+        $this->ActionParameter = $this->obj<%= MLCTemplateDriver::Capatilize($name); %>;
+		$this->objForm->TriggerControlEvent(
+		    $this->strControlId,
+		    'mjax-data-entity-save'
+		);
   	}
   	public function btnDelete_click(){
   		$this->obj<%= MLCTemplateDriver::Capatilize($name); %>->MarkDeleted();
   		$this->Set<%= MLCTemplateDriver::Capatilize($name); %>(null);
+
+  		//Experimental delete event trigger
+        $this->objForm->TriggerControlEvent(
+            $this->strControlId,
+            'mjax-data-entity-delete'
+        );
   	}
   	public function IsNew(){
   		return is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>);

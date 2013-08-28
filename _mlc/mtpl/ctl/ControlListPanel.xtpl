@@ -5,7 +5,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanel extends <%= MLCTempl
     public function __construct($objParentControl, $arr<%= MLCTemplateDriver::Capatilize($name); %>s = array()){
 
 		parent::__construct($objParentControl, $arr<%= MLCTemplateDriver::Capatilize($name); %>s);
-        $this->AddCssClass('table table-striped table-bordered');
+        $this->AddCssClass('table table-striped table-bordered table-condensed');
 
 	}
 	/*

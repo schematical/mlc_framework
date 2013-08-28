@@ -1,7 +1,7 @@
 <?php
 require_once(__MODEL_APP_CONTROL__ . "/base_classes/<%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase.class.php");
 class <%= MLCTemplateDriver::Capatilize($name); %>EditPanel extends <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase {
-
+    /*
     public function __construct($objParentControl, $obj<%= MLCTemplateDriver::Capatilize($name); %> = null){
 		parent::__construct($objParentControl, $obj<%= MLCTemplateDriver::Capatilize($name); %>);
         <% foreach ($fields as $objField) { %>
@@ -38,9 +38,9 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanel extends <%= MLCTempl
         <% } %>
     }
     public function btnSave_click() {
-        if (is_null($this->objSession)) {
+        if (is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>)) {
                 //Create a new one
-                $this->objSession = new Session();
+                $this->obj<%= MLCTemplateDriver::Capatilize($name); %> = new <%= MLCTemplateDriver::Capatilize($name); %>();
         }
         <% foreach ($fields as $objField) { %>
             <% if ((array_key_exists('reference', $objField)) || (_mlc_is_special_field($objField['type'],'varchar*'))) { %>
@@ -134,7 +134,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanel extends <%= MLCTempl
     <% } %>
     <% } %>
 
-
+    */
 }
 
 
