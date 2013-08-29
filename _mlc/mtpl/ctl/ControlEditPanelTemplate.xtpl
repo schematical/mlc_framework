@@ -5,7 +5,7 @@
                 <% if ((!$objField['is_pkey']) && ($objField['name']!='creDate')) { %>
                     <?php if(!is_null($_CONTROL-><%= $objField['varName']; %>)){ ?>
                         <div class="control-group">
-                          <label class="control-label" for="name"><%= $objField['name']; %></label>
+                          <label class="control-label" for="name"><%= _mlc_split($objField['name']); %></label>
                           <div class="controls">
                              <?php $_CONTROL-><%= $objField['varName']; %>->Render(); ?>
                           </div>

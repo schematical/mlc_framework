@@ -50,3 +50,4 @@ $objDataModel->Generate(
     null,
     $objMConf->SaveDriver
 );
+echo MDEBuildDriver::Report();

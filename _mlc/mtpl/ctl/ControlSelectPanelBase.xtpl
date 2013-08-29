@@ -1,0 +1,229 @@
+<?php
+class <%= MLCTemplateDriver::Capatilize($name); %>SelectPanelBase extends MJaxPanel{
+    /*
+     * NOTES: Consider adding advanced options
+     * --- Search by birthdate between X
+     * --- Level
+     * --- Etc
+     */
+    public $txtSearch = null;
+    public $tbl<%= MLCTemplateDriver::Capatilize($name); %>s = null;
+    <% foreach ($fields as $objField) { %>
+       	<% if (!$objField['is_pkey']){ %>
+       	    <% if (!(_mlc_is_special_field($objField['name'],'*Date'))){ %>
+       	        public $<%= $objField['varName']; %> = null;
+       	    <% } %>
+            <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
+
+                public $txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_StartDate = null;
+                public $txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_EndDate = null;
+
+            <% } %>
+        <% } %>
+       	<% if ($objField['is_pkey']){ %>
+        	public $<%= $objField['varName']; %> = null;
+        <% } %>
+   	<% } %>
+    public function __construct($objParentControl, $strControlId = null){
+        parent::__construct($objParentControl, $strControlId);
+        $this->strTemplate = __VIEW_ACTIVE_APP_DIR__ . '/www/ctl_panels/' . get_class($this) . '.tpl.php';
+        $this->txtSearch = new MJaxBSAutocompleteTextBox($this, $this->objForm->objJsonSearchDriver, '_search<%= $Name; %>');
+
+
+        $this->txtSearch->Name = 'id<%= MLCTemplateDriver::Capatilize($name); %>';
+        $this->txtSearch->AddCssClass('input-large');
+        $this->txtSearch->AddAction(
+            new MJaxChangeEvent(),
+            new MJaxServerControlAction($this, 'txtSearch_change')
+        );
+
+
+        <% foreach ($fields as $objField) { %>
+
+            <% if (!(_mlc_is_special_field($objField['name'],'*Date'))){ %>
+                $this-><%= $objField['varName']; %> = new MJaxTextBox($this);
+                $this-><%= $objField['varName']; %>->Attr('placeholder', "<%= $objField['name']; %>");
+            <% } %>
+            <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
+
+                $this->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_StartDate = new MJaxBSDateTimePicker($this);
+                $this->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_StartDate->DateOnly();
+                $this->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_EndDate = new MJaxBSDateTimePicker($this);
+                $this->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_EndDate->DateOnly();
+            <% } %>
+
+        <% } %>
+
+
+    }
+    public function ConnectTable($tbl<%= MLCTemplateDriver::Capatilize($name); %>s){
+        $this->tbl<%= MLCTemplateDriver::Capatilize($name); %>s = $tbl<%= MLCTemplateDriver::Capatilize($name); %>s;
+         //$this->tbl<%= MLCTemplateDriver::Capatilize($name); %>s = new <%= MLCTemplateDriver::Capatilize($name); %>ListPanel($this);
+        $this->tbl<%= MLCTemplateDriver::Capatilize($name); %>s->AddColumn('selected','');
+
+    }
+    public function txtSearch_change(){
+        $objEntity = null;
+
+        $arrParts = explode('_', $this->txtSearch->Value);
+        if(class_exists($arrParts[0])){
+            $objEntity = call_user_func(
+                $arrParts[0] . '::LoadById',
+                $arrParts[1]
+            );
+        }
+
+        $arr<%= MLCTemplateDriver::Capatilize($name); %>s = array();
+        switch(get_class($objEntity)){
+            case('<%= MLCTemplateDriver::Capatilize($name); %>'):
+                $arr<%= MLCTemplateDriver::Capatilize($name); %>s = array($objEntity);
+            break;
+            <% foreach ($parent_fields as $objField){ %>
+            case('<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>'):
+                $arrAndConditions = $this->GetExtQuery();
+                $arrAndConditions[] = sprintf(
+                    ' <%= $objField['reference']['name']; %> = %s',
+                    $objEntity-><%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %>
+                );
+                $arr<%= MLCTemplateDriver::Capatilize($name); %>s = <%= MLCTemplateDriver::Capatilize($name); %>::Query(
+                    ' WHERE ' . implode(' AND ', $arrAndConditions)
+                );
+            break;
+            <% } %>
+            default:array();
+                throw new Exception("Invalid entity type: " . get_class($objEntity));
+        }
+
+        if(!is_null($this->tbl<%= MLCTemplateDriver::Capatilize($name); %>s)){
+            $this->tbl<%= MLCTemplateDriver::Capatilize($name); %>s->RemoveAllChildControls();
+            $this->tbl<%= MLCTemplateDriver::Capatilize($name); %>s->SetDataEntites($arr<%= MLCTemplateDriver::Capatilize($name); %>s);
+            foreach($this->tbl<%= MLCTemplateDriver::Capatilize($name); %>s->Rows as $intIndex => $objRow){
+                $chkSelected = new MJaxCheckBox($this);
+                $chkSelected->Checked = true;
+                $objRow->AddData($chkSelected , 'selected');
+            }
+        }
+
+    }
+    public function GetExtQuery(){
+        $arrAndConditions = array();
+        <% foreach ($fields as $objField) { %>
+
+        	<% if (!$objField['is_pkey']){ %>
+                <% if ((!_mlc_is_special_field($objField['name'])) && (!array_key_exists('reference', $objField))){ %>
+                    if(!is_null($this-><%= $objField['varName']; %>->GetValue())){
+                        $arrAndConditions[] = sprintf(
+                            '<%= $objField['name']; %> LIKE "%s%%"',
+                            $this-><%= $objField['varName']; %>->GetValue()
+                        );
+                    }
+                <% } %>
+
+                <% if (_mlc_is_special_field($objField['name'])){ %>
+                    //Is special field!!!!!
+                    <% if ($objField['name'] == 'creDate'){ %>
+                        //Do nothing this is a creDate
+                    <% } %>
+                    <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
+                        if(!is_null($this->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_StartDate->GetValue())){
+                            if(is_null($this->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_EndDate->GetValue())){
+                                $this->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_StartDate->Alert("Must have an end date to perform this function");
+
+                            }else{
+                                $arrAndConditions[] = sprintf(
+                                    '(<%= $objField['name']; %> > "%s" AND <%= $objField['name']; %> < "%s")',
+                                    $this->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_StartDate->GetValue(),
+                                    $this->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_EndDate->GetValue()
+                                );
+                            }
+                        }
+                    <% } %>
+                <% } %>
+            <% } %>
+
+        <% } %>
+
+
+
+        return $arrAndConditions;
+    }
+    public function GetValue(){
+        $arr<%= MLCTemplateDriver::Capatilize($name); %>s = array();
+        foreach($this->tbl<%= MLCTemplateDriver::Capatilize($name); %>s->Rows as $intIndex => $objRow){
+            $chkSelected =  $objRow->GetData('selected');
+            if($chkSelected->Checked){
+                $arr<%= MLCTemplateDriver::Capatilize($name); %>s[] = $objRow->GetData('_entity');
+            }
+        }
+        return $arr<%= MLCTemplateDriver::Capatilize($name); %>s;
+    }
+    /*
+    public function txtSearch_search($objRoute){
+
+        $strSearch = $_POST['search'];
+        $arrData = array();
+        $this->SearchOrg($strSearch, $arrData);
+        $this->Search<%= MLCTemplateDriver::Capatilize($name); %>s($strSearch, $arrData);
+
+        die(
+            json_encode(
+                $arrData
+            )
+        );
+    }
+    public function Search<%= MLCTemplateDriver::Capatilize($name); %>s($strSearch, &$arrData){
+        $arrAndConditions = $this->GetExtQuery();
+
+        if(is_numeric($strSearch)){
+            $arrAndConditions[] =  sprintf(
+                '(<%= MLCTemplateDriver::Capatilize($name); %>.id<%= MLCTemplateDriver::Capatilize($name); %>)',
+                strtolower($strSearch)
+            );
+        }else{
+            $arrAndConditions[] = sprintf(
+                '(name LIKE "%s%%" or namespace LIKE "%s%%")',
+                strtolower($strSearch),
+                strtolower($strSearch)
+            );
+        }
+        $strQuery = ' WHERE ' . implode( ' AND ', $arrAndConditions);
+        $arr<%= MLCTemplateDriver::Capatilize($name); %>s = <%= MLCTemplateDriver::Capatilize($name); %>::Query(
+            $strQuery
+        );
+        foreach($arr<%= MLCTemplateDriver::Capatilize($name); %>s as $strKey => $obj<%= MLCTemplateDriver::Capatilize($name); %>){
+            //_dv($obj<%= MLCTemplateDriver::Capatilize($name); %>-> getAllFields());
+            $arrData[] = array(
+                'value'=>'<%= MLCTemplateDriver::Capatilize($name); %>_' . $obj<%= MLCTemplateDriver::Capatilize($name); %>->GetId(),
+                'text'=>$obj<%= MLCTemplateDriver::Capatilize($name); %>->__toString()
+            );
+        }
+        return $arrData;
+    }
+    public function SearchOrg($strSearch, &$arrData){
+        $arrAndConditions = array();
+        $strJoin = '';
+        if(is_numeric($strSearch)){
+
+        }else{
+            $arrAndConditions[] = sprintf(
+                '(name LIKE "%s%%") GROUP BY clubNum',
+                strtolower($strSearch)
+            );
+        }
+        $strQuery = $strJoin . ' WHERE ' . implode( ' AND ', $arrAndConditions);
+        $arrOrg = Org::Query(
+            $strQuery
+        );
+
+        foreach($arrOrg as $strKey => $objOrg){
+
+            $arrData[] = array(
+                'value'=>'Org_' . $objOrg->GetId(),
+                'text'=>'Gym:' . $objOrg->Name
+            );
+        }
+        return $arrData;
+    }
+    */
+
+}

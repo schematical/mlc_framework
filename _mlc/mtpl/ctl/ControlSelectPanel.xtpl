@@ -1,0 +1,5 @@
+<?php
+require_once(__MODEL_APP_CONTROL__ . "/base_classes/<%= MLCTemplateDriver::Capatilize($name); %>SelectPanelBase.class.php");
+class <%= MLCTemplateDriver::Capatilize($name); %>SelectPanel extends <%= MLCTemplateDriver::Capatilize($name); %>SelectPanelBase{
+
+}

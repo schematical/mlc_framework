@@ -2,11 +2,63 @@
 class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm{
     public $lst<%= MLCTemplateDriver::Capatilize($name); %>s = null;
     public $pnlEdit = null;
+    public $pnlSelect = null;
     public function Form_Create(){
         parent::Form_Create();
         $this->blnSkipMainWindowRender = true;
 
     }
+   public function Query(){
+        $arrAndConditions = array();
+         <% foreach ($fields as $objField) { %>
+            <% if (($objField['is_pkey']) || (array_key_exists('reference', $objField))) { %>
+                $int<%=  MLCTemplateDriver::Capatilize($objField['name']); %> = MLCApplication::QS(<%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= $Name; %>_<%= MLCTemplateDriver::Capatilize($objField['name']); %>);
+                if(!is_null($int<%=  MLCTemplateDriver::Capatilize($objField['name']); %>)){
+                    $arrAndConditions[] = sprintf(
+                        '<%= $objField['name']; %> = %s',
+                        $int<%=  MLCTemplateDriver::Capatilize($objField['name']); %>
+                    );
+                }
+            <% } %>
+            <% if (_mlc_is_special_field($objField['type'],'varchar*')) { %>
+                  $str<%=  MLCTemplateDriver::Capatilize($objField['name']); %> = MLCApplication::QS(<%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= $Name; %>_<%= MLCTemplateDriver::Capatilize($objField['name']); %>);
+                  if(!is_null($str<%=  MLCTemplateDriver::Capatilize($objField['name']); %>)){
+                      $arrAndConditions[] = sprintf(
+                          '<%= $objField['name']; %> LIKE "%s%%"',
+                          $str<%=  MLCTemplateDriver::Capatilize($objField['name']); %>
+                      );
+                  }
+              <% } %>
+        <% } %>
+        if(count($arrAndConditions) >= 1){
+
+            $arr<%= MLCTemplateDriver::Capatilize($name); %>s = <%= MLCTemplateDriver::Capatilize($name); %>::Query(
+                'WHERE ' . implode(' AND ', $arrAndConditions)
+            );
+        }else{
+            $arr<%= MLCTemplateDriver::Capatilize($name); %>s = array();
+        }
+
+        return $arr<%= MLCTemplateDriver::Capatilize($name); %>s;
+    }
+
+    public function InitSelectPanel(){
+            $this->pnlSelect = new <%= MLCTemplateDriver::Capatilize($name); %>SelectPanel($this);
+
+            /*$this->pnlEdit->AddAction(
+                new MJaxDataEntitySaveEvent(),
+                new MJaxServerControlAction($this, 'pnlEdit_save')
+            );*/
+
+
+            $wgt<%= MLCTemplateDriver::Capatilize($name); %> = $this->AddWidget(
+                'Select <%= MLCTemplateDriver::Capatilize($name); %>',
+                'icon-select',
+                $this->pnlSelect
+            );
+            $wgt<%= MLCTemplateDriver::Capatilize($name); %>->AddCssClass('span6');
+            return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
+        }
     public function InitEditPanel($obj<%= MLCTemplateDriver::Capatilize($name); %> = null){
         $this->pnlEdit = new <%= MLCTemplateDriver::Capatilize($name); %>EditPanel($this, $obj<%= MLCTemplateDriver::Capatilize($name); %>);
 
@@ -24,6 +76,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
             'icon-edit',
             $this->pnlEdit
         );
+        $wgt<%= MLCTemplateDriver::Capatilize($name); %>->AddCssClass('span6');
         return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
     }
     //Fake event holders for now
@@ -41,14 +94,72 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
             new MJaxTableEditSaveEvent(),
             new MJaxServerControlAction($this, 'lst<%= MLCTemplateDriver::Capatilize($name); %>_editSave')
         );
+        if ($this->blnInlineEdit) {
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitRemoveButtons();
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitEditControls();
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->AddEmptyRow();
+        } else {
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitRowControl(
+                'edit',
+                'Edit',
+                $this,
+                'lnkEdit_click'
+            );
+        }
+        //
+        <% foreach ($child_fields as $objField){ %>
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitRowControl(
+                'view_<%= $objField['table']; %>s',
+                'View <%= MLCTemplateDriver::Capatilize($objField['table']); %>s',
+                $this,
+                'lnkView<%= MLCTemplateDriver::Capatilize($objField['table']); %>s_click'
+            );
+        <% } %>
+
+        <% foreach ($parent_fields as $objField){ %>
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitRowControl(
+                '<%= $objField['reference']['name']; %>',
+                'View <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>',
+                $this,
+                'lnkView<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>_click'
+            );
+        <% } %>
+
+
+
+
         $wgt<%= MLCTemplateDriver::Capatilize($name); %> = $this->AddWidget(
             '<%= MLCTemplateDriver::Capatilize($name); %>s',
             'icon-ul',
             $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s
         );
+        if(!is_null($this->pnlSelect)){
+            $this->pnlSelect->ConnectTable($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s);
+        }
         return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
 
     }
+    <% foreach ($child_fields as $objField){ %>
+        public function lnkView<%= MLCTemplateDriver::Capatilize($objField['table']); %>s_click($strFormId, $strControlId, $strActionParameter){
+            $this->Redirect(
+                '/data/edit<%= MLCTemplateDriver::Capatilize($objField['table']); %>',
+                array(
+                    <%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= $Name; %>_<%= MLCTemplateDriver::Capatilize($objField['name']); %> => $strActionParameter
+                )
+            );
+        }
+    <% } %>
+    <% foreach ($parent_fields as $objField){ %>
+        public function lnkView<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>_click($strFormId, $strControlId, $strActionParameter){
+            $int<%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %>  = $this->arrControls[$strControlId]->ParentControl->GetData('_entity')-><%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %>;
+            $this->Redirect(
+                '/data/edit<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>',
+                array(
+                    <%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>_<%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %> => $int<%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %>
+                )
+            );
+        }
+    <% } %>
     public function lst<%= MLCTemplateDriver::Capatilize($name); %>_editInit(){
         //_dv($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow);
     }
@@ -62,4 +173,33 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
             $obj<%= MLCTemplateDriver::Capatilize($name); %>
         );
     }
+
+        public function lnkEdit_click($strFormId, $strControlId, $strActionParameter){
+            $this->pnlEdit->Set<%= MLCTemplateDriver::Capatilize($name); %>(
+                <%= MLCTemplateDriver::Capatilize($name); %>::LoadById($strActionParameter)
+            );
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow = $this->arrControls[$strControlId]->ParentControl;
+            $this->ScrollTo($this->pnlEdit);
+        }
+
+        public function UpdateTable($obj<%= MLCTemplateDriver::Capatilize($name); %>){
+
+            //_dv($obj<%= MLCTemplateDriver::Capatilize($name); %>);
+
+            if(!is_null($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow)){
+                 //This already exists
+                 $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow->UpdateEntity(
+                     $obj<%= MLCTemplateDriver::Capatilize($name); %>
+                 );
+                 $this->ScrollTo($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow);
+                 $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow = null;
+            }else{
+
+                $objRow = $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->AddRow(
+                    $obj<%= MLCTemplateDriver::Capatilize($name); %>
+                );
+
+            }
+        }
+
 }

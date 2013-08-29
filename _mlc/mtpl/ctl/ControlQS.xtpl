@@ -1,0 +1,9 @@
+<?php
+class <%= strtoupper(MLC_APPLICATION_PREFIX); %>QSBase{
+    <% foreach ($data as $arrTable){ %>
+        const <%= MLCTemplateDriver::Capatilize($arrTable['pkey']); %> = '<%= $arrTable['pkey']; %>';
+        <% foreach ($arrTable['fields'] as $objField){ %>
+            const <%= MLCTemplateDriver::Capatilize($arrTable['name']); %>_<%= MLCTemplateDriver::Capatilize($objField['name']); %> = '<%= $objField['name']; %>';
+        <% } %>
+    <% } %>
+}

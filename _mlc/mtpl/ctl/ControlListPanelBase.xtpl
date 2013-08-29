@@ -53,18 +53,18 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
                 <% if (!$objField['is_pkey']){ %>
 
                     <% if (($objField['type']) != 'longtext'){ %>
-                        $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>', null, null, 'MJaxTextBox');
+                        $this->AddColumn('<%= $objField['name']; %>','<%= _mlc_split($objField['name']); %>', null, null, 'MJaxTextBox');
                     <% } %>
 
 
                     <% if ($objField['type'] == 'longtext'){ %>
-                        $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>', null, null, 'MJaxTextArea');
+                        $this->AddColumn('<%= $objField['name']; %>','<%= _mlc_split($objField['name']); %>', null, null, 'MJaxTextArea');
                     <% } %>
                 <% } %>
             <% } %>
             <% if (_mlc_is_special_field($objField['name'])){ %>
                 <% if (($objField['type']) == 'datetime'){ %>
-                    $this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>', $this, 'RenderDate', 'MJaxBSDateTimePicker');
+                    $this->AddColumn('<%= $objField['name']; %>','<%= _mlc_split($objField['name']); %>', $this, 'RenderDate', 'MJaxBSDateTimePicker');
                 <% } %>
             <% } %>
 		<% } %>

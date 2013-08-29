@@ -179,6 +179,10 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
             <% } %>
             return $arrReturn;
         }
+         public function __toString(){
+
+            return '<%= MLCTemplateDriver::Capatilize($name); %>(' . $this->getId() . ')';
+        }
         public function __toJson($blnPosponeEncode = false){
         	$arrReturn = $this->__toArray();  
         	if($blnPosponeEncode){

@@ -163,14 +163,6 @@
                     "overwrite": true,
                     "data-selector": ""
                 },
-                "ctl_conn": {
-                    "name": "ctl_conn",
-                    "xpath": "*",
-                    "mtpl_loc": "mtpl\/ctl\/ControlConn.xtpl",
-                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/ControlConn.inc.php",
-                    "overwrite": true,
-                    "data-selector": ""
-                },
                 "ctl_edit_pnl_tpl": {
                     "name": "ctl_edit_pnl_tpl",
                     "xpath": "\/*",
@@ -179,6 +171,55 @@
                     "overwrite": false,
                     "data-selector": ""
                 },
+                "ctl_select_panel": {
+                    "name": "ctl_select_panel",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlSelectPanel.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/{Name}SelectPanel.class.php",
+                    "overwrite": false,
+                    "data-selector": ""
+                },
+                "ctl_select_panel_base": {
+                    "name": "ctl_select_panel",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlSelectPanelBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{Name}SelectPanelBase.class.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+                "ctl_select_pnl_tpl": {
+                    "name": "ctl_select_pnl_tpl",
+                    "xpath": "\/*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlSelectPanelTemplate.xtpl",
+                    "dest_loc": "apps\/{app.name}\/view\/www\/ctl_panels\/{Name}SelectPanel.tpl.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+                "ctl_qs_base": {
+                    "name": "ctl_qs_base",
+                    "xpath": "*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlQS.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{app.Name}QSBase.class.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+                "ctl_conn": {
+                    "name": "ctl_conn",
+                    "xpath": "*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlConn.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/ControlConn.inc.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+                "ctl_json_search": {
+                    "name": "ctl_json_search",
+                    "xpath": "*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlJsonSearch.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/{app.Name}JsonSearchDriver.class.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+
                 "ctl_list_pnl": {
                     "name": "ctl_list_pnl",
                     "xpath": "\/*",

@@ -1,13 +1,19 @@
 <?php
+MLCApplicationBase::$arrClassFiles['<%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver'] = __MODEL_APP_CONTROL__ . '/<%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver.class.php';
+MLCApplicationBase::$arrClassFiles['<%= strtoupper(MLC_APPLICATION_PREFIX); %>QSBase'] = __MODEL_APP_CONTROL__ . '/base_classes/<%= strtoupper(MLC_APPLICATION_PREFIX); %>QSBase.class.php';
+
+
 //Edit Panels
 <% foreach ($data as $arrTable){ %>
 MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>EditPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>EditPanel.class.php';
 <% } %>
 
 
-//Display Panels
 
-
+//Select Panels
+<% foreach ($data as $arrTable){ %>
+MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>SelectPanel'] = __MODEL_APP_CONTROL__ . '/<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>SelectPanel.class.php';
+<% } %>
 
 //List Panels
 <% foreach ($data as $arrTable){ %>

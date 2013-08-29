@@ -1,0 +1,63 @@
+<?php
+class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver{
+
+    <% foreach ($data as $arrTable){ %>
+
+           public function _search<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>($objRoute){
+
+              $strSearch = $_POST['search'];
+              $arrData = array();
+              $arrOrConditions = array();
+              <% foreach ($arrTable['fields'] as $objField) { %>
+                  <% if (_mlc_is_special_field($objField['type'],'varchar*')) { %>
+                       $arrOrConditions[] = sprintf(
+                           '<%= $objField['name']; %> LIKE "%s%%"',
+                           strtolower($strSearch)
+                       );
+                  <% } %>
+              <% } %>
+              $strQuery = ' WHERE ' . implode(' OR ', $arrOrConditions);
+              $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s = <%= MLCTemplateDriver::Capatilize($arrTable['name']); %>::Query(
+                    $strQuery
+              );
+              foreach($arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s as $strKey => $obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>){
+                    $arrData[$strKey] = array(
+                           'value'=>'<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>_' .$obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>-><%= $arrTable['pkey']; %>,
+                           'text'=>$obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>->__toString()
+                    );
+              }
+              if(count($arrData) == 0){
+                     $arrData[] = array(
+                         'value'=> $strSearch,
+                         'text'=> $strSearch
+                     );
+              }
+              /*
+              <% foreach ($arrTable['fields'] as $objField) { %>
+                    <% if (array_key_exists('reference', $objField)) { %>
+                         $arrAndConditions[] = sprintf(
+                               'WHERE name LIKE "%s%%" or namespace LIKE "%s%%"',
+                               strtolower($strSearch),
+                               strtolower($strSearch)
+
+                         );
+                         foreach($arr<%= $objField['reference']['table']; %>s as $strKey => $obj<%= $objField['reference']['table']; %>){
+                             $arrData[$strKey] = array(
+                                    'value'=>$obj<%= $objField['reference']['table']; %>->GetId(),
+                                    'text'=>$obj<%= $objField['reference']['table']; %>->Name
+                             );
+                         }
+                    <% } %>
+               <% } %>
+              */
+
+              die(
+                  json_encode(
+                      $arrData
+                  )
+              );
+          }
+           <% } %>
+           <% } %>
+    <% } %>
+}

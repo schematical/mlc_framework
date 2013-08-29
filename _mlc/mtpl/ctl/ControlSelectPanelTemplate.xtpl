@@ -1,0 +1,40 @@
+<div class=''>
+    <?php $_CONTROL->txtSearch->Render(); ?>
+</div>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                Advanced Options
+            </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class='row'>
+                    <% foreach ($fields as $objField) { %>
+                        <div class='span3'>
+                            <% if (!_mlc_is_special_field($objField['name'])){ %>
+                                <?php if(!is_null($_CONTROL-><%= $objField['varName']; %>)){ ?>
+                                    <div class='controls'>
+                                        <label><%= _mlc_split($objField['name']); %></label>
+                                        <?php $_CONTROL-><%= $objField['varName']; %>->Render(); ?>
+                                     </div>
+                                 <?php } ?>
+                            <% } %>
+                            <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
+                                <label><%= _mlc_split($objField['name']); %> Start</label>
+                                <?php if(!is_null($_CONTROL->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_StartDate)){
+                                      $_CONTROL->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_StartDate->Render();
+                                 } ?>
+                                <label><%= _mlc_split($objField['name']); %> End</label>
+                                 <?php if(!is_null($_CONTROL->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_EndDate)){
+                                       $_CONTROL->txt<%= MLCTemplateDriver::Capatilize($objField['name']); %>_EndDate->Render();
+                                  } ?>
+                             <% } %>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
