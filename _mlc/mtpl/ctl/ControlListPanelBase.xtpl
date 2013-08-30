@@ -46,11 +46,19 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
     }
 	public function SetupCols(){
 		<% foreach ($fields as $objField) { %>
-	    	<% if ($objField['is_pkey']){ %>
-	    	//$this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
-	   		<% } %>
-	   		<% if (!_mlc_is_special_field($objField['name'])){ %>
-                <% if (!$objField['is_pkey']){ %>
+<% if ($objField['is_pkey']){ %>
+                //$this->AddColumn('<%= $objField['name']; %>','<%= $objField['name']; %>');
+            <% } %>
+            <% if (array_key_exists('reference', $objField)){ %>
+                    $this->AddColumn(
+                        '<%= $objField['name']; %>',
+                        '<%= _mlc_split($objField['reference']['name']); %>',
+                        $this,
+                        'render_<%= $objField['name']; %>',
+                        'MJaxTextBox'
+                    );
+            <% } %>
+	   		<% if ((!_mlc_is_special_field($objField['name'])) && (!$objField['is_pkey']) && (!array_key_exists('reference', $objField))) { %>
 
                     <% if (($objField['type']) != 'longtext'){ %>
                         $this->AddColumn('<%= $objField['name']; %>','<%= _mlc_split($objField['name']); %>', null, null, 'MJaxTextBox');
@@ -62,26 +70,56 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
                     <% } %>
                 <% } %>
             <% } %>
+
             <% if (_mlc_is_special_field($objField['name'])){ %>
                 <% if (($objField['type']) == 'datetime'){ %>
                     $this->AddColumn('<%= $objField['name']; %>','<%= _mlc_split($objField['name']); %>', $this, 'RenderDate', 'MJaxBSDateTimePicker');
                 <% } %>
             <% } %>
-		<% } %>
-	}
-	/*
-	Old stuff
-	*/
-	public function InitRowClickEntityRelAction(){
-        foreach($this->Rows as $intIndex => $objRow){
-            $objRow->AddAction($this, 'objRow_click');
-        }
-    }
-	public function objRow_click($strFomrId, $strControlId, $strActionParameter){
+            <% foreach ($child_fields as $objField){ %>
+                $this->InitRowControl(
+                    'view_<%= $objField['table']; %>s',
+                    'View <%= MLCTemplateDriver::Capatilize($objField['table']); %>s',
+                    $this,
+                    'lnkView<%= MLCTemplateDriver::Capatilize($objField['table']); %>s_click'
+                );
+            <% } %>
 
-		$this->objForm->Redirect(__ENTITY_MODEL_DIR__ . '/<%= MLCTemplateDriver::Capatilize($name); %>/' . $strActionParameter);
+
+		<% } %>
+
 	}
-	
+
+	 <% foreach ($child_fields as $objField){ %>
+        public function lnkView<%= MLCTemplateDriver::Capatilize($objField['table']); %>s_click($strFormId, $strControlId, $strActionParameter){
+            $this->objForm->Redirect(
+                '/data/edit<%= MLCTemplateDriver::Capatilize($objField['table']); %>',
+                array(
+                    <%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= $Name; %>_<%= MLCTemplateDriver::Capatilize($objField['name']); %> => $strActionParameter
+                )
+            );
+        }
+    <% } %>
+
+
+	<% foreach ($fields as $objField) { %>
+	    <% if (array_key_exists('reference', $objField)){ %>
+	        public function render_<%= $objField['name']; %>($intId<%= MLCTemplateDriver::Capatilize($objField['name']); %>, $objRow, $objColumn){
+	            if(is_null($intId<%= MLCTemplateDriver::Capatilize($objField['name']); %>)){
+	                return '';
+	            }
+	            $obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %> = <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>::LoadById($intId<%= MLCTemplateDriver::Capatilize($objField['name']); %>);
+	            if(is_null($obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>)){
+	                return 'error';
+	            }
+                $lnkView = new MJaxLinkButton($this);
+                $lnkView->Text = $obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>->__toString();
+                $lnkView->Href = '/data/edit<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>?'
+                    . <%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>_<%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %> . '=' . $obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>-><%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %>;
+                return $lnkView->Render(false);
+	        }
+	    <% } %>
+    <% } %>
   	
 }
 ?>

@@ -6,7 +6,7 @@ class ControlIndex extends FFSForm{
         $this->tblEntities = new MJaxTable($this);
         $this->tblEntities->AddColumn('name', 'Name');
         $this->tblEntities->AddColumn('count', 'Count');
-        $this->tblEntities->AddColumn('manage', '');
+        $this->tblEntities->InitRowControl('manage', 'Manage', $this, 'lnkManage_click');
 
         <% foreach ($data as $arrTable){ %>
             //<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>
@@ -17,13 +17,9 @@ class ControlIndex extends FFSForm{
             );
             $objRow = $this->tblEntities->AddRow($arrData);
             $objRow->ActionParameter = "<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>";
-            $this->tblEntities->InitRowControl(
-                'manage',
-                'Manage',
-                $this,
-                'lnkManage_click'
-            );
+
         <% } %>
+       $this->tblEntities->RefreshControls();
        $this->AddWidget(
             'Entities',
             '',

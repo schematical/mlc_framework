@@ -43,22 +43,44 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
     }
 
     public function InitSelectPanel(){
-            $this->pnlSelect = new <%= MLCTemplateDriver::Capatilize($name); %>SelectPanel($this);
+        $this->pnlSelect = new <%= MLCTemplateDriver::Capatilize($name); %>SelectPanel($this);
 
-            /*$this->pnlEdit->AddAction(
-                new MJaxDataEntitySaveEvent(),
-                new MJaxServerControlAction($this, 'pnlEdit_save')
-            );*/
+        $this->pnlSelect->AddAction(
+            new MJaxChangeEvent(),
+            new MJaxServerControlAction($this, 'pnlSelect_change')
+        );
 
+        $wgt<%= MLCTemplateDriver::Capatilize($name); %> = $this->AddWidget(
+            'Select <%= MLCTemplateDriver::Capatilize($name); %>',
+            'icon-select',
+            $this->pnlSelect
+        );
+        $wgt<%= MLCTemplateDriver::Capatilize($name); %>->AddCssClass('span6');
+        return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
+    }
+    public function pnlSelect_change($strFormId, $strControlId, $mixActionParameter){
+        $arr<%= MLCTemplateDriver::Capatilize($name); %>s = $this->pnlSelect->GetValue();
+        if(count($arr<%= MLCTemplateDriver::Capatilize($name); %>s) == 1){
 
-            $wgt<%= MLCTemplateDriver::Capatilize($name); %> = $this->AddWidget(
-                'Select <%= MLCTemplateDriver::Capatilize($name); %>',
-                'icon-select',
-                $this->pnlSelect
+            $this->pnlEdit->Set<%= MLCTemplateDriver::Capatilize($name); %>(
+                $arr<%= MLCTemplateDriver::Capatilize($name); %>s[0]
             );
-            $wgt<%= MLCTemplateDriver::Capatilize($name); %>->AddCssClass('span6');
-            return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
+            foreach($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s as $objRow){
+                if($objRow->ActionParameter == $arr<%= MLCTemplateDriver::Capatilize($name); %>s[0]-><%= MLCTemplateDriver::Capatilize($pkey_field['name']); %>){
+                    $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow = $objRow;
+                }
+            }
+            $this->ScrollTo($this->pnlEdit);
+
+        }else{
+            $this->ScrollTo($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s);
         }
+        $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->RemoveAllChildControls();
+        $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SetDataEntites($arr<%= MLCTemplateDriver::Capatilize($name); %>s);
+        //TODO: Remeber to add check lists for assoc or relationship tables
+
+
+    }
     public function InitEditPanel($obj<%= MLCTemplateDriver::Capatilize($name); %> = null){
         $this->pnlEdit = new <%= MLCTemplateDriver::Capatilize($name); %>EditPanel($this, $obj<%= MLCTemplateDriver::Capatilize($name); %>);
 
@@ -79,11 +101,16 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
         $wgt<%= MLCTemplateDriver::Capatilize($name); %>->AddCssClass('span6');
         return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
     }
-    //Fake event holders for now
-    public function pnlEdit_save($strFormId, $strControlId, $obj<%= MLCTemplateDriver::Capatilize($name); %>){ }
-    public function pnlEdit_delete($strFormId, $strControlId, $obj<%= MLCTemplateDriver::Capatilize($name); %>){ }
-
-    public function InitList($arr<%= MLCTemplateDriver::Capatilize($name); %>s){
+    public function pnlEdit_save($strFormId, $strControlId, $obj<%= $Name; %>)
+    {
+        $this->UpdateTable($obj<%= $Name; %>);
+    }
+    public function pnlEdit_delete($strFormId, $strControlId, $obj<%= $Name; %>)
+    {
+        $this->lst<%= $Name; %>s->SelectedRow->Remove();
+        $this->lst<%= $Name; %>s->SelectedRow = null;
+    }
+    public function InitList($arr<%= $Name; %>s){
         $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s = new <%= MLCTemplateDriver::Capatilize($name); %>ListPanel($this, $arr<%= MLCTemplateDriver::Capatilize($name); %>s);
 
         $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->AddAction(
@@ -107,23 +134,9 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
             );
         }
         //
-        <% foreach ($child_fields as $objField){ %>
-            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitRowControl(
-                'view_<%= $objField['table']; %>s',
-                'View <%= MLCTemplateDriver::Capatilize($objField['table']); %>s',
-                $this,
-                'lnkView<%= MLCTemplateDriver::Capatilize($objField['table']); %>s_click'
-            );
-        <% } %>
 
-        <% foreach ($parent_fields as $objField){ %>
-            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitRowControl(
-                '<%= $objField['reference']['name']; %>',
-                'View <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>',
-                $this,
-                'lnkView<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>_click'
-            );
-        <% } %>
+
+
 
 
 
@@ -133,33 +146,12 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
             'icon-ul',
             $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s
         );
-        if(!is_null($this->pnlSelect)){
-            $this->pnlSelect->ConnectTable($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s);
-        }
+
         return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
 
     }
-    <% foreach ($child_fields as $objField){ %>
-        public function lnkView<%= MLCTemplateDriver::Capatilize($objField['table']); %>s_click($strFormId, $strControlId, $strActionParameter){
-            $this->Redirect(
-                '/data/edit<%= MLCTemplateDriver::Capatilize($objField['table']); %>',
-                array(
-                    <%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= $Name; %>_<%= MLCTemplateDriver::Capatilize($objField['name']); %> => $strActionParameter
-                )
-            );
-        }
-    <% } %>
-    <% foreach ($parent_fields as $objField){ %>
-        public function lnkView<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>_click($strFormId, $strControlId, $strActionParameter){
-            $int<%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %>  = $this->arrControls[$strControlId]->ParentControl->GetData('_entity')-><%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %>;
-            $this->Redirect(
-                '/data/edit<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>',
-                array(
-                    <%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>_<%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %> => $int<%= MLCTemplateDriver::Capatilize($objField['reference']['name']); %>
-                )
-            );
-        }
-    <% } %>
+
+
     public function lst<%= MLCTemplateDriver::Capatilize($name); %>_editInit(){
         //_dv($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow);
     }
@@ -201,5 +193,6 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
 
             }
         }
+
 
 }

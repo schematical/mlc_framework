@@ -1,6 +1,7 @@
 <?php
 class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPanel{
 	protected $obj<%= MLCTemplateDriver::Capatilize($name); %> = null;
+
     <% foreach ($fields as $objField) { %>
     	<% if ($objField['is_pkey']){ %>
     	public $<%= $objField['varName']; %> = null;
@@ -169,6 +170,12 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
 		);
   	}
   	public function btnDelete_click(){
+        $this->Confirm(
+            'Are you sure you want to delete this?',
+            'btnDelete_confirm'
+        );
+  	}
+  	public function btnDelete_confirm(){
   		$this->obj<%= MLCTemplateDriver::Capatilize($name); %>->MarkDeleted();
   		$this->Set<%= MLCTemplateDriver::Capatilize($name); %>(null);
 

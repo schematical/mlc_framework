@@ -16,7 +16,7 @@
                             <% if (!_mlc_is_special_field($objField['name'])){ %>
                                 <?php if(!is_null($_CONTROL-><%= $objField['varName']; %>)){ ?>
                                     <div class='controls'>
-                                        <label><%= _mlc_split($objField['name']); %></label>
+                                        <!--label><%= _mlc_split($objField['name']); %></label-->
                                         <?php $_CONTROL-><%= $objField['varName']; %>->Render(); ?>
                                      </div>
                                  <?php } ?>

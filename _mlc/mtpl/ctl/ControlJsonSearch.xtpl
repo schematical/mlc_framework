@@ -16,6 +16,7 @@ class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver{
                        );
                   <% } %>
               <% } %>
+
               $strQuery = ' WHERE ' . implode(' OR ', $arrOrConditions);
               $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s = <%= MLCTemplateDriver::Capatilize($arrTable['name']); %>::Query(
                     $strQuery
@@ -26,30 +27,40 @@ class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver{
                            'text'=>$obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>->__toString()
                     );
               }
+
+              <% foreach ($arrTable['fields'] as $objField) { %>
+                    <% if (array_key_exists('reference', $objField)) { %>
+                    /*---------------Load by parent field: <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>----------------------*/
+                         $arrOrConditions = array();
+                         <% foreach ($data[$objField['reference']['table']]['fields'] as $objRField) { %>
+                            <% if ( _mlc_is_special_field($objRField['name'],'name') || _mlc_is_special_field($objRField['name'],'namespace') || _mlc_is_special_field($objRField['name'],'shortDesc') ||  _mlc_is_special_field($objRField['name'],'firstName') ||  _mlc_is_special_field($objRField['name'],'lastName')) { %>
+                                 $arrOrConditions[] = sprintf(
+                                       '<%= $objRField['name']; %> LIKE "%s%%"',
+                                       strtolower($strSearch)
+                                 );
+                            <% } %>
+                         <% } %>
+                         if(count($arrOrConditions) > 0){
+                             $arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s = <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>::Query(
+                                'WHERE ' . implode(' OR ', $arrOrConditions)
+                             );
+                             foreach($arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s as $obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>){
+                                 $arrData[] = array(
+                                        'value'=>'<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>_' . $obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>->GetId(),
+                                        'text'=>$obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>->__toString()
+                                 );
+                             }
+                         }
+                         /*---------------End load: <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>----------------------*/
+                    <% } %>
+               <% } %>
               if(count($arrData) == 0){
                      $arrData[] = array(
                          'value'=> $strSearch,
                          'text'=> $strSearch
                      );
               }
-              /*
-              <% foreach ($arrTable['fields'] as $objField) { %>
-                    <% if (array_key_exists('reference', $objField)) { %>
-                         $arrAndConditions[] = sprintf(
-                               'WHERE name LIKE "%s%%" or namespace LIKE "%s%%"',
-                               strtolower($strSearch),
-                               strtolower($strSearch)
 
-                         );
-                         foreach($arr<%= $objField['reference']['table']; %>s as $strKey => $obj<%= $objField['reference']['table']; %>){
-                             $arrData[$strKey] = array(
-                                    'value'=>$obj<%= $objField['reference']['table']; %>->GetId(),
-                                    'text'=>$obj<%= $objField['reference']['table']; %>->Name
-                             );
-                         }
-                    <% } %>
-               <% } %>
-              */
 
               die(
                   json_encode(

@@ -14,10 +14,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageForm extends <%= MLCTemp
         }
         $this->InitEditPanel($obj<%= MLCTemplateDriver::Capatilize($name); %>);
 
-
         $this->InitList($arr<%= MLCTemplateDriver::Capatilize($name); %>s);
-
-
     }
 
 }
