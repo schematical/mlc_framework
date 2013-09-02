@@ -46,7 +46,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
         $this->pnlSelect = new <%= MLCTemplateDriver::Capatilize($name); %>SelectPanel($this);
 
         $this->pnlSelect->AddAction(
-            new MJaxChangeEvent(),
+            new MJaxBSAutocompleteSelectEvent(),
             new MJaxServerControlAction($this, 'pnlSelect_change')
         );
 
@@ -70,11 +70,11 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
                     $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow = $objRow;
                 }
             }
-            $this->ScrollTo($this->pnlEdit);
+            //$this->ScrollTo($this->pnlEdit);
 
-        }else{
+        }//else{
             $this->ScrollTo($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s);
-        }
+        //}
         $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->RemoveAllChildControls();
         $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SetDataEntites($arr<%= MLCTemplateDriver::Capatilize($name); %>s);
         //TODO: Remeber to add check lists for assoc or relationship tables
@@ -104,6 +104,12 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
     public function pnlEdit_save($strFormId, $strControlId, $obj<%= $Name; %>)
     {
         $this->UpdateTable($obj<%= $Name; %>);
+        if(!is_null($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow)){
+            $this->ScrollTo($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow);
+        }else{
+            $this->pnlEdit->Alert('Saved!', 'info');
+        }
+
     }
     public function pnlEdit_delete($strFormId, $strControlId, $obj<%= $Name; %>)
     {
@@ -121,6 +127,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
             new MJaxTableEditSaveEvent(),
             new MJaxServerControlAction($this, 'lst<%= MLCTemplateDriver::Capatilize($name); %>_editSave')
         );
+
         if ($this->blnInlineEdit) {
             $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitRemoveButtons();
             $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->InitEditControls();
@@ -146,7 +153,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
             'icon-ul',
             $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s
         );
-
+        $wgt<%= MLCTemplateDriver::Capatilize($name); %>->AddCssClass('span12');
         return $wgt<%= MLCTemplateDriver::Capatilize($name); %>;
 
     }
@@ -183,7 +190,6 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
                  $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow->UpdateEntity(
                      $obj<%= MLCTemplateDriver::Capatilize($name); %>
                  );
-                 $this->ScrollTo($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow);
                  $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow = null;
             }else{
 

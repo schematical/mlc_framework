@@ -1,7 +1,17 @@
 <?php
+/**
+ * Class Competition
+<% foreach ($fields as $arrField) { %>
+ * @property-read mixed $<%= MLCTemplateDriver::Capatilize($arrField['name']); %>
+ * @property-write mixed $<%= MLCTemplateDriver::Capatilize($arrField['name']); %>
+<% } %>
+<% foreach ($parent_fields as $arrField){ %>
+ * @property-read <%= MLCTemplateDriver::Capatilize($arrField['table']); %> $<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object
+<% } %>
+ */
 class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	const DB_CONN = 'DB_1';
-    const TABLE_NAME = '<%= $name; %>';
+    const TABLE_NAME = '<%= $full_name; %>';
     const P_KEY = '<%= $pkey; %>';
     
     public function __construct(){

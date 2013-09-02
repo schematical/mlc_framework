@@ -115,6 +115,14 @@
                     "overwrite": false,
                     "data-selector": ""
                 },
+                "data_class_rel": {
+                    "name": "data_class_rel",
+                    "xpath": "\/*[type=rel]",
+                    "mtpl_loc": "mtpl\/data_layer\/DataClassRel.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/data_classes\/{Name}Rel.class.php",
+                    "overwrite": false,
+                    "data-selector": ""
+                },
                 "data_conn": {
                     "name": "data_conn",
                     "xpath": "*",

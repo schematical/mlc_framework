@@ -1,6 +1,6 @@
 <?php
 class <%= MLCTemplateDriver::Capatilize($name); %>SelectPanelBase extends MJaxPanel{
-
+    protected $blnDisplayAdvOptions = false;
     protected $arrSelected<%= $Name; %>s = array();
 
     public $txtSearch = null;
@@ -100,7 +100,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>SelectPanelBase extends MJaxPa
 
         $this->arrSelected<%= MLCTemplateDriver::Capatilize($name); %>s = $arr<%= MLCTemplateDriver::Capatilize($name); %>s;
         $this->TriggerEvent(
-            'change'
+            'mjax-bs-autocomplete-select'
         );
     }
     public function GetExtQuery(){
@@ -148,5 +148,35 @@ class <%= MLCTemplateDriver::Capatilize($name); %>SelectPanelBase extends MJaxPa
     public function GetValue(){
         return $this->arrSelected<%= $Name; %>s;
     }
+     /////////////////////////
+        // Public Properties: GET
+        /////////////////////////
+        public function __get($strName)
+        {
+            switch ($strName) {
+                case "DisplayAdvOptions":
+                    return $this->blnDisplayAdvOptions;
+
+                default:
+                    return parent::__get($strName);
+                //throw new Exception("Not porperty exists with name '" . $strName . "' in class " . __CLASS__);
+            }
+        }
+
+        /////////////////////////
+        // Public Properties: SET
+        /////////////////////////
+        public function __set($strName, $mixValue)
+        {
+            switch ($strName) {
+
+                case "DisplayAdvOptions":
+                    return $this->blnDisplayAdvOptions = $mixValue;
+                default:
+                    return parent::__set($strName, $mixValue);
+                //throw new Exception("Not porperty exists with name '" . $strName . "' in class " . __CLASS__);
+            }
+        }
+
 
 }

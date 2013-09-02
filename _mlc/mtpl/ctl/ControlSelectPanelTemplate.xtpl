@@ -1,6 +1,10 @@
 <div class=''>
-    <?php $_CONTROL->txtSearch->Render(); ?>
+    <div class='controls input-prepend '>
+        <span class='add-on'>Search Orgs</span>
+        <?php $_CONTROL->txtSearch->Render(); ?>
+    </div>
 </div>
+<?php if($_CONTROL->DisplayAdvOptions){ ?>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
         <div class="accordion-heading">
@@ -38,3 +42,4 @@
         </div>
     </div>
 </div>
+<?php } ?>

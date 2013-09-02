@@ -15,11 +15,11 @@
                 <% } %>
 
             <% } %>
-
-            <div class="form-actions">
-                <?php $_CONTROL->btnSave->Render(); ?>&nbsp;&nbsp;
-                <?php $_CONTROL->btnDelete->Render(); ?>
-            </div>
         </fieldset>
+        <div class="form-actions">
+            <?php $_CONTROL->btnSave->Render(); ?>&nbsp;&nbsp;
+            <?php $_CONTROL->btnDelete->Render(); ?>
+        </div>
+
     </form>
 

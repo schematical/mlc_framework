@@ -81,7 +81,8 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
                     'view_<%= $objField['table']; %>s',
                     'View <%= MLCTemplateDriver::Capatilize($objField['table']); %>s',
                     $this,
-                    'lnkView<%= MLCTemplateDriver::Capatilize($objField['table']); %>s_click'
+                    'lnkView<%= MLCTemplateDriver::Capatilize($objField['table']); %>s_click',
+                    'btn btn-small'
                 );
             <% } %>
 
