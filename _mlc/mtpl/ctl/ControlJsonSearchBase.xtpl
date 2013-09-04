@@ -32,21 +32,33 @@ class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriverBase{
                        }
                   <% } %>
               <% } %>
-
+              if(count($arrOrConditions) == 0){
+                    $arrOrConditions[] = '1';
+              }
               $strQuery = ' WHERE (' . implode(' OR ', $arrOrConditions) . ')' . $this->Get<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>OwnerQuery();
               $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s = <%= MLCTemplateDriver::Capatilize($arrTable['name']); %>::Query(
                     $strQuery
               );
               foreach($arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s as $strKey => $obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>){
-                    $arrData[$strKey] = array(
-                           'value'=>'<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>_' .$obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>-><%= $arrTable['pkey']; %>,
-                           'text'=>$obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>->__toString()
-                    );
+                     if(is_null($strField)){
+                         $strValue = '<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>_' .$obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>-><%= $arrTable['pkey']; %>;
+                         $strText = $obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>->__toString();
+                     }else{
+                         $strValue = $obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>->__get($strField);
+                         $strText = $strValue;
+                     }
+                     $arrData[$strKey] = array(
+                            'value'=>$strValue,
+                            'text'=>$strText
+                     );
+
+
               }
 
               if(
                 (!is_null($strSearch)) &&
-                (strlen($strSearch) > 0)
+                (strlen($strSearch) > 0) &&
+                (is_null($strField))
               ){
               <% foreach ($arrTable['fields'] as $objField) { %>
                     <% if (array_key_exists('reference', $objField)) { %>

@@ -2,8 +2,10 @@
 /**
  * Class Competition
 <% foreach ($fields as $arrField) { %>
+<% if ((!_mlc_is_special_field($arrField['name'],'*Data')) && ($arrField['name'] != 'data')) { %>
  * @property-read mixed $<%= MLCTemplateDriver::Capatilize($arrField['name']); %>
  * @property-write mixed $<%= MLCTemplateDriver::Capatilize($arrField['name']); %>
+<% } %>
 <% } %>
 <% foreach ($parent_fields as $arrField){ %>
  * @property-read <%= MLCTemplateDriver::Capatilize($arrField['table']); %> $<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object
@@ -288,13 +290,15 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
         public function __get($strName){
 	        switch($strName){
 	        	<% foreach ($fields as $arrField) { %>
-	   			case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'): 
-	   			case('<%= $arrField['name'] %>'): 
-	   				if(array_key_exists('<%= $arrField['name'] %>', $this->arrDBFields)){
-	        			return $this->arrDBFields['<%= $arrField['name'] %>'];
-	        		}
-	        		return null;
-	        	break;
+	        	<% if ((_mlc_is_special_field($arrField['name'],'id*')) || (!_mlc_is_special_field($arrField['name'],'*Data')) && ($arrField['name'] != 'data')) { %>
+                    case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'):
+                    case('<%= $arrField['name'] %>'):
+                        if(array_key_exists('<%= $arrField['name'] %>', $this->arrDBFields)){
+                            return $this->arrDBFields['<%= $arrField['name'] %>'];
+                        }
+                        return null;
+                    break;
+                <% } %>
 	        	<% } %>
 	        	<% foreach ($parent_fields as $arrField){ %>
                 case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object'):
@@ -323,13 +327,15 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	   		$this->modified = 1;
 	   		switch($strName){
 	   			<% foreach ($fields as $arrField) { %>
-	   			case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'):
-	   			case('<%= $arrField['name'] %>'): 
-	        		$this->arrDBFields['<%= $arrField['name'] %>'] = $strValue;
-	        		<% if (array_key_exists('reference', $arrField)) { %>
-                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['reference']['table']); %> = null;
-	        		<% } %>
-	        	break;
+                    <% if ((_mlc_is_special_field($arrField['name'],'id*')) || (!_mlc_is_special_field($arrField['name'],'*Data')) && ($arrField['name'] != 'data')) { %>
+                    case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'):
+                    case('<%= $arrField['name'] %>'):
+                        $this->arrDBFields['<%= $arrField['name'] %>'] = $strValue;
+                        <% if (array_key_exists('reference', $arrField)) { %>
+                            $this->obj<%= MLCTemplateDriver::Capatilize($arrField['reference']['name']); %> = null;
+                        <% } %>
+                    break;
+                    <% } %>
 	        	<% } %>
 	        	<% foreach ($parent_fields as $arrField){ %>
                     case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object'):
@@ -342,5 +348,40 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	        	break;
 	        }
 	    }
+	    <% foreach ($fields as $arrField) { %>
+	        <% if ((_mlc_is_special_field($arrField['name'],'*Data')) || ($arrField['name'] == 'data')) { %>
+                public function <%= MLCTemplateDriver::Capatilize($arrField['name']); %>($strKey, $mixData = null){
+                    if(is_null($mixData)){
+                        if(
+                            (!array_key_exists('<%= $arrField['name'] %>', $this->arrDBFields))
+                        ){
+                            return null;
+                        }
+                        if(
+                            (strlen($this->arrDBFields['<%= $arrField['name'] %>']) < 1)
+                        ){
+                            return null;
+                        }
+                        $arrData = json_decode($this->arrDBFields['<%= $arrField['name'] %>'], true);
+                        if(!array_key_exists($strKey, $arrData)){
+                            return null;
+                        }
+                        return $arrData[$strKey];
+                    }else{
+                        if(
+                            (!array_key_exists('<%= $arrField['name'] %>', $this->arrDBFields)) ||
+                            (strlen($this->arrDBFields['<%= $arrField['name'] %>']) < 1)
+                        ){
+                            $arrData = array();
+                        }else{
+                            $arrData = json_decode($this->arrDBFields['<%= $arrField['name'] %>'], true);
+                        }
+                        $arrData[$strKey] = $mixData;
+                        $this->arrDBFields['<%= $arrField['name'] %>'] = json_encode($arrData);
+                        $this->Save();
+                    }
+                }
+            <% } %>
+        <% } %>
 }
 ?>
