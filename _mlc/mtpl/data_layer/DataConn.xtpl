@@ -1,7 +1,12 @@
 <?php
-//Work!
+
 <% foreach ($data as $objTable){ %>
+<% if ($objTable['type'] != 'rel') { %>
 MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($objTable['name']); %>'] = __MODEL_APP_DATALAYER_DIR__ . '/<%= MLCTemplateDriver::Capatilize($objTable['name']); %>.class.php';
+<% } %>
+<% if ($objTable['type'] == 'rel') { %>
+MLCApplicationBase::$arrClassFiles['<%= MLCTemplateDriver::Capatilize($objTable['name']); %>'] = __MODEL_APP_DATALAYER_DIR__ . '/<%= MLCTemplateDriver::Capatilize($objTable['name']); %>_Rel.class.php';
+<% } %>
 <% } %>
 
 ?>

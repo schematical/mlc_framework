@@ -1,0 +1,37 @@
+<?php
+abstract class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriverHandeler{
+
+    public static function GetExtension(){
+        if(array_key_exists('mjax-route-ext', $_GET)){
+            return $_GET['mjax-route-ext'];
+        }
+        return pathinfo($_SERVER['REQUEST_URI'], PATHINFO_EXTENSION);
+    }
+    public static function Run(){
+         if(array_key_exists('search', $_POST)){
+            $strSearch = $_POST['search'];
+         }else{
+            $strSearch = '';
+         }
+
+         $arrParts = explode('_', self::GetExtension());
+         $strExtension = $arrParts[0];
+         if(count($arrParts) == 2){
+            $strField = $arrParts[1];
+         }else{
+            $strField = null;
+         }
+         $objSearchDriver = new <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver();
+         switch($strExtension){
+           <% foreach ($data as $arrTable){ %>
+                case('<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>'):
+                case('<%= strtolower($arrTable['name']); %>'):
+                    $objSearchDriver->_search<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>($strSearch, $strField);
+                break;
+           <% } %>
+           default:
+            die(json_encode(array('error'=>'Not a valid searchable entity: ' . $strExtension)));
+         }
+    }
+}
+<%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriverHandeler::Run();

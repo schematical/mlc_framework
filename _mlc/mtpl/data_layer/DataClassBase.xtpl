@@ -13,7 +13,10 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	const DB_CONN = 'DB_1';
     const TABLE_NAME = '<%= $full_name; %>';
     const P_KEY = '<%= $pkey; %>';
-    
+    <% foreach ($parent_fields as $arrField){ %>
+            protected $obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %> = null;
+    <% } %>
+
     public function __construct(){
         $this->table = DB_PREFIX . self::TABLE_NAME;
 		$this->pKey = self::P_KEY;
@@ -21,23 +24,14 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
     }
  
 	public static function LoadById($intId){
-		$sql = sprintf("SELECT * FROM %s WHERE <%= $pkey; %> = %s;", self::TABLE_NAME, $intId);
-		$result = MLCDBDriver::Query($sql, self::DB_CONN);
-		while($data = mysql_fetch_assoc($result)){
-			$tObj = new <%= $name; %>();
-			$tObj->materilize($data);
-			return $tObj;
-		}
+		return self::Query('WHERE <%= $full_name; %>.<%= $pkey_field['name']; %> = ' . $intId, true);
 	}
 	public static function LoadAll(){
-		$sql = sprintf("SELECT * FROM %s;", self::TABLE_NAME);
-		$result = MLCDBDriver::Query($sql, <%= MLCTemplateDriver::Capatilize($name); %>::DB_CONN);
-		$coll = new BaseEntityCollection();
-		while($data = mysql_fetch_assoc($result)){
-			$tObj = new <%= $name; %>();
-			$tObj->materilize($data);
-			$coll->addItem($tObj);
-		}
+
+		$coll = new BaseEntityCollection(
+		    self::Query('')
+		);
+
 		return $coll;
 	}
 	public function ToXml($blnReclusive = false){
@@ -55,17 +49,85 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
         return $xmlStr;
         
     }
-   
-	public static function Query($strExtra, $blnReturnSingle = false){
-		$sql = sprintf("SELECT * FROM %s %s;", self::TABLE_NAME,  $strExtra);
+    public function Materilize($arrData){
+
+   		if(isset($arrData) && (sizeof($arrData) > 1)){
+   		    if(array_key_exists('<%= $full_name; %>.<%= $pkey_field['name']; %>', $arrData)){
+   		        //New Smart Way
+                <% foreach ($fields as $objField) { %>
+                    $this->arrDBFields['<%= $objField['name']; %>'] = $arrData['<%= $full_name; %>.<%= $objField['name']; %>'];
+                <% } %>
+                //Foregin Key
+                <% foreach ($parent_fields as $objField) { %>
+                    if(array_key_exists('<%= $data[$objField['reference']['table']]['full_name']; %>.<%= $objField['name']; %>', $arrData)){
+                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %> = new <%= $objField['reference']['table']; %>();
+                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %>->Materilize($arrData);
+                    }
+                <% } %>
+            }else{
+                //Old ways
+   			    $this->arrDBFields = $arrData;
+            }
+   			$this->loaded = true;
+
+
+   			$this->setId($this->getField($this->getPKey()));
+
+   		}
+   		if(self::$blnUseCache){
+   			if(!array_key_exists(get_class($this), self::$arrCachedData)){
+   				self::$arrCachedData[get_class($this)] = array();
+   			}
+   			self::$arrCachedData[get_class($this)][$this->getId()] = $this;
+   		}
+   	}
+   	public static function GetSQLSelectFieldsAsArr($blnLongSelect = false){
+   	    $arrFields = array();
+        <% foreach ($fields as $objField) { %>
+            $arrFields[] = '<%= $full_name; %>.<%= $objField['name']; %> ' . (($blnLongSelect)?' as "<%= $full_name; %>.<%= $objField['name']; %>"':'');
+        <% } %>
+        return $arrFields;
+   	}
+	public static function Query($strExtra, $blnReturnSingle = false, $arrJoins = null){
+	    $blnLongSelect = !is_null($arrJoins);
+        $arrFields = self::GetSQLSelectFieldsAsArr($blnLongSelect);
+        if($blnLongSelect){
+            foreach($arrJoins as $strTable){
+                if(class_exists($strTable)){
+                    $arrFields = array_merge(
+                        $arrFields,
+                        call_user_func($strTable . '::GetSQLSelectFieldsAsArr', true)
+                    );
+                }
+            }
+        }
+        $strFields = implode(', ', $arrFields);
+        $strJoin = '';
+        if($blnLongSelect){
+            foreach($arrJoins as $strTable){
+                switch($strTable){
+                    <% foreach ($parent_fields as $field){ %>
+                    case('<%= $field['reference']['table']; %>'):
+                    <% if ($data[$field['reference']['table']]['full_name'] != $field['reference']['table']){ %>
+                        case('<%= $data[$field['reference']['table']]['full_name']; %>'):
+                    <% } %>
+                        $strJoin .=
+                            ' JOIN <%= $data[$field['reference']['table']]['full_name']; %> ON <%= $full_name; %>.<%= $field['name']; %> = <%= $data[$field['reference']['table']]['full_name']; %>.<%= $field['name']; %>';
+                    break;
+                    <% } %>
+                }
+            }
+        }
+		$sql = sprintf("SELECT %s FROM <%= $full_name; %> %s %s;", $strFields, $strJoin, $strExtra);
 		$result = MLCDBDriver::Query($sql, self::DB_CONN);
-		$coll = new BaseEntityCollection();
+		$arrReturn = array();
 		while($data = mysql_fetch_assoc($result)){
+
 			$tObj = new <%= $name; %>();
-			$tObj->materilize($data);
-			$coll->addItem($tObj);
+			$tObj->Materilize($data);
+			$arrReturn[] = $tObj;
 		}
-		$arrReturn = $coll->getCollection();
+		//$arrReturn = $coll->getCollection();
 		if($blnReturnSingle){
 			if(count($arrReturn) == 0){
 				return null;
@@ -77,22 +139,49 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 		}		
 	}
 	public static function QueryCount($strExtra = ''){
-		$sql = sprintf("SELECT * FROM %s %s;", self::TABLE_NAME,  $strExtra);
+		$sql = sprintf("SELECT <%= $full_name; %>.* FROM <%= $full_name; %> %s;",  $strExtra);
 		$result = MLCDBDriver::Query($sql, self::DB_CONN);
 		return mysql_num_rows($result);
 			
 	}
      //Get children
     <% foreach ($child_fields as $child){ %>
-    public function Get<%= MLCTemplateDriver::capatilize($child['table']); %>Arr(){
-       return <%= MLCTemplateDriver::Capatilize($child['table']); %>::LoadCollBy<%= MLCTemplateDriver::Capatilize($child['name']); %>($this-><%= $child['name']; %>);
-    }
+        <% if ($data[$child['table']]['type'] == 'entity'){ %>
+            public function Get<%= MLCTemplateDriver::capatilize($child['table']); %>Arr(){
+               return <%= MLCTemplateDriver::Capatilize($child['table']); %>::LoadCollBy<%= MLCTemplateDriver::Capatilize($child['name']); %>($this-><%= $child['name']; %>)->getCollection();
+            }
+        <% } %>
+
+        <% if ($data[$child['table']]['type'] == 'rel'){ %>
+            public function Get<%= MLCTemplateDriver::capatilize($child['table']); %>Arr($strExtra = ''){
+               return <%= MLCTemplateDriver::capatilize($child['table']); %>::Query(
+                    'WHERE <%= $data[$child['table']]['full_name']; %>.<%= $child['name']; %> = ' . $this-><%= $pkey_field['name']; %> . ' ' . $strExtra
+               );
+            }
+
+
+            <% foreach ($data[$child['table']]['parent_fields'] as $ref) { %>
+
+                <% if ($name != $ref['reference']['table']) { %>
+                    public function Get<%= MLCTemplateDriver::capatilize($child['table']); %>ArrBy<%= MLCTemplateDriver::capatilize($ref['reference']['table']); %>($obj<%= MLCTemplateDriver::capatilize($ref['reference']['table']); %>, $strExtra = ''){
+                       return <%= MLCTemplateDriver::capatilize($child['table']); %>::GetArrBy<%= $name; %>And<%= MLCTemplateDriver::capatilize($ref['reference']['table']); %>($this, $obj<%= MLCTemplateDriver::capatilize($ref['reference']['table']); %>, $strExtra);
+                    }
+                    public function Create<%= MLCTemplateDriver::capatilize($child['table']); %>From<%= MLCTemplateDriver::capatilize($ref['reference']['table']); %>($obj<%= MLCTemplateDriver::capatilize($ref['reference']['table']); %>){
+                        $obj<%= MLCTemplateDriver::capatilize($child['table']); %> = new <%= MLCTemplateDriver::capatilize($child['table']); %>();
+                        $obj<%= MLCTemplateDriver::capatilize($child['table']); %>-><%= MLCTemplateDriver::capatilize($child['name']); %> = $this-><%= MLCTemplateDriver::capatilize($child['name']); %>;
+                        $obj<%= MLCTemplateDriver::capatilize($child['table']); %>-><%= MLCTemplateDriver::capatilize($ref['name']); %> = $obj<%= MLCTemplateDriver::capatilize($ref['reference']['table']); %>-><%= MLCTemplateDriver::capatilize($ref['name']); %>;
+                        //$obj<%= MLCTemplateDriver::capatilize($child['table']); %>->Save();
+                        return $obj<%= MLCTemplateDriver::capatilize($child['table']); %>;
+                    }
+                <% } %>
+            <% } %>
+        <% } %>
 	<% } %>
 
     //Load by foregin key
     <% foreach ($parent_fields as $field){ %>
     public static function LoadCollBy<%= MLCTemplateDriver::capatilize($field['name']); %>($<%= $field['varName']; %>){
-        $sql = sprintf("SELECT * FROM <%= $name; %> WHERE <%= $field['name']; %> = %s;", $<%= $field['varName']; %>);
+        $sql = sprintf("SELECT <%= $full_name; %>.* FROM <%= $full_name; %> WHERE <%= $field['name']; %> = %s;", $<%= $field['varName']; %>);
 		$result = MLCDBDriver::Query($sql, self::DB_CONN);
 		$coll = new BaseEntityCollection();
 		while($data = mysql_fetch_assoc($result)){
@@ -152,32 +241,27 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
         	}        	
         }
         public static function LoadSingleByField( $strField, $mixValue, $strCompairison = '='){
-        	$arrResults = self::LoadArrayByField($strField, $mixValue, $strCompairison);
-        	if(count($arrResults)){
-        		return $arrResults[0];
-        	}
-        	return null;
+
+            if(is_numeric($mixValue)){
+                $strValue = $mixValue;
+            }else{
+                $strValue = sprintf('"%s"', $mixValue);
+            }
+            $strExtra = sprintf(' WHERE <%= $full_name; %>.%s %s %s', $strField, $strCompairison, $strValue);
+            $objEntity = self::Query($strExtra, true);
+
+            return $objEntity;
         }
         public static function LoadArrayByField( $strField, $mixValue, $strCompairison = '='){
+
 			if(is_numeric($mixValue)){
 				$strValue = $mixValue;
 			}else{
 				$strValue = sprintf('"%s"', $mixValue);
 			} 
-			$strExtra = sprintf(' WHERE %s %s %s', $strField, $strCompairison, $strValue);
-			
-			$sql = sprintf("SELECT * FROM %s %s;", self::TABLE_NAME, $strExtra);
-			//die($sql);
-			$result = MLCDBDriver::query($sql, self::DB_CONN);
-			$coll = new BaseEntityCollection();
-			while($data = mysql_fetch_assoc($result)){
-				
-				$tObj = new <%= MLCTemplateDriver::Capatilize($name); %>();
-				$tObj->materilize($data);
-				$coll->addItem($tObj);
-			}
-			$arrResults = $coll->getCollection();
-			
+			$strExtra = sprintf(' WHERE <%= $full_name; %>.%s %s %s', $strField, $strCompairison, $strValue);
+            $arrResults = self::Query($strExtra);
+
 			return $arrResults;
 		}
         public function __toArray(){
@@ -214,14 +298,17 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	        	<% } %>
 	        	<% foreach ($parent_fields as $arrField){ %>
                 case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object'):
-                case('<%= $field['name'] %>Object'):
+                    if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %>)){
+                        return $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %>;
+                    }
 	   				if(
 	   				    (array_key_exists('<%= $arrField['name'] %>', $this->arrDBFields)) &&
 	   				    (!is_null($this->arrDBFields['<%= $arrField['name'] %>']))
                     ){
-	        			return <%= MLCTemplateDriver::Capatilize($arrField['reference']['table']); %>::LoadById(
+	        			$this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %> =  <%= MLCTemplateDriver::Capatilize($arrField['reference']['table']); %>::LoadById(
 	        			    $this->arrDBFields['<%= $arrField['name'] %>']
                         );
+                        return $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %>;
 	        		}
 	        		return null;
 	        	break;
@@ -236,11 +323,20 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	   		$this->modified = 1;
 	   		switch($strName){
 	   			<% foreach ($fields as $arrField) { %>
-	   			case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'): 
+	   			case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'):
 	   			case('<%= $arrField['name'] %>'): 
 	        		$this->arrDBFields['<%= $arrField['name'] %>'] = $strValue;
+	        		<% if (array_key_exists('reference', $arrField)) { %>
+                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['reference']['table']); %> = null;
+	        		<% } %>
 	        	break;
 	        	<% } %>
+	        	<% foreach ($parent_fields as $arrField){ %>
+                    case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object'):
+                        $this->arrDBFields['<%= $arrField['name'] %>'] = $strValue-><%= $arrField['name'] %>;
+                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %> = $strValue;
+                    break;
+                <% } %>
 	        	default:
 	        		throw new MLCMissingPropertyException($this, $strName);
 	        	break;

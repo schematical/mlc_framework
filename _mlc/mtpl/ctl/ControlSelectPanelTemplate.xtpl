@@ -1,6 +1,6 @@
 <div class=''>
     <div class='controls input-prepend '>
-        <span class='add-on'>Search Orgs</span>
+        <span class='add-on'>Search <%= _mlc_split($name); %></span>
         <?php $_CONTROL->txtSearch->Render(); ?>
     </div>
 </div>

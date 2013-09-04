@@ -1,9 +1,0 @@
-<?php
-require_once(__MODEL_APP_DATALAYER_DIR__ . "/base_classes/<%= MLCTemplateDriver::Capatilize($name); %>Base.class.php");
-class <%= MLCTemplateDriver::Capatilize($name); %>Rel extends <%= MLCTemplateDriver::Capatilize($name); %>Base {
-
-
-}
-
-
-?>

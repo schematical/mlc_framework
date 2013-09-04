@@ -1,74 +1,12 @@
 <?php
-class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver{
+require_once(__MODEL_APP_CONTROL__ . "/base_classes/<%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriverBase.class.php");
+class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver extends <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriverBase{
 
+    /*
     <% foreach ($data as $arrTable){ %>
-
-           public function _search<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>($objRoute){
-
-              $strSearch = $_POST['search'];
-              $arrData = array();
-              $arrOrConditions = array();
-              <% foreach ($arrTable['fields'] as $objField) { %>
-                  <% if (_mlc_is_special_field($objField['type'],'varchar*')) { %>
-                       $arrOrConditions[] = sprintf(
-                           '<%= $objField['name']; %> LIKE "%s%%"',
-                           strtolower($strSearch)
-                       );
-                  <% } %>
-              <% } %>
-
-              $strQuery = ' WHERE ' . implode(' OR ', $arrOrConditions);
-              $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s = <%= MLCTemplateDriver::Capatilize($arrTable['name']); %>::Query(
-                    $strQuery
-              );
-              foreach($arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s as $strKey => $obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>){
-                    $arrData[$strKey] = array(
-                           'value'=>'<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>_' .$obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>-><%= $arrTable['pkey']; %>,
-                           'text'=>$obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>->__toString()
-                    );
-              }
-
-              <% foreach ($arrTable['fields'] as $objField) { %>
-                    <% if (array_key_exists('reference', $objField)) { %>
-                    /*---------------Load by parent field: <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>----------------------*/
-                         $arrOrConditions = array();
-                         <% foreach ($data[$objField['reference']['table']]['fields'] as $objRField) { %>
-                            <% if ( _mlc_is_special_field($objRField['name'],'name') || _mlc_is_special_field($objRField['name'],'namespace') || _mlc_is_special_field($objRField['name'],'shortDesc') ||  _mlc_is_special_field($objRField['name'],'firstName') ||  _mlc_is_special_field($objRField['name'],'lastName')) { %>
-                                 $arrOrConditions[] = sprintf(
-                                       '<%= $objRField['name']; %> LIKE "%s%%"',
-                                       strtolower($strSearch)
-                                 );
-                            <% } %>
-                         <% } %>
-                         if(count($arrOrConditions) > 0){
-                             $arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s = <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>::Query(
-                                'WHERE ' . implode(' OR ', $arrOrConditions)
-                             );
-                             foreach($arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s as $obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>){
-                                 $arrData[] = array(
-                                        'value'=>'<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>_' . $obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>->GetId(),
-                                        'text'=>$obj<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>->__toString()
-                                 );
-                             }
-                         }
-                         /*---------------End load: <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>----------------------*/
-                    <% } %>
-               <% } %>
-              if(count($arrData) == 0){
-                     $arrData[] = array(
-                         'value'=> $strSearch,
-                         'text'=> $strSearch
-                     );
-              }
-
-
-              die(
-                  json_encode(
-                      $arrData
-                  )
-              );
-          }
-           <% } %>
-           <% } %>
+       public function Get<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>OwnerQuery(){
+            return ' AND idAuthUser = ' . MLCAuthDriver::User();
+       }
     <% } %>
+    */
 }

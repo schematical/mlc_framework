@@ -109,7 +109,7 @@
                 },
                 "data_class": {
                     "name": "data_class",
-                    "xpath": "\/*",
+                    "xpath": "\/*[type=entity]",
                     "mtpl_loc": "mtpl\/data_layer\/DataClass.xtpl",
                     "dest_loc": "apps\/{app.name}\/model\/data_classes\/{Name}.class.php",
                     "overwrite": false,
@@ -118,9 +118,17 @@
                 "data_class_rel": {
                     "name": "data_class_rel",
                     "xpath": "\/*[type=rel]",
-                    "mtpl_loc": "mtpl\/data_layer\/DataClassRel.xtpl",
-                    "dest_loc": "apps\/{app.name}\/model\/data_classes\/{Name}Rel.class.php",
+                    "mtpl_loc": "mtpl\/data_layer\/DataClass_Rel.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/data_classes\/{Name}_Rel.class.php",
                     "overwrite": false,
+                    "data-selector": ""
+                },
+                "data_class_rel_base": {
+                    "name": "data_class_rel_base",
+                    "xpath": "\/*[type=rel]",
+                    "mtpl_loc": "mtpl\/data_layer\/DataClassRelBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/data_classes\/base_classes\/{Name}RelBase.class.php",
+                    "overwrite": true,
                     "data-selector": ""
                 },
                 "data_conn": {
@@ -219,11 +227,27 @@
                     "overwrite": true,
                     "data-selector": ""
                 },
+                "ctl_json_search_handeler": {
+                    "name": "ctl_json_search_hadeler",
+                    "xpath": "*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlJsonSearchHandeler.xtpl",
+                    "dest_loc": "apps\/{app.name}\/ctl\/data\/search.php",
+                    "overwrite": false,
+                    "data-selector": ""
+                },
                 "ctl_json_search": {
                     "name": "ctl_json_search",
                     "xpath": "*",
                     "mtpl_loc": "mtpl\/ctl\/ControlJsonSearch.xtpl",
                     "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/{app.Name}JsonSearchDriver.class.php",
+                    "overwrite": false,
+                    "data-selector": ""
+                },
+                "ctl_json_search_base": {
+                    "name": "ctl_json_search_base",
+                    "xpath": "*",
+                    "mtpl_loc": "mtpl\/ctl\/ControlJsonSearchBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{app.Name}JsonSearchDriverBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },

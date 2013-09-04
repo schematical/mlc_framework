@@ -1,0 +1,34 @@
+<?php
+require_once(__MODEL_APP_DATALAYER_DIR__ . "/base_classes/<%= MLCTemplateDriver::Capatilize($name); %>Base.class.php");
+class <%= MLCTemplateDriver::Capatilize($name); %>RelBase extends <%= MLCTemplateDriver::Capatilize($name); %>Base {
+    public static function Query($strExtra, $blnReturnSingle = false, $arrJoin = array()){
+        $arrJoin = array();
+        <% foreach ($parent_fields as $arrField){ %>
+            $arrJoin[] = '<%= $arrField['reference']['table']; %>';
+        <% } %>
+        return parent::Query(
+            $strExtra,
+            $blnReturnSingle,
+            $arrJoin
+        );
+    }
+    <% foreach ($parent_fields as $arrField){ %>
+        <% foreach ($parent_fields as $arrField2){ %>
+            <% if ($arrField['reference']['table'] != $arrField2['reference']['table']) { %>
+            public static function GetArrBy<%= $arrField['reference']['table']; %>And<%= $arrField2['reference']['table']; %>($obj<%= $arrField['reference']['table']; %>, $obj<%= $arrField2['reference']['table']; %>, $strExtra = ''){
+                return self::Query(
+                    sprintf(
+                        'WHERE (<%= $full_name; %>.<%= $arrField['name']; %> = %s AND <%= $full_name; %>.<%= $arrField2['name']; %> = %s) %s',
+                        $obj<%= $arrField['reference']['table']; %>-><%= $arrField['reference']['name']; %>,
+                        $obj<%= $arrField2['reference']['table']; %>-><%= $arrField2['reference']['name']; %>,
+                        $strExtra
+                    )
+                );
+            }
+            <% } %>
+        <% } %>
+    <% } %>
+}
+
+
+?>
