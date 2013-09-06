@@ -232,22 +232,22 @@
                     "xpath": "*",
                     "mtpl_loc": "mtpl\/ctl\/ControlJsonSearchHandeler.xtpl",
                     "dest_loc": "apps\/{app.name}\/ctl\/data\/search.php",
+                    "overwrite": true,
+                    "data-selector": ""
+                },
+                "ctl_entitiy_manager": {
+                    "name": "ctl_entity_manager",
+                    "xpath": "*",
+                    "mtpl_loc": "mtpl\/ctl\/EntityManager.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/{app.Name}EntityManager.class.php",
                     "overwrite": false,
                     "data-selector": ""
                 },
-                "ctl_json_search": {
-                    "name": "ctl_json_search",
+                "ctl_entitiy_manager_base": {
+                    "name": "ctl_entitiy_manager_base",
                     "xpath": "*",
-                    "mtpl_loc": "mtpl\/ctl\/ControlJsonSearch.xtpl",
-                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/{app.Name}JsonSearchDriver.class.php",
-                    "overwrite": false,
-                    "data-selector": ""
-                },
-                "ctl_json_search_base": {
-                    "name": "ctl_json_search_base",
-                    "xpath": "*",
-                    "mtpl_loc": "mtpl\/ctl\/ControlJsonSearchBase.xtpl",
-                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{app.Name}JsonSearchDriverBase.class.php",
+                    "mtpl_loc": "mtpl\/ctl\/EntityManagerBase.xtpl",
+                    "dest_loc": "apps\/{app.name}\/model\/ctl_classes\/base_classes\/{app.Name}EntityManagerBase.class.php",
                     "overwrite": true,
                     "data-selector": ""
                 },

@@ -1,5 +1,5 @@
 <?php
-MLCApplicationBase::$arrClassFiles['<%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver'] = __MODEL_APP_CONTROL__ . '/<%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver.class.php';
+MLCApplicationBase::$arrClassFiles['<%= strtoupper(MLC_APPLICATION_PREFIX); %>EntityManager'] = __MODEL_APP_CONTROL__ . '/<%= strtoupper(MLC_APPLICATION_PREFIX); %>EntityManager.class.php';
 MLCApplicationBase::$arrClassFiles['<%= strtoupper(MLC_APPLICATION_PREFIX); %>QSBase'] = __MODEL_APP_CONTROL__ . '/base_classes/<%= strtoupper(MLC_APPLICATION_PREFIX); %>QSBase.class.php';
 
 

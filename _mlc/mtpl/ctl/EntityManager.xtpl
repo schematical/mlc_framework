@@ -1,0 +1,12 @@
+<?php
+require_once(__MODEL_APP_CONTROL__ . "/base_classes/<%= strtoupper(MLC_APPLICATION_PREFIX); %>EntityManagerBase.class.php");
+class <%= strtoupper(MLC_APPLICATION_PREFIX); %>EntityManager extends <%= strtoupper(MLC_APPLICATION_PREFIX); %>EntityManagerBase{
+
+    /*
+    <% foreach ($data as $arrTable){ %>
+       public function Get<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>OwnerQuery(){
+            return ' AND idAuthUser = ' . MLCAuthDriver::User();
+       }
+    <% } %>
+    */
+}

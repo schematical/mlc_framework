@@ -54,16 +54,22 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
     public function Materilize($arrData){
 
    		if(isset($arrData) && (sizeof($arrData) > 1)){
-   		    if(array_key_exists('<%= $full_name; %>.<%= $pkey_field['name']; %>', $arrData)){
+   		    if(
+   		        (array_key_exists('<%= $full_name; %>.<%= $pkey_field['name']; %>', $arrData))
+
+   		    ){
    		        //New Smart Way
                 <% foreach ($fields as $objField) { %>
                     $this->arrDBFields['<%= $objField['name']; %>'] = $arrData['<%= $full_name; %>.<%= $objField['name']; %>'];
                 <% } %>
                 //Foregin Key
                 <% foreach ($parent_fields as $objField) { %>
-                    if(array_key_exists('<%= $data[$objField['reference']['table']]['full_name']; %>.<%= $objField['name']; %>', $arrData)){
-                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %> = new <%= $objField['reference']['table']; %>();
-                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %>->Materilize($arrData);
+                    if(
+                        (array_key_exists('<%= $data[$objField['reference']['table']]['full_name']; %>.<%= $objField['name']; %>', $arrData)) &&
+                        (!is_null($arrData['<%= $data[$objField['reference']['table']]['full_name']; %>.<%= $objField['name']; %>']))
+                    ){
+                        $this->obj<%= MLCTemplateDriver::Capatilize($objField['name']); %> = new <%= $objField['reference']['table']; %>();
+                        $this->obj<%= MLCTemplateDriver::Capatilize($objField['name']); %>->Materilize($arrData);
                     }
                 <% } %>
             }else{
@@ -114,7 +120,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
                         case('<%= $data[$field['reference']['table']]['full_name']; %>'):
                     <% } %>
                         $strJoin .=
-                            ' JOIN <%= $data[$field['reference']['table']]['full_name']; %> ON <%= $full_name; %>.<%= $field['name']; %> = <%= $data[$field['reference']['table']]['full_name']; %>.<%= $field['name']; %>';
+                            ' LEFT JOIN <%= $data[$field['reference']['table']]['full_name']; %> ON <%= $full_name; %>.<%= $field['name']; %> = <%= $data[$field['reference']['table']]['full_name']; %>.<%= $field['name']; %>';
                     break;
                     <% } %>
                 }
@@ -323,14 +329,14 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	        }
 	       
 	    }
-	    public function __set($strName, $strValue){
+	    public function __set($strName, $mixValue){
 	   		$this->modified = 1;
 	   		switch($strName){
 	   			<% foreach ($fields as $arrField) { %>
                     <% if ((_mlc_is_special_field($arrField['name'],'id*')) || (!_mlc_is_special_field($arrField['name'],'*Data')) && ($arrField['name'] != 'data')) { %>
                     case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'):
                     case('<%= $arrField['name'] %>'):
-                        $this->arrDBFields['<%= $arrField['name'] %>'] = $strValue;
+                        $this->arrDBFields['<%= $arrField['name'] %>'] = $mixValue;
                         <% if (array_key_exists('reference', $arrField)) { %>
                             $this->obj<%= MLCTemplateDriver::Capatilize($arrField['reference']['name']); %> = null;
                         <% } %>
@@ -339,8 +345,14 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	        	<% } %>
 	        	<% foreach ($parent_fields as $arrField){ %>
                     case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object'):
-                        $this->arrDBFields['<%= $arrField['name'] %>'] = $strValue-><%= $arrField['name'] %>;
-                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %> = $strValue;
+                        if(
+                            (!is_object($mixValue)) ||
+                            (!($mixValue instanceof <%= MLCTemplateDriver::Capatilize($arrField['reference']['table']); %>))
+                        ){
+                            throw new MLCWrongTypeException('__set', $strName);
+                        }
+                        $this->arrDBFields['<%= $arrField['name'] %>'] = $mixValue-><%= $arrField['name'] %>;
+                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %> = $mixValue;
                     break;
                 <% } %>
 	        	default:

@@ -5,7 +5,15 @@ class MLCRewriteHandelerBase{
     const ADMIN = 'admin';
 	protected $strAssetMode = null;
     protected $blnIsAsset = false;
+    protected $objEntityManager = null;
+    public function __construct(){
+
+    }
 	public function Handel($strUri){
+
+
+
+
 		$arrParts = explode('/', $strUri);
 		if($arrParts[1] == self::ASSETS){
             $this->blnIsAsset = true;
@@ -160,6 +168,8 @@ class MLCRewriteHandelerBase{
 			break;
             case('IsAsset'):
                 return $this->blnIsAsset;
+            case('EntityManager'):
+                return $this->objEntityManager;
                 break;
 			default:
 				throw new MLCMissingPropertyException($this, $strName);				

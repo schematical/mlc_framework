@@ -1,8 +1,9 @@
 <?php
 class MLCForm extends MJaxForm{
-	
+    public $objEntityManager = null;
 	public function Form_Create(){
 		parent::Form_Create();
+
 		$this->strAssetMode = MJaxAssetMode::WWW;
 		//MJaxForm::DefineAssetDir($this->strAssetMode);
 		

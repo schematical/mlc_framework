@@ -21,17 +21,38 @@ abstract class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriverHandele
          }else{
             $strField = null;
          }
-         $objSearchDriver = new <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriver();
+         $objSearchDriver = MLCApplication::$objRewriteHandeler->EntityManager;
+         if(is_null($objSearchDriver)){
+            $objSearchDriver = new <%= strtoupper(MLC_APPLICATION_PREFIX); %>EntityManager();
+         }
+        $objSearchDriver->Populate();
          switch($strExtension){
            <% foreach ($data as $arrTable){ %>
                 case('<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>'):
                 case('<%= strtolower($arrTable['name']); %>'):
-                    $objSearchDriver->_search<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>($strSearch, $strField);
+                    $arrEntities = $objSearchDriver->Search<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>($strSearch, $strField);
+                    self::RenderJsonResponse($arrEntities, $strField);
                 break;
            <% } %>
            default:
-            die(json_encode(array('error'=>'Not a valid searchable entity: ' . $strExtension)));
+           die(json_encode(array('error'=>'Not a valid searchable entity: ' . $strExtension)));
          }
+    }
+    public static function RenderJsonResponse($arrEntities, $strField = null){
+        $arrData = array();
+
+        foreach($arrEntities as $objEntity){
+            if(is_null($strField)){
+                $strText = $objEntity->__toString();
+            }else{
+                $strText = $objEntity->__get($strField);
+            }
+            $arrData[] = array(
+                'text' => $strText,
+                'value' => get_class($objEntity) . '_' . $objEntity->GetId()
+            );
+        }
+        die(json_encode($arrData));
     }
 }
 <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriverHandeler::Run();

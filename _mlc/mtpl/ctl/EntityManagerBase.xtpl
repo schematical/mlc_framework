@@ -1,0 +1,102 @@
+<?php
+class <%= strtoupper(MLC_APPLICATION_PREFIX); %>EntityManagerBase{
+        <% foreach ($data as $arrTable){ %>
+             protected $obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %> = null;
+        <% } %>
+        public function Populate(){
+            <% foreach ($data as $arrTable){ %>
+                $int<%= MLCTemplateDriver::Capatilize($arrTable['pkey_field']['name']); %> = MLCApplication::QS(<%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>_<%= MLCTemplateDriver::Capatilize($arrTable['pkey_field']['name']); %>);
+                if(!is_null($int<%= MLCTemplateDriver::Capatilize($arrTable['pkey_field']['name']); %>)){
+                    $this->obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %> = <%= MLCTemplateDriver::Capatilize($arrTable['name']); %>::Query(
+                        'WHERE <%= $arrTable['name']; %>.<%= $arrTable['pkey_field']['name']; %> = ' . $int<%= MLCTemplateDriver::Capatilize($arrTable['pkey_field']['name']); %> . ' ' .  $this->Get<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>OwnerQuery(),
+                        true
+                    );
+                }
+            <% } %>
+        }
+        <% foreach ($data as $arrTable){ %>
+           public function <%= MLCTemplateDriver::Capatilize($arrTable['name']); %>(<%= MLCTemplateDriver::Capatilize($arrTable['name']); %> $obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %> = null){
+                if(!is_null($obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>)){
+                    $this->obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %> = $obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>;
+                }else{
+                    return $this->obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>;
+                }
+           }
+        <% } %>
+        public function GetUrl($strBasePath, $arrExtraData = array()){
+            $arrQS = array();
+            <% foreach ($data as $arrTable){ %>
+                if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>)){
+                    $arrQS[<%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>_<%= MLCTemplateDriver::Capatilize($arrTable['pkey_field']['name']); %>] = $this->obj<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>->getId();
+                }
+            <% } %>
+            foreach($arrExtraData as $strKey => $strData){
+                $arrQS[$strKey] = $strData;
+            }
+            return $strBasePath . '?' . http_build_query($arrQS);
+        }
+
+    <% foreach ($data as $arrTable){ %>
+           public function Get<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>OwnerQuery(){
+                return '';
+           }
+           public function Search<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>($strSearch, $strField = null){
+
+              $arrData = array();
+              $arrOrConditions = array();
+              <% foreach ($arrTable['fields'] as $objField) { %>
+                  <% if (_mlc_is_special_field($objField['type'],'varchar*')) { %>
+                      if(
+                            (is_null($strField)) ||
+                            ($strField == '<%= $objField['name']; %>')
+                      ){
+                           $arrOrConditions[] = sprintf(
+                               '<%= $arrTable['full_name']; %>.<%= $objField['name']; %> LIKE "%s%%"',
+                               strtolower($strSearch)
+                           );
+                       }
+                  <% } %>
+              <% } %>
+              if(count($arrOrConditions) == 0){
+                    $arrOrConditions[] = '1';
+              }
+              $strQuery = ' WHERE (' . implode(' OR ', $arrOrConditions) . ')' . $this->Get<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>OwnerQuery();
+              $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s = <%= MLCTemplateDriver::Capatilize($arrTable['name']); %>::Query(
+                    $strQuery
+              );
+
+
+              if(
+                (!is_null($strSearch)) &&
+                (strlen($strSearch) > 0) &&
+                (is_null($strField))
+              ){
+              <% foreach ($arrTable['fields'] as $objField) { %>
+                    <% if (array_key_exists('reference', $objField)) { %>
+                    /*---------------Load by parent field: <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>----------------------*/
+                         $arrOrConditions = array();
+                         <% foreach ($data[$objField['reference']['table']]['fields'] as $objRField) { %>
+                            <% if ( _mlc_is_special_field($objRField['name'],'name') || _mlc_is_special_field($objRField['name'],'namespace') || _mlc_is_special_field($objRField['name'],'shortDesc') ||  _mlc_is_special_field($objRField['name'],'firstName') ||  _mlc_is_special_field($objRField['name'],'lastName')) { %>
+                                 $arrOrConditions[] = sprintf(
+                                       '<%= $data[$objField['reference']['table']]['full_name']; %>.<%= $objRField['name']; %> LIKE "%s%%"',
+                                       strtolower($strSearch)
+                                 );
+                            <% } %>
+                         <% } %>
+                         if(count($arrOrConditions) > 0){
+                             $arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s = <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>::Query(
+                                'WHERE ' . implode(' OR ', $arrOrConditions) . ' ' . $this->Get<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>OwnerQuery()
+                             );
+                             $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s = array_merge($arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s , $arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s);
+                         }
+                         /*---------------End load: <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>----------------------*/
+                    <% } %>
+               <% } %>
+               }
+               return $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s;
+          }
+
+           <% } %>
+           <% } %>
+    <% } %>
+}
