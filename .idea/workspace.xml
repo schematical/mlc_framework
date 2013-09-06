@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d377a9a7-3391-40e1-86a1-97426d7d4833" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlListPanelBase.bkup.xtpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp" afterPath="$PROJECT_DIR$/tmp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanel.xtpl" afterPath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanel.xtpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanelBase.xtpl" afterPath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlEditPanelBase.xtpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlListPanelBase.xtpl" afterPath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlListPanelBase.xtpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlManageFormBase.xtpl" afterPath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlManageFormBase.xtpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlSelectPanelBase.xtpl" afterPath="$PROJECT_DIR$/_mlc/mtpl/ctl/ControlSelectPanelBase.xtpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_mlc/mtpl/data_layer/DataClassBase.xtpl" afterPath="$PROJECT_DIR$/_mlc/mtpl/data_layer/DataClassBase.xtpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_core/ctl/MLCForm.class.php" afterPath="$PROJECT_DIR$/_core/ctl/MLCForm.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mde_codebase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -768,15 +759,15 @@
     <file path="/MJaxStripePaymentPanel.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1375469866510" ignored="false" />
     <file path="$PROJECT_DIR$/../../FFS/ctl/org/index.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378487346773" ignored="false" />
     <file path="$PROJECT_DIR$/../../FFS/model/ctl_classes/base_classes/ParentMessageEditPanelBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378504460723" ignored="false" />
-    <file path="$PROJECT_DIR$/../../FFS/model/FFSApplication.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378499530393" ignored="false" />
+    <file path="$PROJECT_DIR$/../../FFS/model/FFSApplication.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378508161191" ignored="false" />
     <file path="/FFSApplication.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378499530393" ignored="false" />
     <file path="$PROJECT_DIR$/../../FFS/view/www/_panels/FFSOrgHomeNavPanel.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1375472673699" ignored="false" />
     <file path="$PROJECT_DIR$/../../FFS/ctl/_panels/FFSOrgHomeNavPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1375471692318" ignored="false" />
     <file path="/FFSOrgHomeNavPanel.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1375471664235" ignored="false" />
     <file path="/FFSOrgHomeNavPanel.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1375472670635" ignored="false" />
     <file path="$PROJECT_DIR$/../../FFS/view/www/_footer.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1377219167309" ignored="false" />
-    <file path="$PROJECT_DIR$/../../FFS/view/www/org/fullScreen.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378398570272" ignored="false" />
-    <file path="/fullScreen.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1375724442078" ignored="false" />
+    <file path="$PROJECT_DIR$/../../FFS/view/www/org/fullScreen.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378508472117" ignored="false" />
+    <file path="/fullScreen.tpl.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378508470752" ignored="false" />
     <file path="/fullScreen.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1376341746479" ignored="false" />
     <file path="$PROJECT_DIR$/../../FFS/ctl/org/fullScreen.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378398570272" ignored="false" />
     <file path="/_events.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378499055425" ignored="false" />
@@ -1166,8 +1157,8 @@
     <file path="$PROJECT_DIR$/../../FFS/model/ctl_classes/base_classes/MLCLocationManageFormBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378398570272" ignored="false" />
     <file path="$PROJECT_DIR$/../../FFS/model/ctl_classes/base_classes/MLCNotificationManageFormBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378398570272" ignored="false" />
     <file path="/EntityManager.xtpl" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378399030233" ignored="false" />
-    <file path="$PROJECT_DIR$/../../FFS/model/ctl_classes/FFSEntityManager.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378505242318" ignored="false" />
-    <file path="/FFSEntityManager.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378505239635" ignored="false" />
+    <file path="$PROJECT_DIR$/../../FFS/model/ctl_classes/FFSEntityManager.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378507907347" ignored="false" />
+    <file path="/FFSEntityManager.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378507901622" ignored="false" />
     <file path="/ControlConn.inc.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378399140973" ignored="false" />
     <file path="$PROJECT_DIR$/../../FFS/model/ctl_classes/base_classes/FFSEntityManagerBase.class.php" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378504460723" ignored="false" />
     <file path="/EntityManagerBase.xtpl" changelist="d377a9a7-3391-40e1-86a1-97426d7d4833" time="1378402883269" ignored="false" />
@@ -1352,7 +1343,7 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1430" />
+    <option name="x" value="2796" />
     <option name="y" value="764" />
     <option name="width" value="1303" />
     <option name="height" value="773" />
@@ -1652,7 +1643,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1430" y="764" width="1303" height="773" extended-state="6" />
+    <frame x="2796" y="764" width="1303" height="773" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
