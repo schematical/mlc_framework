@@ -15,7 +15,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
                 $int<%=  MLCTemplateDriver::Capatilize($objField['name']); %> = MLCApplication::QS(<%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= $Name; %>_<%= MLCTemplateDriver::Capatilize($objField['name']); %>);
                 if(!is_null($int<%=  MLCTemplateDriver::Capatilize($objField['name']); %>)){
                     $arrAndConditions[] = sprintf(
-                        '<%= $objField['name']; %> = %s',
+                        '<%= $full_name; %>.<%= $objField['name']; %> = %s',
                         $int<%=  MLCTemplateDriver::Capatilize($objField['name']); %>
                     );
                 }
@@ -24,7 +24,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
                   $str<%=  MLCTemplateDriver::Capatilize($objField['name']); %> = MLCApplication::QS(<%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= $Name; %>_<%= MLCTemplateDriver::Capatilize($objField['name']); %>);
                   if(!is_null($str<%=  MLCTemplateDriver::Capatilize($objField['name']); %>)){
                       $arrAndConditions[] = sprintf(
-                          '<%= $objField['name']; %> LIKE "%s%%"',
+                          '<%= $full_name; %>.<%= $objField['name']; %> LIKE "%s%%"',
                           $str<%=  MLCTemplateDriver::Capatilize($objField['name']); %>
                       );
                   }

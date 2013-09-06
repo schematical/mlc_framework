@@ -144,7 +144,15 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
   		<% foreach ($fields as $objField) { %>  
             <% if (!$objField['is_pkey']){ %>
                 <% if ((!_mlc_is_special_field($objField['name'])) && (!array_key_exists('reference', $objField))){ %>
+                if(get_class($this-><%= $objField['varName']; %>) == 'MJaxBSAutocompleteTextBox'){
+                   $mixEntity = $this-><%= $objField['varName']; %>->GetValue();
+                   if(is_object($mixEntity)){
+                        $mixEntity = $mixEntity->__get('<%= $objField['name']; %>');
+                   }
+                   $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $mixEntity;
+                }else{
                     $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $this-><%= $objField['varName']; %>->Text;
+                }
                 <% } %>
                 <% if (_mlc_is_special_field($objField['name'])){ %>
                     //Is special field!!!!!
@@ -188,7 +196,27 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
   	public function IsNew(){
   		return is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>);
   	}
-
+     <% foreach ($fields as $objField) { %>
+        <% if ((array_key_exists('reference', $objField)) || (_mlc_is_special_field($objField['type'],'varchar*'))) { %>
+            public function Init<%= MLCTemplateDriver::Capatilize($objField['name']); %>Autocomplete(){
+                <% if (array_key_exists('reference', $objField)) { %>
+                $this-><%= $objField['varName']; %> = new MJaxBSAutocompleteTextBox($this);
+                $this-><%= $objField['varName']; %>->SetSearchEntity(
+                    '<%= strtolower($objField['reference']['table']); %>'
+               );
+                <% } %>
+                <% if (_mlc_is_special_field($objField['type'],'varchar*')) { %>
+                   $this-><%= $objField['varName']; %> = new MJaxBSAutocompleteTextBox($this);
+                   $this-><%= $objField['varName']; %>->SetSearchEntity(
+                        '<%= strtolower($objField['table']); %>',
+                        '<%= $objField['name']; %>'
+                   );
+                <% } %>
+                $this-><%= $objField['varName']; %>->Name = '<%= $objField['name']; %>';
+                $this-><%= $objField['varName']; %>->AddCssClass('input-large');
+            }
+        <% } %>
+    <% } %>
 
   	
 }

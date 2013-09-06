@@ -49,5 +49,33 @@ class MLCForm extends MJaxForm{
 			
 		}
 	}
+
+    /////////////////////////
+    // Public Properties: GET
+    /////////////////////////
+    public function __get($strName)
+    {
+        switch ($strName) {
+            case "EntityManager":
+                return $this->objEntityManager;
+            default:
+                return parent::__get($strName);
+            //throw new Exception("Not porperty exists with name '" . $strName . "' in class " . __CLASS__);
+        }
+    }
+
+    /////////////////////////
+    // Public Properties: SET
+    /////////////////////////
+    public function __set($strName, $mixValue)
+    {
+        switch ($strName) {
+            case "EntityManager":
+                return $this->objEntityManager = $mixValue;
+            default:
+                return parent::__set($strName, $mixValue);
+            //throw new Exception("Not porperty exists with name '" . $strName . "' in class " . __CLASS__);
+        }
+    }
 }
 

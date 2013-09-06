@@ -346,12 +346,19 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	        	<% foreach ($parent_fields as $arrField){ %>
                     case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object'):
                         if(
-                            (!is_object($mixValue)) ||
-                            (!($mixValue instanceof <%= MLCTemplateDriver::Capatilize($arrField['reference']['table']); %>))
+                            (!is_null($mixValue)) &&
+                            (
+                                (!is_object($mixValue)) ||
+                                (!($mixValue instanceof <%= MLCTemplateDriver::Capatilize($arrField['reference']['table']); %>))
+                            )
                         ){
                             throw new MLCWrongTypeException('__set', $strName);
                         }
-                        $this->arrDBFields['<%= $arrField['name'] %>'] = $mixValue-><%= $arrField['name'] %>;
+                        if(!is_null($mixValue)){
+                            $this->arrDBFields['<%= $arrField['name'] %>'] = $mixValue-><%= $arrField['name'] %>;
+                        }else{
+                            $this->arrDBFields['<%= $arrField['name'] %>'] = null;
+                        }
                         $this->obj<%= MLCTemplateDriver::Capatilize($arrField['name']); %> = $mixValue;
                     break;
                 <% } %>

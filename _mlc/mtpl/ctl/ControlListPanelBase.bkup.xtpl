@@ -51,8 +51,11 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ListPanelBase extends MJaxTabl
             <% } %>
             <% if (array_key_exists('reference', $objField)){ %>
                     $this->AddColumn(
-                        '<%= MLCTemplateDriver::Capatilize($objField['name']); %>Object',
-                        '<%= _mlc_split($objField['reference']['name']); %>'
+                        '<%= $objField['name']; %>',
+                        '<%= _mlc_split($objField['reference']['name']); %>',
+                        $this,
+                        'render_<%= $objField['name']; %>',
+                        'MJaxTextBox'
                     );
             <% } %>
 	   		<% if ((!_mlc_is_special_field($objField['name'])) && (!$objField['is_pkey']) && (!array_key_exists('reference', $objField))) { %>

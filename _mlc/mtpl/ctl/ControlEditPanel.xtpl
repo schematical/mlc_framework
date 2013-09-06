@@ -60,23 +60,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanel extends <%= MLCTempl
 
     }
 
-    <% foreach ($fields as $objField) { %>
-        <% if ((array_key_exists('reference', $objField)) || (_mlc_is_special_field($objField['type'],'varchar*'))) { %>
-            public function Init<%= $objField['name']; %>Autocomplete(){
-                <% if (array_key_exists('reference', $objField)) { %>
-                $this-><%= $objField['varName']; %> = new MJaxBSAutocompleteTextBox($this, $this, '_search<%= $objField['reference']['table']; %>');
 
-                <% } %>
-                <% if (_mlc_is_special_field($objField['type'],'varchar*')) { %>
-                   $this-><%= $objField['varName']; %> = new MJaxBSAutocompleteTextBox($this, $this, '_search<%= MLCTemplateDriver::Capatilize($objField['name']); %>');
-                <% } %>
-                $this-><%= $objField['varName']; %>->Name = '<%= $objField['name']; %>';
-                $this-><%= $objField['varName']; %>->AddCssClass('input-large');
-            }
-        <% } %>
-
-
-    <% } %>
     <% foreach ($fields as $objField) { %>
 
     <% if ((array_key_exists('reference', $objField)) || (_mlc_is_special_field($objField['type'],'varchar*'))) { %>
