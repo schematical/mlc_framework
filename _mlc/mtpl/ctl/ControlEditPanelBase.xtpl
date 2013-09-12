@@ -108,6 +108,23 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
 
           <% } %>
       }else{
+            <% foreach ($fields as $objField) { %>
+                  <% if (!$objField['is_pkey']){ %>
+                      <% if ((!array_key_exists('reference', $objField)) && (!_mlc_is_special_field($objField['name']))){ %>
+                          $this-><%= $objField['varName']; %>->Text = '';
+                      <% } %>
+                      <% if (_mlc_is_special_field($objField['name'])){ %>
+                          //Is special field!!!!!
+                          <% if ($objField['name'] == 'creDate'){ %>
+                              //Do nothing this is a creDate
+                          <% } %>
+                          <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
+                              $this-><%= $objField['varName']; %>->Value = MLCDateTime::Now();
+                          <% } %>
+                      <% } %>
+                  <% } %>
+
+                <% } %>
         $this->btnDelete->Style->Display = 'none';
       }
 
@@ -119,7 +136,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
             if(!is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>)){
                 $this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField['name']); %> = new MJaxLinkButton($this);
                 $this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField['name']); %>->Text = 'View <%= $objField['reference']['table']; %>';
-                $this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField['name']); %>->Href = __ENTITY_MODEL_DIR__ . '/<%= $objField['reference']['table']; %>/' . $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %>;
+                $this->lnkViewParent<%= MLCTemplateDriver::Capatilize($objField['name']); %>->Href = '/data/edit<%= $Name; %>?' . <%= strtoupper(MLC_APPLICATION_PREFIX); %>QS::<%= $Name; %>_<%= MLCTemplateDriver::Capatilize($objField['name']); %> . $this->obj<%= $Name; %>-><%= $objField['name']; %>;
             }
           <% } %>
 

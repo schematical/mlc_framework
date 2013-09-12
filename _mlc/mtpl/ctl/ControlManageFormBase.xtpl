@@ -103,13 +103,11 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
     }
     public function pnlEdit_save($strFormId, $strControlId, $obj<%= $Name; %>)
     {
-        $this->UpdateTable($obj<%= $Name; %>);
-        if(!is_null($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow)){
-            $this->ScrollTo($this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow);
-        }else{
-            $this->pnlEdit->Alert('Saved!', 'info');
-        }
+        $pnlRow = $this->UpdateTable($obj<%= $Name; %>);
 
+        $this->ScrollTo($pnlRow);
+
+        $this->pnlEdit->Set<%= $Name; %>(null);
     }
     public function pnlEdit_delete($strFormId, $strControlId, $obj<%= $Name; %>)
     {
@@ -190,6 +188,7 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
                  $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow->UpdateEntity(
                      $obj<%= MLCTemplateDriver::Capatilize($name); %>
                  );
+                 $objRow = $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow;
                  $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->SelectedRow = null;
             }else{
 
@@ -197,7 +196,10 @@ class <%= MLCTemplateDriver::Capatilize($name); %>ManageFormBase extends FFSForm
                     $obj<%= MLCTemplateDriver::Capatilize($name); %>
                 );
 
+
             }
+            $this->lst<%= MLCTemplateDriver::Capatilize($name); %>s->RefreshControls();
+            return $objRow;
         }
 
 

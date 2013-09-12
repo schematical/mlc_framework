@@ -333,15 +333,19 @@ class <%= MLCTemplateDriver::Capatilize($name); %>Base extends BaseEntity {
 	   		$this->modified = 1;
 	   		switch($strName){
 	   			<% foreach ($fields as $arrField) { %>
-                    <% if ((_mlc_is_special_field($arrField['name'],'id*')) || (!_mlc_is_special_field($arrField['name'],'*Data')) && ($arrField['name'] != 'data')) { %>
+                <% if ((_mlc_is_special_field($arrField['name'],'id*')) || (!_mlc_is_special_field($arrField['name'],'*Data')) && ($arrField['name'] != 'data')) { %>
                     case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'):
                     case('<%= $arrField['name'] %>'):
-                        $this->arrDBFields['<%= $arrField['name'] %>'] = $mixValue;
-                        <% if (array_key_exists('reference', $arrField)) { %>
-                            $this->obj<%= MLCTemplateDriver::Capatilize($arrField['reference']['name']); %> = null;
-                        <% } %>
-                    break;
+                 <% } %>
+                 <% if ((!_mlc_is_special_field($arrField['name'],'id*')) || (_mlc_is_special_field($arrField['name'],'*Data')) || ($arrField['name'] == 'data')) { %>
+                    case('_<%= MLCTemplateDriver::Capatilize($arrField['name']); %>'):
+                 <% } %>
+                    $this->arrDBFields['<%= $arrField['name'] %>'] = $mixValue;
+                    <% if (array_key_exists('reference', $arrField)) { %>
+                        $this->obj<%= MLCTemplateDriver::Capatilize($arrField['reference']['name']); %> = null;
                     <% } %>
+                break;
+
 	        	<% } %>
 	        	<% foreach ($parent_fields as $arrField){ %>
                     case('<%= MLCTemplateDriver::Capatilize($arrField['name']); %>Object'):
