@@ -19,7 +19,7 @@ if(!defined('__MLC_INITED__')){
 	ob_start('__ob_callback');
 	
 	require(__INSTALL_ROOT_DIR__. '/_core/MLC.inc.php');
-	
+
 	MLCApplication::Init();
 
 

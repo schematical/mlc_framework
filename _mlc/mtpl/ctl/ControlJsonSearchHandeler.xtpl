@@ -13,20 +13,30 @@ abstract class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriverHandele
          }else{
             $strSearch = '';
          }
-
-         $arrParts = explode('_', self::GetExtension());
-         $strExtension = $arrParts[0];
-         if(count($arrParts) == 2){
-            $strField = $arrParts[1];
-         }else{
+         if(array_key_exists('entity', $_POST)){
+            $strEntity = $_POST['entity'];
             $strField = null;
+            if(
+                (array_key_exists('entity_field', $_POST)) &&
+                (strlen( $_POST['entity_field']) > 0)
+            ){
+                $strField = $_POST['entity_field'];
+            }
+         }else{
+             $arrParts = explode('_', self::GetExtension());
+             $strEntity = $arrParts[0];
+             if(count($arrParts) == 2){
+                $strField = $arrParts[1];
+             }else{
+                $strField = null;
+             }
          }
          $objSearchDriver = MLCApplication::$objRewriteHandeler->EntityManager;
          if(is_null($objSearchDriver)){
             $objSearchDriver = new <%= strtoupper(MLC_APPLICATION_PREFIX); %>EntityManager();
          }
         $objSearchDriver->Populate();
-         switch($strExtension){
+         switch($strEntity){
            <% foreach ($data as $arrTable){ %>
                 case('<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>'):
                 case('<%= strtolower($arrTable['name']); %>'):
@@ -35,7 +45,7 @@ abstract class <%= strtoupper(MLC_APPLICATION_PREFIX); %>JsonSearchDriverHandele
                 break;
            <% } %>
            default:
-           die(json_encode(array('error'=>'Not a valid searchable entity: ' . $strExtension)));
+           die(json_encode(array('error'=>'Not a valid searchable entity: ' . $strEntity)));
          }
     }
     public static function RenderJsonResponse($arrEntities, $strField = null){

@@ -78,6 +78,41 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
             $this->Set<%= MLCTemplateDriver::Capatilize($name); %>($this->obj<%= MLCTemplateDriver::Capatilize($name); %>);
 	  }
   }
+  public function Get<%= MLCTemplateDriver::Capatilize($name); %>(){
+        if(is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>)){
+  			//Create a new one
+  			$this->obj<%= MLCTemplateDriver::Capatilize($name); %> = new <%= MLCTemplateDriver::Capatilize($name); %>();
+  		}
+
+        <% foreach ($fields as $objField) { %>
+              <% if (!$objField['is_pkey']){ %>
+                  <% if ((!_mlc_is_special_field($objField['name'])) && (!array_key_exists('reference', $objField))){ %>
+                  if(get_class($this-><%= $objField['varName']; %>) == 'MJaxBSAutocompleteTextBox'){
+                     $mixEntity = $this-><%= $objField['varName']; %>->GetValue();
+                     if(is_object($mixEntity)){
+                          $mixEntity = $mixEntity->__get('<%= $objField['name']; %>');
+                     }
+                     $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $mixEntity;
+                  }else{
+                      $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $this-><%= $objField['varName']; %>->Text;
+                  }
+                  <% } %>
+                  <% if (_mlc_is_special_field($objField['name'])){ %>
+                      //Is special field!!!!!
+                      <% if ($objField['name'] == 'creDate'){ %>
+                          //Do nothing this is a creDate
+                      <% } %>
+                      <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
+                          $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $this-><%= $objField['varName']; %>->GetValue();
+                      <% } %>
+                      <% if ($objField['name'] == 'idUser'){ %>
+                          $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = MLCAuthDriver::IdUser();
+                      <% } %>
+                  <% } %>
+              <% } %>
+  		<% } %>
+        return $this->obj<%= MLCTemplateDriver::Capatilize($name); %>;
+  }
   public function Set<%= MLCTemplateDriver::Capatilize($name); %>($obj<%= MLCTemplateDriver::Capatilize($name); %>){
       $this->obj<%= MLCTemplateDriver::Capatilize($name); %> = $obj<%= MLCTemplateDriver::Capatilize($name); %>;
       $this->ActionParameter = $this->obj<%= MLCTemplateDriver::Capatilize($name); %>;
@@ -153,39 +188,8 @@ class <%= MLCTemplateDriver::Capatilize($name); %>EditPanelBase extends MJaxPane
 	}
 	
 	public function btnSave_click(){
-		if(is_null($this->obj<%= MLCTemplateDriver::Capatilize($name); %>)){
-			//Create a new one
-			$this->obj<%= MLCTemplateDriver::Capatilize($name); %> = new <%= MLCTemplateDriver::Capatilize($name); %>();
-		}
 
-  		<% foreach ($fields as $objField) { %>  
-            <% if (!$objField['is_pkey']){ %>
-                <% if ((!_mlc_is_special_field($objField['name'])) && (!array_key_exists('reference', $objField))){ %>
-                if(get_class($this-><%= $objField['varName']; %>) == 'MJaxBSAutocompleteTextBox'){
-                   $mixEntity = $this-><%= $objField['varName']; %>->GetValue();
-                   if(is_object($mixEntity)){
-                        $mixEntity = $mixEntity->__get('<%= $objField['name']; %>');
-                   }
-                   $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $mixEntity;
-                }else{
-                    $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $this-><%= $objField['varName']; %>->Text;
-                }
-                <% } %>
-                <% if (_mlc_is_special_field($objField['name'])){ %>
-                    //Is special field!!!!!
-                    <% if ($objField['name'] == 'creDate'){ %>
-                        //Do nothing this is a creDate
-                    <% } %>
-                    <% if ((_mlc_is_special_field($objField['name'],'*Date')) && ($objField['name'] != 'creDate')){ %>
-                        $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = $this-><%= $objField['varName']; %>->GetValue();
-                    <% } %>
-                    <% if ($objField['name'] == 'idUser'){ %>
-                        $this->obj<%= MLCTemplateDriver::Capatilize($name); %>-><%= $objField['name']; %> = MLCAuthDriver::IdUser();
-                    <% } %>
-                <% } %>
-            <% } %>
-		<% } %>
-		$this->obj<%= MLCTemplateDriver::Capatilize($name); %>->Save();
+		$this->Get<%= MLCTemplateDriver::Capatilize($name); %>()->Save();
 
 		//Experimental save event trigger
         $this->ActionParameter = $this->obj<%= MLCTemplateDriver::Capatilize($name); %>;

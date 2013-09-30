@@ -85,7 +85,7 @@ abstract class MLCApplicationBase{
                 return;
                 throw new Exception("Package already loaded '" . $strPackageName . "'");
             }
-           $arrMLCClassFiles = array();
+           $_MLC_CLASSES = array();
            $arrPackageDirs = explode(':', __PACKAGE_DIR__);
            $strPackageDir = null;
            foreach($arrPackageDirs as $intIndex => $strDir){
@@ -103,9 +103,11 @@ abstract class MLCApplicationBase{
                    }
                }
            }
+
            require_once($strPackageDir . '/package.inc.php');
-           if(count($arrMLCClassFiles) > 0){
-                array_merge(MLCApplicationBase::$arrClassFiles, $arrMLCClassFiles);
+
+            if(count($_MLC_CLASSES) > 0){
+                MLCApplicationBase::$arrClassFiles = array_merge(MLCApplicationBase::$arrClassFiles, $_MLC_CLASSES);
            }
            MLCApplicationBase::$arrPackages[$strPackageName] = 1;
 

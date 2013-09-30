@@ -87,6 +87,12 @@ class <%= strtoupper(MLC_APPLICATION_PREFIX); %>EntityManagerBase{
                              $arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s = <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>::Query(
                                 'WHERE ' . implode(' OR ', $arrOrConditions) . ' ' . $this->Get<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>OwnerQuery()
                              );
+                             if($arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s instanceof MLCBaseEntityCollection){
+                                $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s = $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s->GetCollection();
+                             }
+                             if($arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s instanceof MLCBaseEntityCollection){
+                                $arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s = $arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s->GetCollection();
+                             }
                              $arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s = array_merge($arr<%= MLCTemplateDriver::Capatilize($arrTable['name']); %>s , $arr<%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>s);
                          }
                          /*---------------End load: <%= MLCTemplateDriver::Capatilize($objField['reference']['table']); %>----------------------*/

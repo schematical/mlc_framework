@@ -1,7 +1,7 @@
 <?php
 require_once(__MODEL_APP_DATALAYER_DIR__ . "/base_classes/<%= MLCTemplateDriver::Capatilize($name); %>Base.class.php");
 class <%= MLCTemplateDriver::Capatilize($name); %>RelBase extends <%= MLCTemplateDriver::Capatilize($name); %>Base {
-    public static function Query($strExtra, $blnReturnSingle = false, $arrJoin = array()){
+    public static function Query($strExtra = null, $blnReturnSingle = false, $arrJoin = array()){
         $arrJoin = array();
         <% foreach ($parent_fields as $arrField){ %>
             $arrJoin[] = '<%= $arrField['reference']['table']; %>';
@@ -9,6 +9,16 @@ class <%= MLCTemplateDriver::Capatilize($name); %>RelBase extends <%= MLCTemplat
         return parent::Query(
             $strExtra,
             $blnReturnSingle,
+            $arrJoin
+        );
+    }
+    public static function QueryCount($strExtra = null, $arrJoin = array()){
+        $arrJoin = array();
+        <% foreach ($parent_fields as $arrField){ %>
+            $arrJoin[] = '<%= $arrField['reference']['table']; %>';
+        <% } %>
+        return parent::QueryCount(
+            $strExtra,
             $arrJoin
         );
     }
